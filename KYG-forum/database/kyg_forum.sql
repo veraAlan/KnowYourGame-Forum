@@ -9,7 +9,7 @@ USE kyg_forum;
 -- Crear las tablas --
 
 
-CREATE TABLE users (
+CREATE TABLE users_db (
     username VARCHAR(50) PRIMARY KEY,
     name VARCHAR(100),
     pass VARCHAR(100),
@@ -83,7 +83,7 @@ CREATE TABLE discussions (
     title VARCHAR(100),
     content TEXT,
     FOREIGN KEY (idforum) REFERENCES forums(idforum) ON DELETE CASCADE,
-    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
+    FOREIGN KEY (username) REFERENCES users_db(username) ON DELETE CASCADE
 );
 
 CREATE TABLE sections (
@@ -100,7 +100,7 @@ CREATE TABLE replies (
     date DATE,
     content TEXT,
     FOREIGN KEY (iddiscussion) REFERENCES discussions(iddiscussion) ON DELETE CASCADE,
-    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
+    FOREIGN KEY (username) REFERENCES users_db(username) ON DELETE CASCADE
 );
 
 CREATE TABLE menus (
@@ -125,7 +125,7 @@ CREATE TABLE userroles (
     username VARCHAR(50),
     idrole INT,
     PRIMARY KEY (username, idrole),
-    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES users_db(username) ON DELETE CASCADE,
     FOREIGN KEY (idrole) REFERENCES roles(idrole) ON DELETE CASCADE
 );
 
@@ -147,8 +147,8 @@ INSERT INTO roles (description) VALUES
 ('user'),
 ('moderator');
 
--- Datos para la tabla users
-INSERT INTO users (username, name, pass, mail) VALUES
+-- Datos para la tabla users_db
+INSERT INTO users_db (username, name, pass, mail) VALUES
 ('admin_user', 'Admin User', 'adminpass123', 'admin@example.com'),
 ('regular_user', 'Regular User', 'userpass456', 'user@example.com'),
 ('moderator_user', 'Moderator User', 'moderatorpass789', 'moderator@example.com');
