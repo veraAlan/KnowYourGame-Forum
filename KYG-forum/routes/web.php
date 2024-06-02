@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::resource('users_db', UsersDbController::class);
 Route::resource('games', GameController::class);
 Route::resource('collections', CollectionController::class);
 Route::resource('portals', PortalController::class);
