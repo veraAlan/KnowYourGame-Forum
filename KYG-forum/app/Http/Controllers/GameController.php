@@ -2,47 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
 use Illuminate\Http\Request;
+use App\Models\Game;
 
 class GameController extends Controller
 {
+    // Función para mostrar todos los juegos
     public function index()
     {
-        return Game::all();
+        $games = Game::all();
+        return view('test.games.index', ['games' => $games]);
     }
 
+    // Función para mostrar el formulario de creación de un nuevo juego.
     public function create()
     {
-        //
+        return view('test.games.create');
     }
 
-    public function store(Request $request)
-    {
-        $game = Game::create($request->all());
-        return response()->json($game, 201);
-    }
-
+    // Función para mostrar un juego específico
     public function show($id)
     {
-        return Game::find($id);
+        $game = Game::findOrFail($id);
+        return view('test.games.show', ['game' => $game]);
     }
 
-    public function edit($id)
+    // Función para almacenar un nuevo juego
+    public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'title' => 'required|string|max:255'
+        ]);
+
+        // Crear un nuevo juego con los datos del formulario
+        Game::create($request->only('title'));
+
+        // Redirigir a la página de juegos con un mensaje de éxito
+        return redirect('/games')->with('success', 'Game created successfully');
     }
 
+    // Función para actualizar un juego existente
     public function update(Request $request, $id)
     {
+        // Validar los datos del formulario
+        $request->validate([
+            'title' => 'required|string|max:255'
+        ]);
+
+        // Buscar el juego por su ID
         $game = Game::findOrFail($id);
-        $game->update($request->all());
-        return response()->json($game, 200);
+
+        // Actualizar los datos del juego con los datos del formulario
+        $game->update($request->only('title'));
+
+        // Redirigir a la página de juegos con un mensaje de éxito
+        return redirect('/games')->with('success', 'Game updated successfully');
     }
 
+    // Función para eliminar un juego
     public function destroy($id)
     {
-        Game::destroy($id);
-        return response()->json(null, 204);
+        // Buscar el juego por su ID
+        $game = Game::findOrFail($id);
+
+        // Eliminar el juego
+        $game->delete();
+
+        // Redirigir a la página de juegos con un mensaje de éxito
+        return redirect('/games')->with('success', 'Game deleted successfully');
     }
 }

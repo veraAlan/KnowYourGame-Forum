@@ -1,5 +1,4 @@
-<!-- resources/views/test_methods.blade.php -->
-
+<!-- test_methods.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +7,17 @@
     <title>Test Methods</title>
 </head>
 <body>
-    <h1>Test de Métodos</h1>
-    <ul>
-        <li><a href="/test/collections">Ver Todas las Colecciones</a></li>
-        <li><a href="/test/collections/1">Ver Detalle de Colección</a></li>
-        <li><a href="/test/collections/create">Crear Nueva Colección</a></li>
-        <!-- Puedes agregar más botones para otros métodos si lo deseas -->
-    </ul>
+    <nav>
+        <ul>
+            <li><a href="{{ route('games.index') }}">Index</a></li>
+            <li><a href="{{ route('games.create') }}">Create</a></li>
+        </ul>
+    </nav>
+
+    <div>
+        @yield('content')
+    </div>
 </body>
 </html>
+
+@yield('scripts')
