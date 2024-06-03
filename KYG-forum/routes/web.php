@@ -37,24 +37,36 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::resource('games', GameController::class);
-Route::resource('collections', CollectionController::class);
-Route::resource('portals', PortalController::class);
-Route::resource('wikis', WikiController::class);
-Route::resource('news', NewsController::class);
-Route::resource('forums', ForumController::class);
-Route::resource('publications', PublicationController::class);
-Route::resource('articles', ArticleController::class);
-Route::resource('discussions', DiscussionController::class);
-Route::resource('sections', SectionController::class);
-Route::resource('replies', ReplyController::class);
-Route::resource('menus', MenuController::class);
-Route::resource('roles', RoleController::class);
-Route::resource('menuroles', MenuRoleController::class);
-Route::resource('userroles', UserRoleController::class);
+// Route::resource('games', GameController::class);
+// Route::resource('collections', CollectionController::class);
+// Route::resource('portals', PortalController::class);
+// Route::resource('wikis', WikiController::class);
+// Route::resource('news', NewsController::class);
+// Route::resource('forums', ForumController::class);
+// Route::resource('publications', PublicationController::class);
+// Route::resource('articles', ArticleController::class);
+// Route::resource('discussions', DiscussionController::class);
+// Route::resource('sections', SectionController::class);
+// Route::resource('replies', ReplyController::class);
+// Route::resource('menus', MenuController::class);
+// Route::resource('roles', RoleController::class);
+// Route::resource('menuroles', MenuRoleController::class);
+// Route::resource('userroles', UserRoleController::class);
 
-// Ruta para la vista de prueba
-Route::view('/test', 'test.test');
 
+// Rutas para las colecciones
+Route::get('/test_methods', function () {
+    return view('test.test_methods');
+});
+Route::get('/test/collections/create', function () {
+    return view('test.collections.create');
+});
+
+Route::get('/test/collections', [CollectionController::class, 'index']);
+Route::post('/test/collections', [CollectionController::class, 'store']);
+
+Route::get('/test/collections/{id}', [CollectionController::class, 'show']);
+Route::put('/test/collections/{id}', [CollectionController::class, 'update']);
+Route::delete('/test/collections/{id}', [CollectionController::class, 'destroy']);
 
 require __DIR__ . '/auth.php';

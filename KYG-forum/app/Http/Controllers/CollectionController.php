@@ -2,47 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Models\Collection;
 
 class CollectionController extends Controller
 {
-    public function index()
+    // Mostrar todas las colecciones
+    public function index(Collection $collection)
     {
-        return Collection::all();
+        return response()->json($collection->all(), 200);
     }
 
-    public function create()
+    // Mostrar una colección específica
+    public function show($id, Collection $collection)
     {
-        //
+        $resource = $collection->find($id);
+
+        if (!$resource) {
+            return response()->json(['message' => 'Colección no encontrada'], 404);
+        }
+
+        return response()->json($resource, 200);
     }
 
-    public function store(Request $request)
+    // Crear una nueva colección
+    public function store(Request $request, Collection $collection)
     {
-        $collection = Collection::create($request->all());
-        return response()->json($collection, 201);
+        $validatedData = $request->validate([
+            'idgame' => 'required|integer|exists:games,idgame',
+            'category' => 'required|string|max:255',
+        ]);
+
+        $newCollection = $collection->create($validatedData);
+        return response()->json($newCollection, 201);
     }
 
-    public function show($id)
+    // Actualizar una colección existente
+    public function update(Request $request, $id, Collection $collection)
     {
-        return Collection::find($id);
+        $resource = $collection->find($id);
+
+        if (!$resource) {
+            return response()->json(['message' => 'Colección no encontrada'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'idgame' => 'required|integer|exists:games,idgame',
+            'category' => 'required|string|max:255',
+        ]);
+
+        $resource->update($validatedData);
+        return response()->json($resource, 200);
     }
 
-    public function edit($id)
+    // Eliminar una colección
+    public function destroy($id, Collection $collection)
     {
-        //
-    }
+        $resource = $collection->find($id);
 
-    public function update(Request $request, $id)
-    {
-        $collection = Collection::findOrFail($id);
-        $collection->update($request->all());
-        return response()->json($collection, 200);
-    }
+        if (!$resource) {
+            return response()->json(['message' => 'Colección no encontrada'], 404);
+        }
 
-    public function destroy($id)
-    {
-        Collection::destroy($id);
+        $resource->delete();
         return response()->json(null, 204);
     }
 }
