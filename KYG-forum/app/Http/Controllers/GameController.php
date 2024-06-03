@@ -7,11 +7,9 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    // Función para mostrar todos los juegos
-    public function index()
+    static public function index()
     {
-        $games = Game::all();
-        return view('test.games.index', ['games' => $games]);
+        return Game::all();
     }
 
     // Función para mostrar el formulario de creación de un nuevo juego.
@@ -21,10 +19,13 @@ class GameController extends Controller
     }
 
     // Función para mostrar un juego específico
-    public function show($id)
+    static public function show($id)
     {
-        $game = Game::findOrFail($id);
-        return view('test.games.show', ['game' => $game]);
+        return Game::findOrFail($id);
+    }
+
+    static public function findFrom(string $columnName, $value){
+        return Game::where($columnName, $value)->get();
     }
 
     // Función para almacenar un nuevo juego

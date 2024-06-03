@@ -142,6 +142,36 @@ VALUES ('admin'),
     ('user'),
     ('moderator');
 
+-- Datos para la tabla users_db
+INSERT INTO
+    users_db (username, name, pass, mail)
+VALUES (
+        'admin_user',
+        'Admin User',
+        'adminpass123',
+        'admin@example.com'
+    ),
+    (
+        'regular_user',
+        'Regular User',
+        'userpass456',
+        'user@example.com'
+    ),
+    (
+        'moderator_user',
+        'Moderator User',
+        'moderatorpass789',
+        'moderator@example.com'
+    );
+
+-- Asignación de roles a usuarios
+INSERT INTO
+    userroles (username, idrole)
+VALUES ('admin_user', 1), -- Admin
+    ('regular_user', 2), -- Usuario regular
+    ('moderator_user', 3);
+-- Moderador
+
 -- Datos para la tabla portals
 INSERT INTO
     portals (
@@ -279,7 +309,44 @@ VALUES (
         'admin_user',
         '2024-04-29',
         'Anuncios Importantes',
-        'Por favor, revisa las nuevas reglas del foro.'
+        'Por favor, revisa las nuevas reglas del foro.' 4,
+        2,
+        'regular_user',
+        '2024-05-02',
+        'Discusión sobre Mods',
+        '¿Qué opinas sobre Immersive Engeneering?'
+    ),
+    (
+        5,
+        1,
+        'regular_user',
+        '2024-05-02',
+        'Discusión sobre serve',
+        '¿Quien se quere unir?'
+    ),
+    (
+        6,
+        1,
+        'regular_user',
+        '2024-05-02',
+        'Discusión sobre el nuevo bug en B mirage',
+        '¿Quien lo ha aprovechado?'
+    ),
+    (
+        7,
+        3,
+        'regular_user',
+        '2024-05-02',
+        'Discusión sobre Jett',
+        '¿Qué opinas sobre Jett?'
+    ),
+    (
+        8,
+        2,
+        'regular_user',
+        '2024-05-02',
+        'Discusión sobre el Warden',
+        '¿Qué opinas sobre el mob?'
     );
 
 -- Datos para la tabla sections

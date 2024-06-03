@@ -27,6 +27,10 @@ class DiscussionController extends Controller
     {
         return Discussion::find($id);
     }
+    
+    static public function findFrom(string $columnName, $value){
+        return Discussion::where($columnName, $value)->get();
+    }
 
     public function edit($id)
     {

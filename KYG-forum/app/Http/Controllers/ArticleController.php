@@ -23,9 +23,13 @@ class ArticleController extends Controller
         return response()->json($article, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return Article::find($id);
+    }
+    
+    static public function findFrom(string $columnName, $value){
+        return Article::where($columnName, $value)->get();
     }
 
     public function edit($id)
