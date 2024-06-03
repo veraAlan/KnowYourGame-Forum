@@ -23,7 +23,7 @@ class ForumController extends Controller
         return response()->json($forum, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return Forum::find($id);
     }

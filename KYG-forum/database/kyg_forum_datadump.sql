@@ -1,131 +1,3 @@
--- Crear la base de datos --
-
-CREATE DATABASE IF NOT EXISTS kyg_forum;
-
-USE kyg_forum;
-
--- Crear las tablas --
-
-CREATE TABLE users_db (
-    username VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(100),
-    pass VARCHAR(100),
-    mail VARCHAR(100)
-);
-
-CREATE TABLE games (
-    idgame INT PRIMARY KEY,
-    title VARCHAR(100)
-);
-
-CREATE TABLE collections (
-    idcollection INT PRIMARY KEY,
-    idgame INT,
-    category VARCHAR(100),
-    FOREIGN KEY (idgame) REFERENCES games (idgame) ON DELETE CASCADE
-);
-
-CREATE TABLE portals (
-    idportal INT PRIMARY KEY,
-    idgame INT,
-    name VARCHAR(100),
-    description VARCHAR(255),
-    FOREIGN KEY (idgame) REFERENCES games (idgame) ON DELETE CASCADE
-);
-
-CREATE TABLE wikis (
-    idwiki INT PRIMARY KEY,
-    idportal INT,
-    title VARCHAR(100),
-    FOREIGN KEY (idportal) REFERENCES portals (idportal) ON DELETE CASCADE
-);
-
-CREATE TABLE news (
-    idnews INT PRIMARY KEY,
-    idportal INT,
-    FOREIGN KEY (idportal) REFERENCES portals (idportal) ON DELETE CASCADE
-);
-
-CREATE TABLE forums (
-    idforum INT PRIMARY KEY,
-    idportal INT,
-    title VARCHAR(100),
-    img VARCHAR(255),
-    FOREIGN KEY (idportal) REFERENCES portals (idportal) ON DELETE CASCADE
-);
-
-CREATE TABLE publications (
-    idnews INT,
-    idportal INT,
-    idgame INT,
-    title VARCHAR(100),
-    content TEXT,
-    date DATE,
-    PRIMARY KEY (idnews),
-    FOREIGN KEY (idnews) REFERENCES news (idnews) ON DELETE CASCADE
-);
-
-CREATE TABLE articles (
-    idarticle INT PRIMARY KEY,
-    idwiki INT,
-    title VARCHAR(100),
-    FOREIGN KEY (idwiki) REFERENCES wikis (idwiki) ON DELETE CASCADE
-);
-
-CREATE TABLE discussions (
-    iddiscussion BIGINT PRIMARY KEY,
-    idforum INT,
-    username VARCHAR(50),
-    date DATE,
-    title VARCHAR(100),
-    content TEXT,
-    FOREIGN KEY (idforum) REFERENCES forums (idforum) ON DELETE CASCADE,
-    FOREIGN KEY (username) REFERENCES users_db (username) ON DELETE CASCADE
-);
-
-CREATE TABLE sections (
-    idsection INT PRIMARY KEY,
-    idarticle INT,
-    content TEXT,
-    FOREIGN KEY (idarticle) REFERENCES articles (idarticle) ON DELETE CASCADE
-);
-
-CREATE TABLE replies (
-    idreply BIGINT PRIMARY KEY,
-    iddiscussion BIGINT,
-    username VARCHAR(50),
-    date DATE,
-    content TEXT,
-    FOREIGN KEY (iddiscussion) REFERENCES discussions (iddiscussion) ON DELETE CASCADE,
-    FOREIGN KEY (username) REFERENCES users_db (username) ON DELETE CASCADE
-);
-
-CREATE TABLE menus (
-    menuid INT PRIMARY KEY,
-    name VARCHAR(100)
-);
-
-CREATE TABLE roles (
-    idrole INT PRIMARY KEY AUTO_INCREMENT,
-    description VARCHAR(100)
-);
-
-CREATE TABLE menuroles (
-    idrole INT,
-    menuid INT,
-    PRIMARY KEY (idrole, menuid),
-    FOREIGN KEY (idrole) REFERENCES roles (idrole) ON DELETE CASCADE,
-    FOREIGN KEY (menuid) REFERENCES menus (menuid) ON DELETE CASCADE
-);
-
-CREATE TABLE userroles (
-    username VARCHAR(50),
-    idrole INT,
-    PRIMARY KEY (username, idrole),
-    FOREIGN KEY (username) REFERENCES users_db (username) ON DELETE CASCADE,
-    FOREIGN KEY (idrole) REFERENCES roles (idrole) ON DELETE CASCADE
-);
-
 -- Insertar datos en las tablas --
 
 -- Datos para la tabla games
@@ -142,9 +14,9 @@ VALUES ('admin'),
     ('user'),
     ('moderator');
 
--- Datos para la tabla users_db
+-- Datos para la tabla users
 INSERT INTO
-    users_db (username, name, pass, mail)
+    users (id, name, pass, mail)
 VALUES (
         'admin_user',
         'Admin User',
@@ -171,7 +43,6 @@ VALUES ('admin_user', 1), -- Admin
     ('regular_user', 2), -- Usuario regular
     ('moderator_user', 3);
 -- Moderador
-
 -- Datos para la tabla portals
 INSERT INTO
     portals (
@@ -234,8 +105,8 @@ VALUES (
 -- Datos para la tabla publications
 INSERT INTO
     publications (
-        idpublications,
         idnews,
+        idportal,
         idgame,
         title,
         content,
@@ -309,44 +180,7 @@ VALUES (
         'admin_user',
         '2024-04-29',
         'Anuncios Importantes',
-        'Por favor, revisa las nuevas reglas del foro.' 4,
-        2,
-        'regular_user',
-        '2024-05-02',
-        'Discusión sobre Mods',
-        '¿Qué opinas sobre Immersive Engeneering?'
-    ),
-    (
-        5,
-        1,
-        'regular_user',
-        '2024-05-02',
-        'Discusión sobre serve',
-        '¿Quien se quere unir?'
-    ),
-    (
-        6,
-        1,
-        'regular_user',
-        '2024-05-02',
-        'Discusión sobre el nuevo bug en B mirage',
-        '¿Quien lo ha aprovechado?'
-    ),
-    (
-        7,
-        3,
-        'regular_user',
-        '2024-05-02',
-        'Discusión sobre Jett',
-        '¿Qué opinas sobre Jett?'
-    ),
-    (
-        8,
-        2,
-        'regular_user',
-        '2024-05-02',
-        'Discusión sobre el Warden',
-        '¿Qué opinas sobre el mob?'
+        'Por favor, revisa las nuevas reglas del foro.'
     );
 
 -- Datos para la tabla sections

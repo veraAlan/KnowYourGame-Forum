@@ -23,7 +23,7 @@ class NewsController extends Controller
         return response()->json($news, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return News::find($id);
     }

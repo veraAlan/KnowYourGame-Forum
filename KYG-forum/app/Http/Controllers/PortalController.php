@@ -23,9 +23,13 @@ class PortalController extends Controller
         return response()->json($portal, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return Portal::find($id);
+    }
+
+    static public function findFrom(string $columnName, $value){
+        return Portal::where($columnName, $value)->get();
     }
 
     public function edit($id)

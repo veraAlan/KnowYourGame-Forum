@@ -23,9 +23,14 @@ class WikiController extends Controller
         return response()->json($wiki, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return Wiki::find($id);
+    }
+
+    
+    static public function findFrom(string $columnName, $value){
+        return Wiki::where($columnName, $value)->get();
     }
 
     public function edit($id)

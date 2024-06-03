@@ -28,6 +28,11 @@ class PublicationController extends Controller
         return Publication::find($id);
     }
 
+    
+    static public function findFrom(string $columnName, $value){
+        return Publication::where($columnName, $value)->get();
+    }
+
     public function edit($id)
     {
         //
