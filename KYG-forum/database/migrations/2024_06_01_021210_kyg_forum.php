@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $sql = file_get_contents('C:\laragon\www\KnowYourGame-Forum\KYG-forum\database\kyg_forum.sql');
+        $sql = file_get_contents('D:\laragon\www\KnowYourGame-Forum\KYG-forum\database\kyg_forum.sql');
         DB::unprepared($sql);
     }
 
