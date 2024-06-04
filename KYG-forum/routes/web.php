@@ -119,5 +119,8 @@ Route::patch('test/games/{game}', [GameController::class, 'update'])->name('test
 Route::delete('test/games/{game}', [GameController::class, 'destroy'])->name('test.games.destroy');
 
 
-
+//GAMES PRUEBA FORMULARIOS
+Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
+Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
+Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
 require __DIR__ . '/auth.php';
