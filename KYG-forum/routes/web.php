@@ -19,6 +19,7 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MenuRoleController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserRoleController;
 use App\Models\Discussion;
 use App\Models\Portal;
@@ -48,7 +49,9 @@ Route::middleware('auth')->group(function () {
 // Route::view('/test_methods', 'test.test_methods')->name('test_methods');
 
 // TODO Refactor
-Route::get('/database/tables', function () { testDatabaseController::showDatabaseTables(); });
+Route::get('/database/tables', function () {
+    testDatabaseController::showDatabaseTables();
+});
 
 Route::get('/portal/{idgame}', function ($idgame) {
     $portal = PortalController::findFrom('idgame', $idgame);
@@ -78,7 +81,34 @@ Route::get('/forum/{forum}', function ($idforum) {
     return view('forum', ['game' => $game, 'discussions' => $discussions]);
 });
 
-Route::get('/games', function () { return view('games', ['games' => GameController::index()]); });
+Route::get('/games', function () {
+    return view('games', ['games' => GameController::index()]);
+});
 // TODO Refactor up till here. ^^^
+
+
+
+
+//GAMES PRUEBA FORMULARIOS
+//Route::view('test/games', 'test.games.menu', ['games' => $games]);
+// Route::get('test/games', function () {
+//     // $games = [
+//     //     [
+//     //         'idgame' => 4,
+//     //         'title' => 'Dota'
+//     //     ],
+//     //     [
+//     //         'idgame' => 5,
+//     //         'title' => 'Smite'
+//     //     ],
+//     //     [
+//     //         'idgame' => 6,
+//     //         'title' => 'Fallout'
+//     //     ]
+//     // ];
+//     return view('test.games.menu', ['games' => $games]);
+// });
+Route::get('test/games', [GameController::class, 'index']);
+
 
 require __DIR__ . '/auth.php';

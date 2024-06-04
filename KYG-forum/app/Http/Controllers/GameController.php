@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
-    static public function index()
+    // static public function index()
+    // {
+    //     return Game::all();
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    public function index()
     {
-        return Game::all();
+        //$games = DB::table('games')->get();
+        $games = Game::all();
+
+        return view('test.games.menu', ['games' => $games]);
     }
 
     // Función para mostrar el formulario de creación de un nuevo juego.
@@ -24,7 +33,8 @@ class GameController extends Controller
         return Game::findOrFail($id);
     }
 
-    static public function findFrom(string $columnName, $value){
+    static public function findFrom(string $columnName, $value)
+    {
         return Game::where($columnName, $value)->get();
     }
 

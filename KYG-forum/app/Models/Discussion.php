@@ -11,15 +11,16 @@ class Discussion extends Model
 
     protected $table = 'discussions';
     protected $primaryKey = 'iddiscussion';
-    protected $fillable = ['idforum', 'username', 'date', 'title', 'content'];
+    protected $fillable = ['idforum', 'user_id', 'date', 'title', 'content'];
 
     public function forum()
     {
         return $this->belongsTo(Forum::class, 'idforum');
     }
 
+    //CONSULTAR
     public function user()
     {
-        return $this->belongsTo(UsersDb::class, 'username');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

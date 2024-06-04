@@ -11,15 +11,16 @@ class Reply extends Model
 
     protected $table = 'replies';
     protected $primaryKey = 'idreply';
-    protected $fillable = ['iddiscussion', 'username', 'date', 'content'];
+    protected $fillable = ['iddiscussion', 'user_id', 'date', 'content'];
 
     public function discussion()
     {
         return $this->belongsTo(Discussion::class, 'iddiscussion');
     }
 
+    //CONSULTAR
     public function user()
     {
-        return $this->belongsTo(UsersDb::class, 'username');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
