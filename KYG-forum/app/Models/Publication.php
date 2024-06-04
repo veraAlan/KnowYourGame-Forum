@@ -10,8 +10,8 @@ class Publication extends Model
     use HasFactory;
 
     protected $table = 'publications';
-    protected $primaryKey = 'idnews';
-    protected $fillable = ['idportal', 'idgame', 'title', 'content', 'date'];
+    protected $primaryKey = 'idpublications';
+    protected $fillable = ['idnews','idportal', 'idgame', 'title', 'content', 'date'];
 
     public function news()
     {
@@ -23,8 +23,9 @@ class Publication extends Model
         return $this->belongsTo(Portal::class, 'idportal');
     }
 
-    public function game()
-    {
-        return $this->belongsTo(Game::class, 'idgame');
-    }
+    // CONSULTAR
+    // public function game()
+    // {
+    //     return $this->belongsTo(Game::class, 'idgame');
+    // }
 }

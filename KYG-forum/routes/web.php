@@ -19,6 +19,7 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MenuRoleController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserRoleController;
 use App\Models\Discussion;
 use App\Models\Portal;
@@ -48,7 +49,9 @@ Route::middleware('auth')->group(function () {
 // Route::view('/test_methods', 'test.test_methods')->name('test_methods');
 
 // TODO Refactor
-Route::get('/database/tables', function () { testDatabaseController::showDatabaseTables(); });
+Route::get('/database/tables', function () {
+    testDatabaseController::showDatabaseTables();
+});
 
 Route::get('/portal/{idgame}', function ($idgame) {
     $portal = PortalController::findFrom('idgame', $idgame);
@@ -78,7 +81,43 @@ Route::get('/forum/{forum}', function ($idforum) {
     return view('forum', ['game' => $game, 'discussions' => $discussions]);
 });
 
-Route::get('/games', function () { return view('games', ['games' => GameController::index()]); });
+Route::get('/games', function () {
+    return view('games', ['games' => GameController::index()]);
+});
 // TODO Refactor up till here. ^^^
+
+
+
+
+//GAMES PRUEBA FORMULARIOS
+//Route::view('test/games', 'test.games.menu', ['games' => $games]);
+// Route::get('test/games', function () {
+//     // $games = [
+//     //     [
+//     //         'idgame' => 4,
+//     //         'title' => 'Dota'
+//     //     ],
+//     //     [
+//     //         'idgame' => 5,
+//     //         'title' => 'Smite'
+//     //     ],
+//     //     [
+//     //         'idgame' => 6,
+//     //         'title' => 'Fallout'
+//     //     ]
+//     // ];
+//     return view('test.games.menu', ['games' => $games]);
+// });
+Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
+Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
+Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
+Route::get('test/games/{game}', [GameController::class, 'show'])->name('test.games.show');
+Route::get('test/games/{game}/edit', [GameController::class, 'edit'])->name('test.games.edit');
+//PUT: SE UTILIZA PARA REEMPLAZAR UN REGISTRO.
+//PATCH: SE UTILIZA PARA ACTUALIZAR UN REGISTRO.
+Route::patch('test/games/{game}', [GameController::class, 'update'])->name('test.games.update');
+Route::delete('test/games/{game}', [GameController::class, 'destroy'])->name('test.games.destroy');
+
+
 
 require __DIR__ . '/auth.php';
