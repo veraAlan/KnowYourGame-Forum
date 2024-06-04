@@ -13,12 +13,14 @@ class GameController extends Controller
     //     return Game::all();
     // }
     ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
     public function index()
     {
         //$games = DB::table('games')->get();
-        $games = Game::all();
-
-        return view('test.games.menu', ['games' => $games]);
+        // $games = Game::all();
+        $games = Game::get();
+        return view('test.games.index', ['games' => $games]);
     }
 
     // Función para mostrar el formulario de creación de un nuevo juego.
@@ -28,9 +30,17 @@ class GameController extends Controller
     }
 
     // Función para mostrar un juego específico
-    static public function show($id)
+    // static public function show($id)
+    // {
+    //     return Game::findOrFail($id);
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    public function show($id)
     {
-        return Game::findOrFail($id);
+        $games = Game::findOrFail($id); // Buscar el juego por su ID
+        return view('test.games.show', ['games' => $games]); // Pasar el juego a la vista
     }
 
     static public function findFrom(string $columnName, $value)

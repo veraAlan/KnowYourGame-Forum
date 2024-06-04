@@ -108,7 +108,8 @@ Route::get('/games', function () {
 //     // ];
 //     return view('test.games.menu', ['games' => $games]);
 // });
-Route::get('test/games', [GameController::class, 'index']);
+Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
+Route::get('test/games/{game}', [GameController::class, 'show'])->name('test.games.show');
 
 
 require __DIR__ . '/auth.php';

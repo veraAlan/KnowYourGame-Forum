@@ -1,3 +1,4 @@
+
 <!-- resources/views/test/games/menu.blade.php -->
 <x-app-layout>
     <x-slot name="header">
@@ -8,10 +9,7 @@
 
     <br>
     <div style="color: white;">
-        <h1>The Games Menu</h1>
-        @foreach ($games as $game)
-            <h2>{{ $game->title }}</h2>
-        @endforeach
+        <h1>{{ $games->title }}}</h1>
     </div>
 
 
