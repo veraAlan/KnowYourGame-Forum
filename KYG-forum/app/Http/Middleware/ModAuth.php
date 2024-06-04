@@ -24,6 +24,6 @@ class ModAuth
         }
 
         // TODO Redirect and show error message for lesser privileges.
-        return redirect('dashboard');
+        return redirect('unauthorized');
     }
 }

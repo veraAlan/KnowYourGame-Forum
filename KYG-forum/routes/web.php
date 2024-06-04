@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 // Route::delete('/games/{id}', [GameController::class, 'destroy'])->name('games.destroy');
 // Route::view('/test_methods', 'test.test_methods')->name('test_methods');
 
+
 // TODO Refactor
 Route::get('/database/tables', function () { testDatabaseController::showDatabaseTables(); });
 
@@ -78,7 +79,14 @@ Route::get('/forum/{forum}', function ($idforum) {
     return view('forum', ['game' => $game, 'discussions' => $discussions]);
 });
 
+// Fallback in case of unknown page (404)
+Route::fallback(function () {
+    return redirect('/games');
+});
+
 Route::get('/games', function () { return view('games', ['games' => GameController::index()]); });
+
+Route::get('/unauthorized', function () { return view('unauthorized'); });
 // TODO Refactor up till here. ^^^
 
 require __DIR__ . '/auth.php';
