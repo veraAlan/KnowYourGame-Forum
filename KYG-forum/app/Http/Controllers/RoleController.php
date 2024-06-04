@@ -23,7 +23,7 @@ class RoleController extends Controller
         return response()->json($role, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
         return Role::find($id);
     }

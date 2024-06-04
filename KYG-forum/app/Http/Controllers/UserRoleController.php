@@ -23,9 +23,9 @@ class UserRoleController extends Controller
         return response()->json($userRole, 201);
     }
 
-    public function show($id)
+    static public function show($id)
     {
-        return UserRole::where('username', $id)->get();
+        return UserRole::where('user_id', $id)->get();
     }
 
     public function edit($id)
