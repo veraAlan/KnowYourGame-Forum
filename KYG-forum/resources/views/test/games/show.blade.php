@@ -1,4 +1,3 @@
-
 <!-- resources/views/test/games/menu.blade.php -->
 <x-app-layout>
     <x-slot name="header">

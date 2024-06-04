@@ -24,6 +24,13 @@ class GameController extends Controller
     }
 
     // Función para mostrar el formulario de creación de un nuevo juego.
+    // public function create()
+    // {
+    //     return view('test.games.create');
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
     public function create()
     {
         return view('test.games.create');
@@ -49,48 +56,109 @@ class GameController extends Controller
     }
 
     // Función para almacenar un nuevo juego
+    // public function store(Request $request)
+    // {
+    //     // Validar los datos del formulario
+    //     $request->validate([
+    //         'title' => 'required|string|max:255'
+    //     ]);
+
+    //     // Crear un nuevo juego con los datos del formulario
+    //     Game::create($request->only('title'));
+
+    //     // Redirigir a la página de juegos con un mensaje de éxito
+    //     return redirect('/games')->with('success', 'Game created successfully');
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
     public function store(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'title' => 'required|string|max:255'
+        $validated = $request->validate([
+            'title' => ['required']
         ]);
 
-        // Crear un nuevo juego con los datos del formulario
-        Game::create($request->only('title'));
+        // $game = new Game;
+        // $game->title = $request->input('title');
+        // $game->save();
+        // HACE LO MISMO QUE LO COMENTADO PERO CON ELOQUENT
+        Game::create($validated);
 
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game created successfully');
+        session()->flash('status', 'Game Created!');
+
+        return to_route('test.games.index');
     }
 
-    // Función para actualizar un juego existente
-    public function update(Request $request, $id)
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    public function edit(Game $game)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'title' => 'required|string|max:255'
+        return view('test.games.edit', ['game' => $game]);
+    }
+    // Función para actualizar un juego existente
+    // public function update(Request $request, $id)
+    // {
+    //     // Validar los datos del formulario
+    //     $request->validate([
+    //         'title' => 'required|string|max:255'
+    //     ]);
+
+    //     // Buscar el juego por su ID
+    //     $game = Game::findOrFail($id);
+
+    //     // Actualizar los datos del juego con los datos del formulario
+    //     $game->update($request->only('title'));
+
+    //     // Redirigir a la página de juegos con un mensaje de éxito
+    //     return redirect('/games')->with('success', 'Game updated successfully');
+    // }
+
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    public function update(Request $request, Game $game)
+    {
+        $validated = $request->validate([
+            'title' => ['required']
         ]);
 
-        // Buscar el juego por su ID
-        $game = Game::findOrFail($id);
 
-        // Actualizar los datos del juego con los datos del formulario
-        $game->update($request->only('title'));
+        // $game = Game::find($game);
+        // ES LO MISMO QUE ESTO Game $game
 
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game updated successfully');
+
+        // $game->title = $request->input('title');
+        // $game->save();
+        // HACE LO MISMO QUE LO COMENTADO PERO CON ELOQUENT
+        $game->update($validated);
+
+        session()->flash('status', 'Game Update!');
+
+        return to_route('test.games.index');
     }
 
     // Función para eliminar un juego
-    public function destroy($id)
-    {
-        // Buscar el juego por su ID
-        $game = Game::findOrFail($id);
+    // public function destroy($id)
+    // {
+    //     // Buscar el juego por su ID
+    //     $game = Game::findOrFail($id);
 
-        // Eliminar el juego
+    //     // Eliminar el juego
+    //     $game->delete();
+
+    //     // Redirigir a la página de juegos con un mensaje de éxito
+    //     return redirect('/games')->with('success', 'Game deleted successfully');
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    public function destroy(Game $game)
+    {
         $game->delete();
 
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game deleted successfully');
+        session()->flash('status', 'Game Deleted!');
+
+        return to_route('test.games.index');
     }
 }

@@ -109,7 +109,15 @@ Route::get('/games', function () {
 //     return view('test.games.menu', ['games' => $games]);
 // });
 Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
+Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
+Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
 Route::get('test/games/{game}', [GameController::class, 'show'])->name('test.games.show');
+Route::get('test/games/{game}/edit', [GameController::class, 'edit'])->name('test.games.edit');
+//PUT: SE UTILIZA PARA REEMPLAZAR UN REGISTRO.
+//PATCH: SE UTILIZA PARA ACTUALIZAR UN REGISTRO.
+Route::patch('test/games/{game}', [GameController::class, 'update'])->name('test.games.update');
+Route::delete('test/games/{game}', [GameController::class, 'destroy'])->name('test.games.destroy');
+
 
 
 require __DIR__ . '/auth.php';
