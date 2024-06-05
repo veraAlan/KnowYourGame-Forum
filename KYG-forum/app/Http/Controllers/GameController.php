@@ -7,70 +7,67 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    static public function index()
+
+
+    // Muestra el formulario para crear un nuevo juego.
+    public function create(Game $games)
     {
-        return Game::all();
+        return view('test.games.create', ['games' => $games]);
     }
 
-    // Función para mostrar el formulario de creación de un nuevo juego.
-    public function create()
+
+    // Muestra la lista de juegos.
+    public function index()
     {
-        return view('test.games.create');
+        $games = Game::get();
+        return view('test.games.index', ['games' => $games]);
     }
 
-    // Función para mostrar un juego específico
-    static public function show($id)
+
+    // Muestra los detalles de un juego específico.
+    public function show($id)
     {
-        return Game::findOrFail($id);
+        $games = Game::findOrFail($id);
+        return view('test.games.show', ['games' => $games]);
     }
 
-    static public function findFrom(string $columnName, $value){
-        return Game::where($columnName, $value)->get();
-    }
 
-    // Función para almacenar un nuevo juego
+    // Almacena un nuevo juego creado.
     public function store(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'title' => 'required|string|max:255'
+        $validated = $request->validate([
+            'title' => ['required']
         ]);
-
-        // Crear un nuevo juego con los datos del formulario
-        Game::create($request->only('title'));
-
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game created successfully');
+        Game::create($validated);
+        session()->flash('status', 'Game Created!');
+        return to_route('test.games.index');
     }
 
-    // Función para actualizar un juego existente
-    public function update(Request $request, $id)
+
+    // Muestra el formulario para editar un juego existente.
+    public function edit(Game $games)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'title' => 'required|string|max:255'
-        ]);
-
-        // Buscar el juego por su ID
-        $game = Game::findOrFail($id);
-
-        // Actualizar los datos del juego con los datos del formulario
-        $game->update($request->only('title'));
-
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game updated successfully');
+        return view('test.games.edit', ['games' => $games]);
     }
 
-    // Función para eliminar un juego
-    public function destroy($id)
+
+    // Actualiza la información de un juego existente.
+    public function update(Request $request, Game $games)
     {
-        // Buscar el juego por su ID
-        $game = Game::findOrFail($id);
+        $validated = $request->validate([
+            'title' => ['required']
+        ]);
+        $games->update($validated);
+        session()->flash('status', 'Game Update!');
+        return to_route('test.games.index');
+    }
 
-        // Eliminar el juego
-        $game->delete();
 
-        // Redirigir a la página de juegos con un mensaje de éxito
-        return redirect('/games')->with('success', 'Game deleted successfully');
+    // Elimina un juego existente.
+    public function destroy(Game $games)
+    {
+        $games->delete();
+        session()->flash('status', 'Game Deleted!');
+        return to_route('test.games.index');
     }
 }

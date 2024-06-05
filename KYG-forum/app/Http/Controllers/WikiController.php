@@ -9,45 +9,55 @@ class WikiController extends Controller
 {
     public function index()
     {
-        return Wiki::all();
+        $wiki = Wiki::get();
+        return view('test.wiki.index', ['wiki' => $wiki]);
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        $wiki = Wiki::create($request->all());
-        return response()->json($wiki, 201);
-    }
-
-    static public function show($id)
-    {
-        return Wiki::find($id);
-    }
-
-    
+    // Helper function
     static public function findFrom(string $columnName, $value){
         return Wiki::where($columnName, $value)->get();
     }
 
-    public function edit($id)
-    {
-        //
+    // Helper function
+    static public function getAll(){
+        return Wiki::all();
     }
 
-    public function update(Request $request, $id)
-    {
-        $wiki = Wiki::findOrFail($id);
-        $wiki->update($request->all());
-        return response()->json($wiki, 200);
+    /**
+     * Insert method for Wiki table
+     * 
+     * @param Request
+     */
+    public function insert(Request $request){
+        // Useful for session authentication.
+        $token = $request->session()->token();
+        $token = csrf_token();
+
+        $data = [
+            'idportal' => $request->input('idportal'),
+            'title' => $request->input('title')
+        ];
+
+        Wiki::create($data);
+
+        return redirect('/wiki/list');
     }
 
-    public function destroy($id)
-    {
-        Wiki::destroy($id);
-        return response()->json(null, 204);
+    /**
+     * Edit method for Wiki table
+     * 
+     * @param Request
+     */
+    public function edit(Request $request){
+        $wiki = Wiki::find($request->input('idwiki'));
+
+        $data = [
+            'idportal' => $request->input('idportal'),
+            'title' => $request->input('title')
+        ];
+
+        $wiki->update($data);
+
+        return redirect('/wiki/list');
     }
 }

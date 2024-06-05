@@ -1,8 +1,14 @@
-<!-- views/test/games/show.blade.php -->
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            List of games in our multi portal.
+        </h2>
+    </x-slot>
 
 
-@section('content')
-    <h1>{{ $game->title }}</h1>
-    <p>ID: {{ $game->id }}</p>
-    <p><a href="{{ route('games.index') }}">Back to Games</a></p>
-@endsection
+    <div style="color: white;">
+        <h1>{{ $games->title }}</h1>
+    </div>
+
+
+</x-app-layout>

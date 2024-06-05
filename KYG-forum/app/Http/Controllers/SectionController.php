@@ -7,42 +7,28 @@ use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
-    public function index()
-    {
-        return Section::all();
+    static public function findFrom(string $columnName, $value){
+        return Section::where($columnName, $value)->get();
     }
 
-    public function create()
-    {
-        //
-    }
+    /**
+     * Insert method for Section table
+     * 
+     * @param Request
+     * @param Integer
+     * @param Integer
+     */
+    public function insert(Request $request, $idarticle, $idwiki){
+        $token = $request->session()->token();
+        $token = csrf_token();
 
-    public function store(Request $request)
-    {
-        $section = Section::create($request->all());
-        return response()->json($section, 201);
-    }
+        $data = [
+            'idarticle' => $request->input('idarticle'),
+            'content' => $request->input('content')
+        ];
 
-    public function show($id)
-    {
-        return Section::find($id);
-    }
+        Section::create($data);
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        $section = Section::findOrFail($id);
-        $section->update($request->all());
-        return response()->json($section, 200);
-    }
-
-    public function destroy($id)
-    {
-        Section::destroy($id);
-        return response()->json(null, 204);
+        return redirect('/wiki/' . $idwiki . "/article/" . $idarticle . "/show");
     }
 }

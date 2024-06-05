@@ -12,11 +12,12 @@ class UserRole extends Model
     protected $table = 'userroles';
     protected $primaryKey = null;
     public $incrementing = false;
-    protected $fillable = ['username', 'idrole'];
+    protected $fillable = ['user_id', 'idrole'];
 
+    //CONSULTAR
     public function user()
     {
-        return $this->belongsTo(UsersDb::class, 'username');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function role()

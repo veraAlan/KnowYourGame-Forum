@@ -1,22 +1,35 @@
-<!-- resources/views/test/collections/edit.blade.php -->
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Edit Form
+        </h2>
+    </x-slot>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Colección</title>
-</head>
-<body>
-    <h1>Editar Colección</h1>
-    <form action="{{ route('collections.update', ['collection' => $collection->id]) }}" method="POST">
+
+    <form action="{{ route('test.collections.update', $collections) }}" method="POST" style="color: white;">
         @csrf
-        @method('PUT')
-        <label for="idgame">ID del Juego:</label>
-        <input type="text" id="idgame" name="idgame" value="{{ $collection->idgame }}"><br><br>
-        <label for="category">Categoría:</label>
-        <input type="text" id="category" name="category" value="{{ $collection->category }}"><br><br>
-        <button type="submit">Actualizar Colección</button>
+        @method('PATCH')
+        <div>
+            <label for="idcollections">ID Category:</label>
+            <input name="idcollections" value="{{ $collections->idcollection }}" style="color: black;" readonly>
+        </div>
+        <select id="idgame" name="idgame" style="color: black;">
+            @if ($games)
+                @foreach ($games as $game)
+                    <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
+                @endforeach
+            @endif
+        </select>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" style="color: black;"
+            value="{{ old('category', $collections['category']) }}">
+        <button type="submit">Enviar</button>
+        @error('category')
+            <br>
+            <small style="color: red">{{ $message }}</small>
+            <br>
+        @enderror
     </form>
-</body>
-</html>
+
+
+</x-app-layout>

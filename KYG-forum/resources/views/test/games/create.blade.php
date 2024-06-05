@@ -1,14 +1,22 @@
-<!-- views/test/games/create.blade.php -->
-<h1>Create Game</h1>
-<form action="{{ route('games.store') }}" method="post">
-    @csrf
-    <div>
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="{{ old('title') }}"><br>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Edit Form
+        </h2>
+    </x-slot>
+
+
+    <form action="{{ route('test.games.store') }}" method="POST" style="color: white;">
+        @csrf
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" style="color: black;">
+        <button type="submit">Enviar</button>
         @error('title')
-            <span style="color: red;">{{ $message }}</span>
+            <br>
+            <small style="color: red">{{ $message }}</small>
+            <br>
         @enderror
-    </div>
-    <br>
-    <button type="submit">Create</button>
-</form>
+    </form>
+
+
+</x-app-layout>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PortalController extends Controller
 {
-    public function index()
+    static public function index()
     {
         return Portal::all();
     }

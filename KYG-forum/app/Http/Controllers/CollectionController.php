@@ -3,69 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Collection;
+use App\Models\Game;
 
 class CollectionController extends Controller
 {
-    // Mostrar todas las colecciones
-    public function index(Collection $collection)
+
+
+    // Muestra el formulario para crear una nueva colección, incluyendo la lista de juegos disponibles.
+    public function create(Collection $collections)
     {
-        return response()->json($collection->all(), 200);
+        $games = Game::all();
+        return view('test.collections.create', ['collections' => $collections, 'games' => $games]);
     }
 
-    // Mostrar una colección específica
-    public function show($id, Collection $collection)
+
+    // Muestra la lista de colecciones, incluyendo la lista de todos los juegos.
+    public function index()
     {
-        $resource = $collection->find($id);
-
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
-
-        return response()->json($resource, 200);
+        $games = Game::all();
+        $collections = Collection::get();
+        return view('test.collections.index', ['collections' => $collections, 'games' => $games]);
     }
 
-    // Crear una nueva colección
-    public function store(Request $request, Collection $collection)
+
+    // Muestra los detalles de una colección específica.
+    public function show($id)
     {
-        $validatedData = $request->validate([
-            'idgame' => 'required|integer|exists:games,idgame',
-            'category' => 'required|string|max:255',
+        $collections = Collection::findOrFail($id);
+        return view('test.collections.show', ['collections' => $collections]);
+    }
+
+
+    // Almacena una nueva colección creada, verificando la existencia del juego asociado.
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'idgame' => ['required', 'exists:games,idgame'],
+            'category' => ['required']
         ]);
-
-        $newCollection = $collection->create($validatedData);
-        return response()->json($newCollection, 201);
+        Collection::create($validated);
+        session()->flash('status', 'Collection Created!');
+        return redirect()->route('test.collections.index');
     }
 
-    // Actualizar una colección existente
-    public function update(Request $request, $id, Collection $collection)
+
+    // Muestra el formulario para editar una colección existente, incluyendo la lista de juegos disponibles.
+    public function edit(Collection $collections)
     {
-        $resource = $collection->find($id);
+        $games = Game::all();
+        return view('test.collections.edit', ['collections' => $collections, 'games' => $games]);
+    }
 
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
 
-        $validatedData = $request->validate([
-            'idgame' => 'required|integer|exists:games,idgame',
-            'category' => 'required|string|max:255',
+    // Actualiza la información de una colección existente.
+    public function update(Request $request, Collection $collections)
+    {
+        $validated = $request->validate([
+            'idgame' => 'required',
+            'category' => 'required',
         ]);
-
-        $resource->update($validatedData);
-        return response()->json($resource, 200);
+        $collections->update($validated);
+        session()->flash('status', 'Collections Update!');
+        return redirect()->route('test.collections.index');
     }
 
-    // Eliminar una colección
-    public function destroy($id, Collection $collection)
+
+    // Elimina una colección existente.
+    public function destroy(Collection $collections)
     {
-        $resource = $collection->find($id);
-
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
-
-        $resource->delete();
-        return response()->json(null, 204);
+        $collections->delete();
+        session()->flash('status', 'Game Deleted!');
+        return to_route('test.collections.index');
     }
 }

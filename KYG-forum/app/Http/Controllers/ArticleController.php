@@ -7,46 +7,25 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index()
-    {
+    // Helper function to list Articles.
+    static public function getAll(){
         return Article::all();
     }
 
-    public function create()
-    {
-        //
-    }
+    /**
+     * Insert method for Article table
+     * 
+     * @param Request
+     * @param Integer
+     */
+    public function insert(Request $request, $idwiki){
+        $data = [
+            'idwiki' => $idwiki,
+            'title' => $request->input('title')
+        ];
 
-    public function store(Request $request)
-    {
-        $article = Article::create($request->all());
-        return response()->json($article, 201);
-    }
+        Article::create($data);
 
-    static public function show($id)
-    {
-        return Article::find($id);
-    }
-    
-    static public function findFrom(string $columnName, $value){
-        return Article::where($columnName, $value)->get();
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        $article = Article::findOrFail($id);
-        $article->update($request->all());
-        return response()->json($article, 200);
-    }
-
-    public function destroy($id)
-    {
-        Article::destroy($id);
-        return response()->json(null, 204);
+        return redirect('/wiki/' . $idwiki . '/article');
     }
 }

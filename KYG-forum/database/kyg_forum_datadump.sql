@@ -1,5 +1,11 @@
 -- Insertar datos en las tablas --
-
+INSERT INTO
+    collections (
+        idcollection,
+        category,
+        idgame
+    )
+VALUES ()
 -- Datos para la tabla games
 INSERT INTO
     games (idgame, title)
@@ -37,12 +43,8 @@ VALUES (
     );
 
 -- Asignación de roles a usuarios
-INSERT INTO
-    userroles (username, idrole)
-VALUES ('admin_user', 1), -- Admin
-    ('regular_user', 2), -- Usuario regular
-    ('moderator_user', 3);
--- Moderador
+INSERT INTO userroles (user_id, idrole) VALUES (1, 1);
+
 -- Datos para la tabla portals
 INSERT INTO
     portals (

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Collection extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     protected $table = 'collections';
     protected $primaryKey = 'idcollection';

@@ -1,22 +1,25 @@
-<!-- resources/views/test/collections/create.blade.php -->
+<x-app-layout>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Colección</title>
-</head>
-<body>
-    <h1>Crear Nueva Colección</h1>
-    <!-- Formulario para crear una nueva colección -->
-    <form action="/test/collections" method="POST">
+
+    <form action="{{ route('test.collections.store') }}" method="POST" style="color: white;">
         @csrf
-        <label for="idgame">ID del juego:</label><br>
-        <input type="number" id="idgame" name="idgame" required><br>
-        <label for="category">Categoría:</label><br>
-        <input type="text" id="category" name="category" required maxlength="255"><br><br>
-        <button type="submit">Crear Colección</button>
+        <label for="idgame">IdGame:</label>
+        <select id="idgame" name="idgame" style="color: black;">
+            @if ($games)
+                @foreach ($games as $game)
+                    <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
+                @endforeach
+            @endif
+        </select>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" style="color: black;">
+        <button type="submit">Enviar</button>
+        @error('category')
+            <br>
+            <small style="color: red">{{ $message }}</small>
+            <br>
+        @enderror
     </form>
-</body>
-</html>
+
+
+</x-app-layout>

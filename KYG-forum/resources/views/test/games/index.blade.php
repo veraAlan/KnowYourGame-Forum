@@ -1,7 +1,33 @@
-<!-- views/test/games/index.blade.php -->
-<h1>Games</h1>
-<ul>
-    @foreach ($games as $game)
-        <li><a href="{{ route('games.show', ['id' => $game->idgame]) }}">{{ $game->title }}</a></li>
-    @endforeach
-</ul>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            List of games in our multi portal.
+        </h2>
+    </x-slot>
+
+
+    <div style="color: white;">
+        <h1>The Games Menu</h1><br>
+        <a href="{{ route('test.games.create') }}">Create New Game</a>
+        @session('status')
+            <div> {{ $value }} </div>
+        @endsession
+        <br><br>
+        @foreach ($games as $game)
+            <h2>
+                <a href="{{ route('test.games.show', $game) }}">
+                    {{ $game->title }}
+                </a>
+            </h2> &nbsp;
+            <a href="{{ route('test.games.edit', $game) }}">Edit</a>
+            <form action="{{ route('test.games.destroy', $game) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
+            <br>
+        @endforeach
+    </div>
+
+
+</x-app-layout>
