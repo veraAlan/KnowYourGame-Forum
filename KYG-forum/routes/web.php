@@ -116,7 +116,16 @@ Route::get('test/collections/{collections}/edit', [CollectionController::class, 
 Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
 Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
 
+//Rotas de Portals
+Route::get('test/portals', [PortalController::class, 'index'])->name('test.portals.index');
+Route::get('test/portals/create', [PortalController::class, 'create'])->name('test.portals.create');
+Route::post('test/portals', [PortalController::class, 'store'])->name('test.portals.store');
+Route::get('test/portals/{portals}', [PortalController::class, 'show'])->name('test.portals.show');
+Route::get('test/portals/{portals}/edit', [PortalController::class, 'edit'])->name('test.portals.edit');
+Route::patch('test/portals/{portals}', [PortalController::class, 'update'])->name('test.portals.update');
+Route::delete('test/portals/{portals}', [PortalController::class, 'destroy'])->name('test.portals.destroy');
 
+//Rotas de Forums
 
 
 require __DIR__ . '/auth.php';
