@@ -13,21 +13,21 @@
             <div> {{ $value }} </div>
         @endsession
 
-        {{-- <br><br>
-        @foreach ($collections as $collections)
+        <br><br>
+        @foreach ($collections as $collection)
             <h2>
-                <a href="{{ route('test.collections.show', $collections) }}">
-                    {{ $collections->category }}
+                <a href="{{ route('test.collections.show', $collection) }}">
+                    {{ $collection->category }}
                 </a>
             </h2> &nbsp;
-            <a href="{{ route('test.collections.edit', $collections) }}">Edit</a>
+            {{-- <a href="{{ route('test.collections.edit', $collections) }}">Edit</a>
             <form action="{{ route('test.collections.destroy', $collections) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Delete</button>
             </form>
-            <br>
-        @endforeach --}}
+            <br> --}}
+        @endforeach
     </div>
 
 

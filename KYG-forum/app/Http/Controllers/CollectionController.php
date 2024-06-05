@@ -37,15 +37,23 @@ class CollectionController extends Controller
 
 
     // Mostrar una colección específica
-    public function show($id, Collection $collection)
+    // public function show($id, Collection $collection)
+    // {
+    //     $resource = $collection->find($id);
+
+    //     if (!$resource) {
+    //         return response()->json(['message' => 'Colección no encontrada'], 404);
+    //     }
+
+    //     return response()->json($resource, 200);
+    // }
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    ////GAMES PRUEBA FORMULARIOS
+    public function show($id)
     {
-        $resource = $collection->find($id);
-
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
-
-        return response()->json($resource, 200);
+        $collections = Collection::findOrFail($id);
+        return view('test.collections.show', ['collections' => $collections]);
     }
 
     // // Crear una nueva colección
