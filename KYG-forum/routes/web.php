@@ -119,15 +119,14 @@ Route::patch('test/games/{game}', [GameController::class, 'update'])->name('test
 Route::delete('test/games/{game}', [GameController::class, 'destroy'])->name('test.games.destroy');
 
 
-//GAMES PRUEBA FORMULARIOS
+//Rotas de Collections
 Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
 Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
 Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
 Route::get('test/collections/{collection}', [CollectionController::class, 'show'])->name('test.collections.show');
 Route::get('test/collections/{collection}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
-//PUT: SE UTILIZA PARA REEMPLAZAR UN REGISTRO.
-//PATCH: SE UTILIZA PARA ACTUALIZAR UN REGISTRO.
 Route::patch('test/collections/{collection}', [CollectionController::class, 'update'])->name('test.collections.update');
+Route::delete('test/collections/{collection}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
 
 
 

@@ -5,14 +5,14 @@
         </h2>
     </x-slot>
     <br>
-    {{-- {{ dd($collections) }} --}}
+
+
     <div style="color: white;">
         <h1>The Collections Menu</h1><br>
-        <a href="{{ route('test.collections.create', ['games' => json_encode($games)]) }}">Create New Collections</a>
+        <a href="{{ route('test.collections.create', ['games' => $games]) }}">Crear Nueva Colección</a>
         @session('status')
             <div> {{ $value }} </div>
         @endsession
-
         <br><br>
         @foreach ($collections as $collection)
             <h2>
@@ -20,16 +20,15 @@
                     {{ $collection->category }}
                 </a>
             </h2> &nbsp;
-            {{-- <a href="{{ route('test.collections.edit', $collections) }}">Edit</a>
-            <form action="{{ route('test.collections.destroy', $collections) }}" method="POST">
+            <a href="{{ route('test.collections.edit', $collection) }}">Edit</a>
+            <form action="{{ route('test.collections.destroy', $collection) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Delete</button>
             </form>
-            <br> --}}
+            <br>
         @endforeach
     </div>
-
 
 
 </x-app-layout>

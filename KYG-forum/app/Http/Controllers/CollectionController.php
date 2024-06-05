@@ -3,115 +3,82 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Collection;
 use App\Models\Game;
 
 class CollectionController extends Controller
 {
+    // Crear una nueva colección
+    public function create(Collection $collection)
+    {
+        // Retorna una vista para crear una nueva colección. Obtiene todos los juegos de la base de datos y los pasa a la vista junto con una colección (que puede ser nueva o vacía).
+        $game = Game::all();
+        return view('test.collections.create', ['collection' => $collection, 'game' => $game]);
+    }
+
+
     // Mostrar todas las colecciones
-    // public function index(Collection $collection)
-    // {
-    //     return response()->json($collection->all(), 200);
-    // }
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
     public function index()
     {
+        // Obtiene todas las colecciones y juegos de la base de datos y los pasa a la vista.
         $games = Game::all();
         $collections = Collection::get();
         return view('test.collections.index', ['collections' => $collections, 'games' => $games]);
     }
 
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    public function create(Request $request)
-    {
-        $collections = $request->collections;
-        $games = $request->games;
-
-        return view('test.collections.create', compact('collections', 'games'));
-    }
-
 
     // Mostrar una colección específica
-    // public function show($id, Collection $collection)
-    // {
-    //     $resource = $collection->find($id);
-
-    //     if (!$resource) {
-    //         return response()->json(['message' => 'Colección no encontrada'], 404);
-    //     }
-
-    //     return response()->json($resource, 200);
-    // }
-    ////GAMES PRUEBA FORMULARIOS
-    ////GAMES PRUEBA FORMULARIOS
-    ////GAMES PRUEBA FORMULARIOS
     public function show($id)
     {
+        // Encuentra la colección correspondiente en la base de datos y la pasa a la vista.
         $collections = Collection::findOrFail($id);
         return view('test.collections.show', ['collections' => $collections]);
     }
 
-    // // Crear una nueva colección
-    // public function store(Request $request, Collection $collection)
-    // {
-    //     $validatedData = $request->validate([
-    //         'idgame' => 'required|integer|exists:games,idgame',
-    //         'category' => 'required|string|max:255',
-    //     ]);
 
-    //     $newCollection = $collection->create($validatedData);
-    //     return response()->json($newCollection, 201);
-    // }
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
-    ////COLLECTIONS PRUEBA FORMULARIOS
+    // Crear una nueva colección
     public function store(Request $request)
     {
+        // Valida los datos recibidos del formulario, crea una nueva colección y la guarda en la base de datos.
         $validated = $request->validate([
             'idgame' => ['required', 'exists:games,idgame'],
             'category' => ['required']
         ]);
-
         Collection::create($validated);
-
         session()->flash('status', 'Collection Created!');
-
         return redirect()->route('test.collections.index');
     }
 
-    // Actualizar una colección existente
-    public function update(Request $request, $id, Collection $collection)
+
+    // Editar una colección existente
+    public function edit(Collection $collection)
     {
-        $resource = $collection->find($id);
-
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
-
-        $validatedData = $request->validate([
-            'idgame' => 'required|integer|exists:games,idgame',
-            'category' => 'required|string|max:255',
-        ]);
-
-        $resource->update($validatedData);
-        return response()->json($resource, 200);
+        // Retorna una vista para editar una colección existente. Obtiene todos los juegos de la base de datos y los pasa a la vista junto con la colección que se va a editar.
+        $game = Game::all();
+        return view('test.collections.edit', ['collection' => $collection, 'game' => $game]);
     }
 
-    // Eliminar una colección
-    public function destroy($id, Collection $collection)
+
+    // Actualizar una colección existente
+    public function update(Request $request, Collection $collection)
     {
-        $resource = $collection->find($id);
+        // Valida los datos recibidos del formulario, actualiza la colección correspondiente en la base de datos y redirige a la página de índice de colecciones.
+        $validated = $request->validate([
+            'idgame' => 'required',
+            'category' => 'required',
+        ]);
+        $collection->update($validated);
+        session()->flash('status', 'Collections Update!');
+        return redirect()->route('test.collections.index');
+    }
 
-        if (!$resource) {
-            return response()->json(['message' => 'Colección no encontrada'], 404);
-        }
 
-        $resource->delete();
-        return response()->json(null, 204);
+    // Eliminar una colección
+    public function destroy(Collection $collection)
+    {
+        // Elimina la colección especificada de la base de datos y redirige a la página de índice de colecciones.
+        $collection->delete();
+        session()->flash('status', 'Game Deleted!');
+        return to_route('test.collections.index');
     }
 }
