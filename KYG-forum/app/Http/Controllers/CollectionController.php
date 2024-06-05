@@ -8,38 +8,36 @@ use App\Models\Game;
 
 class CollectionController extends Controller
 {
-    // Crear una nueva colección
-    public function create(Collection $collection)
+
+
+    // Muestra el formulario para crear una nueva colección, incluyendo la lista de juegos disponibles.
+    public function create(Collection $collections)
     {
-        // Retorna una vista para crear una nueva colección. Obtiene todos los juegos de la base de datos y los pasa a la vista junto con una colección (que puede ser nueva o vacía).
-        $game = Game::all();
-        return view('test.collections.create', ['collection' => $collection, 'game' => $game]);
+        $games = Game::all();
+        return view('test.collections.create', ['collections' => $collections, 'games' => $games]);
     }
 
 
-    // Mostrar todas las colecciones
+    // Muestra la lista de colecciones, incluyendo la lista de todos los juegos.
     public function index()
     {
-        // Obtiene todas las colecciones y juegos de la base de datos y los pasa a la vista.
         $games = Game::all();
         $collections = Collection::get();
         return view('test.collections.index', ['collections' => $collections, 'games' => $games]);
     }
 
 
-    // Mostrar una colección específica
+    // Muestra los detalles de una colección específica.
     public function show($id)
     {
-        // Encuentra la colección correspondiente en la base de datos y la pasa a la vista.
         $collections = Collection::findOrFail($id);
         return view('test.collections.show', ['collections' => $collections]);
     }
 
 
-    // Crear una nueva colección
+    // Almacena una nueva colección creada, verificando la existencia del juego asociado.
     public function store(Request $request)
     {
-        // Valida los datos recibidos del formulario, crea una nueva colección y la guarda en la base de datos.
         $validated = $request->validate([
             'idgame' => ['required', 'exists:games,idgame'],
             'category' => ['required']
@@ -50,34 +48,31 @@ class CollectionController extends Controller
     }
 
 
-    // Editar una colección existente
-    public function edit(Collection $collection)
+    // Muestra el formulario para editar una colección existente, incluyendo la lista de juegos disponibles.
+    public function edit(Collection $collections)
     {
-        // Retorna una vista para editar una colección existente. Obtiene todos los juegos de la base de datos y los pasa a la vista junto con la colección que se va a editar.
-        $game = Game::all();
-        return view('test.collections.edit', ['collection' => $collection, 'game' => $game]);
+        $games = Game::all();
+        return view('test.collections.edit', ['collections' => $collections, 'games' => $games]);
     }
 
 
-    // Actualizar una colección existente
-    public function update(Request $request, Collection $collection)
+    // Actualiza la información de una colección existente.
+    public function update(Request $request, Collection $collections)
     {
-        // Valida los datos recibidos del formulario, actualiza la colección correspondiente en la base de datos y redirige a la página de índice de colecciones.
         $validated = $request->validate([
             'idgame' => 'required',
             'category' => 'required',
         ]);
-        $collection->update($validated);
+        $collections->update($validated);
         session()->flash('status', 'Collections Update!');
         return redirect()->route('test.collections.index');
     }
 
 
-    // Eliminar una colección
-    public function destroy(Collection $collection)
+    // Elimina una colección existente.
+    public function destroy(Collection $collections)
     {
-        // Elimina la colección especificada de la base de datos y redirige a la página de índice de colecciones.
-        $collection->delete();
+        $collections->delete();
         session()->flash('status', 'Game Deleted!');
         return to_route('test.collections.index');
     }

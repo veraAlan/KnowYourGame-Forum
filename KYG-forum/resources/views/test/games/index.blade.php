@@ -5,21 +5,13 @@
         </h2>
     </x-slot>
 
-    <br>
+
     <div style="color: white;">
         <h1>The Games Menu</h1><br>
         <a href="{{ route('test.games.create') }}">Create New Game</a>
-        {{-- @if (session('status'))
-            <div class="status">
-                {{ session('status') }}
-            </div>
-        @endif --}}
-        {{-- HACE LO MISMO QUE LO COMENTADO DE ARRIBA --}}
         @session('status')
             <div> {{ $value }} </div>
         @endsession
-
-
         <br><br>
         @foreach ($games as $game)
             <h2>
@@ -36,7 +28,6 @@
             <br>
         @endforeach
     </div>
-
 
 
 </x-app-layout>

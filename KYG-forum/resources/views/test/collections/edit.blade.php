@@ -6,23 +6,23 @@
     </x-slot>
 
 
-    <form action="{{ route('test.collections.update', $collection) }}" method="POST" style="color: white;">
+    <form action="{{ route('test.collections.update', $collections) }}" method="POST" style="color: white;">
         @csrf
         @method('PATCH')
         <div>
             <label for="idcollections">ID Category:</label>
-            <input name="idcollections" value="{{ $collection->idcollection }}" style="color: black;" readonly>
+            <input name="idcollections" value="{{ $collections->idcollection }}" style="color: black;" readonly>
         </div>
         <select id="idgame" name="idgame" style="color: black;">
-            @if ($game)
-                @foreach ($game as $game)
+            @if ($games)
+                @foreach ($games as $game)
                     <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
                 @endforeach
             @endif
         </select>
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" style="color: black;"
-            value="{{ old('category', $collection['category']) }}">
+            value="{{ old('category', $collections['category']) }}">
         <button type="submit">Enviar</button>
         @error('category')
             <br>

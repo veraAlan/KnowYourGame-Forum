@@ -89,44 +89,23 @@ Route::get('/games', function () {
 
 
 
-//GAMES PRUEBA FORMULARIOS
-//Route::view('test/games', 'test.games.menu', ['games' => $games]);
-// Route::get('test/games', function () {
-//     // $games = [
-//     //     [
-//     //         'idgame' => 4,
-//     //         'title' => 'Dota'
-//     //     ],
-//     //     [
-//     //         'idgame' => 5,
-//     //         'title' => 'Smite'
-//     //     ],
-//     //     [
-//     //         'idgame' => 6,
-//     //         'title' => 'Fallout'
-//     //     ]
-//     // ];
-//     return view('test.games.menu', ['games' => $games]);
-// });
+//Rotas de Games
 Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
 Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
 Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
-Route::get('test/games/{game}', [GameController::class, 'show'])->name('test.games.show');
-Route::get('test/games/{game}/edit', [GameController::class, 'edit'])->name('test.games.edit');
-//PUT: SE UTILIZA PARA REEMPLAZAR UN REGISTRO.
-//PATCH: SE UTILIZA PARA ACTUALIZAR UN REGISTRO.
-Route::patch('test/games/{game}', [GameController::class, 'update'])->name('test.games.update');
-Route::delete('test/games/{game}', [GameController::class, 'destroy'])->name('test.games.destroy');
-
+Route::get('test/games/{games}', [GameController::class, 'show'])->name('test.games.show');
+Route::get('test/games/{games}/edit', [GameController::class, 'edit'])->name('test.games.edit');
+Route::patch('test/games/{games}', [GameController::class, 'update'])->name('test.games.update');
+Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
 
 //Rotas de Collections
 Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
 Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
 Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
-Route::get('test/collections/{collection}', [CollectionController::class, 'show'])->name('test.collections.show');
-Route::get('test/collections/{collection}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
-Route::patch('test/collections/{collection}', [CollectionController::class, 'update'])->name('test.collections.update');
-Route::delete('test/collections/{collection}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
+Route::get('test/collections/{collections}', [CollectionController::class, 'show'])->name('test.collections.show');
+Route::get('test/collections/{collections}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
+Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
+Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
 
 
 

@@ -5,8 +5,8 @@
         @csrf
         <label for="idgame">IdGame:</label>
         <select id="idgame" name="idgame" style="color: black;">
-            @if ($game)
-                @foreach ($game as $game)
+            @if ($games)
+                @foreach ($games as $game)
                     <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
                 @endforeach
             @endif
