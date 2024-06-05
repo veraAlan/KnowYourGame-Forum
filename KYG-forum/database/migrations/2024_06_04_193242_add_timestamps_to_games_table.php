@@ -14,6 +14,18 @@ return new class extends Migration
         Schema::table('games', function (Blueprint $table) {
             $table->timestamps();
         });
+
+        Schema::table('wikis', function (Blueprint $table) {
+            $table->timestamps();
+        });
+        
+        Schema::table('articles', function (Blueprint $table) {
+            $table->timestamps();
+        });
+        
+        Schema::table('sections', function (Blueprint $table) {
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +34,18 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('games', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
+        
+        Schema::table('wikis', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
+        
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
+        
+        Schema::table('sections', function (Blueprint $table) {
             $table->dropTimestamps();
         });
     }
