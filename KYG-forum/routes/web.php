@@ -13,6 +13,7 @@ use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -156,6 +157,12 @@ Route::patch('test/replies/{replies}', [ReplyController::class, 'update'])->name
 Route::delete('test/replies/{replies}', [ReplyController::class, 'destroy'])->name('test.replies.destroy');
 
 //Rotas de Users
-
+Route::get('test/users', [UserController::class, 'index'])->name('test.users.index');
+Route::get('test/users/create', [UserController::class, 'create'])->name('test.users.create');
+Route::post('test/users', [UserController::class, 'store'])->name('test.users.store');
+Route::get('test/users/{users}', [UserController::class, 'show'])->name('test.users.show');
+Route::get('test/users/{users}/edit', [UserController::class, 'edit'])->name('test.users.edit');
+Route::patch('test/users/{users}', [UserController::class, 'update'])->name('test.users.update');
+Route::delete('test/users/{users}', [UserController::class, 'destroy'])->name('test.users.destroy');
 
 require __DIR__ . '/auth.php';
