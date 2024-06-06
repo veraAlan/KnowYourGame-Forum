@@ -56,10 +56,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-    
-    Route::get('/database/tables', 'App\Http\Controllers\testDatabaseController@showDatabaseTables');
 });
 
+// Test Privileges.
 Route::get('admin', function () {
     return view('admin');
 })->middleware('adminAuth');

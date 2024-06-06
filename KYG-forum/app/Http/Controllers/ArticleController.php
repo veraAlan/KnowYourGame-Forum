@@ -3,29 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Portal;
+use App\Models\Wiki;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    // Helper function to list Articles.
-    static public function getAll(){
-        return Article::all();
+    /**
+     * Show basic index with all Articles.
+     * 
+     * @param Wiki
+     */
+    public function index(Wiki $wiki)
+    {
+        $articles = Article::where('idwiki', $wiki->idwiki)->get();
+        $portals = Portal::find($wiki->idportal);
+        return view('wiki.article.index', compact('articles', 'wiki', 'portals'));
     }
 
     /**
-     * Insert method for Article table
+     * Create a new entry inside Wiki table.
      * 
      * @param Request
-     * @param Integer
+     * @param Wiki
      */
-    public function insert(Request $request, $idwiki){
-        $data = [
-            'idwiki' => $idwiki,
-            'title' => $request->input('title')
-        ];
+    public function create(Request $request, Wiki $wiki)
+    {
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
 
-        Article::create($data);
+        $validated = $request->validate([
+            'idwiki' => 'required',
+            'title' => 'required|min:3'
+        ]);
 
-        return redirect('/wiki/' . $idwiki . '/article');
+       Article::create($validated);
+
+       return redirect()->route('wiki.article.index', $wiki->idwiki)->with('status', 'created');
+    }
+
+    /**
+     * Update the Articles's information.
+     * 
+     * @param Request
+     * @param Wiki
+     * @param Article
+     */
+    public function update(Request $request, Wiki $wiki, Article $article)
+    {
+        $validated = $request->validate([
+            'idwiki' => 'required',
+            'title' => 'required'
+        ]);
+
+        Article::find($article->idarticle)->update($validated);
+        return redirect()->route('wiki.article.index', ['wiki' => $wiki, '#show-update'])->with(['status' => 'updated', 'idupdated' => $article->idarticle]);
+    }
+
+    /**
+     * Delete the selected Article.
+     * 
+     * @param Request
+     * @param Wiki
+     * @param Article
+     */
+    public function destroy(Request $request, Wiki $wiki, Article $article){
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        Article::find($article->idarticle)->delete();
+        return redirect()->route('wiki.article.index', $wiki)->with('status', 'deleted');
     }
 }

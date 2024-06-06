@@ -20,92 +20,37 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/unauthorized', function () {
+    return view('unauthorized');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Routes that go through Moderator Authentication.
+Route::middleware('modAuth')->group(function () {
+    // Wiki
+    Route::get('wiki/mod', [WikiController::class, 'index'])->name('wiki.index');
+    Route::get('wiki/create', [WikiController::class, 'create'])->name('wiki.create');
+    Route::patch('wiki/update', [WikiController::class, 'update'])->name('wiki.update');
+    Route::delete('wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
+    // Articles
+    Route::get('wiki/{wiki}/mod', [ArticleController::class, 'index'])->name('wiki.article.index');
+    Route::get('wiki/{wiki}/article/create', [ArticleController::class, 'create'])->name('wiki.article.create');
+    Route::patch('wiki/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
+    Route::delete('wiki/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
+    // Sections
+    // TODO Not implemented yet.
+    Route::get('wiki/{wiki}/{article}/mod', [SectionController::class, 'index'])->name('wiki.article.section.index');
+});
 
-
-
-
-// TODO Refactor
-// TODO Needs TOO MUCH REFACTOR.
+// Test all data in database. (No auth needed)
 Route::get('/database/tables', function () {
     testDatabaseController::showDatabaseTables();
 });
-
-// Below: Only works as ADMIN pages, for user/mod pages URI should be shorter/more meaningful.
-// WIKI functions.
-Route::redirect('/wiki', '/wiki/list', 301);
-Route::redirect('/wiki/{idwiki}/article/{idarticle}', '/wiki/{idwiki}/article/{idarticle}/show', 301);
-
-Route::get('/wiki/list', function() {
-    return view('test.wiki.list', ['wikis' => WikiController::getAll()]);
-});
-
-Route::get('/wiki/create', function() {
-    //  This can be handled by controller after middleware.
-    $portals = PortalController::index();
-    return view('test.wiki.create', ['portals' => $portals]);
-});
-
-Route::get('/wiki/{idwiki}/edit', function($idwiki) {
-    //  This can be handled by controller after middleware.
-    $portals = PortalController::index();
-    return view('test.wiki.edit', ['portals' => $portals, 'wiki' => WikiController::findFrom('idwiki', $idwiki)[0]]);
-});
-
-// Fallback in case of unknown page (404)
-Route::fallback(function () {
-    return redirect('/games');
-});
-
-Route::get('/games', [GameController::class, 'index'])->name('games');
-
-Route::get('/unauthorized', function () { return view('unauthorized'); });
-Route::post('/wiki/{idwiki}/update', [WikiController::class, 'edit']);
-Route::post('/insert-wiki', [WikiController::class, 'insert']);
-
-// From here: GameController::findID() isn't defined, need some helper function to get those, maybe use the controller wihtout redirecting to the page redirection.
-// ARTICLE functions
-Route::get('/wiki/{idwiki}/article/list', function($idwiki) {
-    //  This can be handled by controller after middleware.
-    $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
-    $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
-    return view('test.wiki.article.list', ['articles' => ArticleController::getAll($idwiki), 'game' => GameController::findID($portal->idgame), 'wiki' => $wiki]);
-});
-
-Route::get('/wiki/{idwiki}/article/create', function($idwiki) {
-    //  This can be handled by controller after middleware.
-    $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
-    $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
-    return view('test.wiki.article.create', ['game' => GameController::findID($portal->idgame), 'idwiki' => $idwiki]);
-});
-
-Route::post('/wiki/{idwiki}/article/insert', [ArticleController::class, 'insert']);
-
-// SECTION functions
-Route::get('/wiki/{idwiki}/article/{idarticle}/show', function($idwiki, $idarticle) {
-    //  This can be handled by controller after middleware.
-    $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
-    $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
-    return view('test.wiki.article.section.list', ['sections' => SectionController::findFrom('idarticle', $idarticle), 'game' => GameController::findID($portal->idgame), 'id' => $idarticle]);
-});
-
-Route::get('/wiki/{idwiki}/article/{idarticle}/create', function($idwiki, $idarticle) {
-    //  This can be handled by controller after middleware.
-    $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
-    $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
-    return view('test.wiki.article.section.create', ['game' => GameController::findID($portal->idgame), 'idwiki' => $idwiki, 'idarticle' => $idarticle]);
-});
-
-Route::post('/wiki/{idwiki}/article/{idarticle}/insert', [SectionController::class, 'insert']);
-
-// TODO Refactor up till here. ^^^
-
-
 
 
 //Rotas de Games
