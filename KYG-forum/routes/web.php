@@ -9,6 +9,7 @@ use App\Http\Controllers\PortalController;
 use App\Http\Controllers\WikiController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\SectionController;
 
@@ -40,17 +41,17 @@ Route::get('/database/tables', function () {
 Route::redirect('/wiki', '/wiki/list', 301);
 Route::redirect('/wiki/{idwiki}/article/{idarticle}', '/wiki/{idwiki}/article/{idarticle}/show', 301);
 
-Route::get('/wiki/list', function() {
+Route::get('/wiki/list', function () {
     return view('test.wiki.list', ['wikis' => WikiController::getAll()]);
 });
 
-Route::get('/wiki/create', function() {
+Route::get('/wiki/create', function () {
     //  This can be handled by controller after middleware.
     $portals = PortalController::index();
     return view('test.wiki.create', ['portals' => $portals]);
 });
 
-Route::get('/wiki/{idwiki}/edit', function($idwiki) {
+Route::get('/wiki/{idwiki}/edit', function ($idwiki) {
     //  This can be handled by controller after middleware.
     $portals = PortalController::index();
     return view('test.wiki.edit', ['portals' => $portals, 'wiki' => WikiController::findFrom('idwiki', $idwiki)[0]]);
@@ -61,14 +62,14 @@ Route::post('/insert-wiki', [WikiController::class, 'insert']);
 
 // From here: GameController::findID() isn't defined, need some helper function to get those, maybe use the controller wihtout redirecting to the page redirection.
 // ARTICLE functions
-Route::get('/wiki/{idwiki}/article/list', function($idwiki) {
+Route::get('/wiki/{idwiki}/article/list', function ($idwiki) {
     //  This can be handled by controller after middleware.
     $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
     $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
     return view('test.wiki.article.list', ['articles' => ArticleController::getAll($idwiki), 'game' => GameController::findID($portal->idgame), 'wiki' => $wiki]);
 });
 
-Route::get('/wiki/{idwiki}/article/create', function($idwiki) {
+Route::get('/wiki/{idwiki}/article/create', function ($idwiki) {
     //  This can be handled by controller after middleware.
     $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
     $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
@@ -78,14 +79,14 @@ Route::get('/wiki/{idwiki}/article/create', function($idwiki) {
 Route::post('/wiki/{idwiki}/article/insert', [ArticleController::class, 'insert']);
 
 // SECTION functions
-Route::get('/wiki/{idwiki}/article/{idarticle}/show', function($idwiki, $idarticle) {
+Route::get('/wiki/{idwiki}/article/{idarticle}/show', function ($idwiki, $idarticle) {
     //  This can be handled by controller after middleware.
     $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
     $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
     return view('test.wiki.article.section.list', ['sections' => SectionController::findFrom('idarticle', $idarticle), 'game' => GameController::findID($portal->idgame), 'id' => $idarticle]);
 });
 
-Route::get('/wiki/{idwiki}/article/{idarticle}/create', function($idwiki, $idarticle) {
+Route::get('/wiki/{idwiki}/article/{idarticle}/create', function ($idwiki, $idarticle) {
     //  This can be handled by controller after middleware.
     $wiki = WikiController::findFrom('idwiki', $idwiki)[0];
     $portal = PortalController::findFrom('idportal', $wiki->idportal)[0];
@@ -136,6 +137,15 @@ Route::patch('test/forums/{forums}', [ForumController::class, 'update'])->name('
 Route::delete('test/forums/{forums}', [ForumController::class, 'destroy'])->name('test.forums.destroy');
 
 //Rotas de Discussions
+Route::get('test/discussions', [DiscussionController::class, 'index'])->name('test.discussions.index');
+Route::get('test/discussions/create', [DiscussionController::class, 'create'])->name('test.discussions.create');
+Route::post('test/discussions', [DiscussionController::class, 'store'])->name('test.discussions.store');
+Route::get('test/discussions/{discussions}', [DiscussionController::class, 'show'])->name('test.discussions.show');
+Route::get('test/discussions/{discussions}/edit', [DiscussionController::class, 'edit'])->name('test.discussions.edit');
+Route::patch('test/discussions/{discussions}', [DiscussionController::class, 'update'])->name('test.discussions.update');
+Route::delete('test/discussions/{discussions}', [DiscussionController::class, 'destroy'])->name('test.discussions.destroy');
+
+//Rotas de Replies
 
 
 require __DIR__ . '/auth.php';
