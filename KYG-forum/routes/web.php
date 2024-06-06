@@ -11,6 +11,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
 
 Route::get('/', function () {
@@ -146,6 +147,15 @@ Route::patch('test/discussions/{discussions}', [DiscussionController::class, 'up
 Route::delete('test/discussions/{discussions}', [DiscussionController::class, 'destroy'])->name('test.discussions.destroy');
 
 //Rotas de Replies
+Route::get('test/replies', [ReplyController::class, 'index'])->name('test.replies.index');
+Route::get('test/replies/create', [ReplyController::class, 'create'])->name('test.replies.create');
+Route::post('test/replies', [ReplyController::class, 'store'])->name('test.replies.store');
+Route::get('test/replies/{replies}', [ReplyController::class, 'show'])->name('test.replies.show');
+Route::get('test/replies/{replies}/edit', [ReplyController::class, 'edit'])->name('test.replies.edit');
+Route::patch('test/replies/{replies}', [ReplyController::class, 'update'])->name('test.replies.update');
+Route::delete('test/replies/{replies}', [ReplyController::class, 'destroy'])->name('test.replies.destroy');
+
+//Rotas de Users
 
 
 require __DIR__ . '/auth.php';
