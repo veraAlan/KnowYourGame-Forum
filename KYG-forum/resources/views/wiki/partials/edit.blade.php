@@ -6,7 +6,7 @@
          
       </h2>
       <input type="number" value="{{ $wiki->idwiki }}" name="idwiki" hidden>
-      <a href="{{ '/wiki/' . $wiki->idwiki . '/mod' }}" class="flex items-center gap-4 text-white">
+      <a href="{{ '/mod/' .$wiki->idwiki }}" class="flex items-center gap-4 text-white">
          {{ __('Go to Articles.') }}
       </a>
       <input type="text" value="{{ old('title', $wiki->title) }}" name="title">

@@ -33,18 +33,20 @@ Route::middleware('auth')->group(function () {
 // Routes that go through Moderator Authentication.
 Route::middleware('modAuth')->group(function () {
     // Wiki
-    Route::get('wiki/mod', [WikiController::class, 'index'])->name('wiki.index');
-    Route::get('wiki/create', [WikiController::class, 'create'])->name('wiki.create');
-    Route::patch('wiki/update', [WikiController::class, 'update'])->name('wiki.update');
-    Route::delete('wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
+    Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
+    Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
+    Route::patch('mod/wiki/update', [WikiController::class, 'update'])->name('wiki.update');
+    Route::delete('mod/wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
     // Articles
-    Route::get('wiki/{wiki}/mod', [ArticleController::class, 'index'])->name('wiki.article.index');
-    Route::get('wiki/{wiki}/article/create', [ArticleController::class, 'create'])->name('wiki.article.create');
-    Route::patch('wiki/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
-    Route::delete('wiki/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
+    Route::get('mod/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
+    Route::get('mod/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');
+    Route::patch('mod/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
+    Route::delete('mod/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
     // Sections
-    // TODO Not implemented yet.
-    Route::get('wiki/{wiki}/{article}/mod', [SectionController::class, 'index'])->name('wiki.article.section.index');
+    Route::get('mod/{wiki}/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
+    Route::get('mod/{wiki}/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
+    Route::patch('mod/{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
+    Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 });
 
 // Test all data in database. (No auth needed)

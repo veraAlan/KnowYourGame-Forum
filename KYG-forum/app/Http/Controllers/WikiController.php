@@ -29,7 +29,7 @@ class WikiController extends Controller
         }
 
         $validated = $request->validate([
-            'title' => 'required|min:3|unique:wiki,title',
+            'title' => 'required|min:3|unique:wikis,title',
             'idportal' => 'required'
         ]);
 
