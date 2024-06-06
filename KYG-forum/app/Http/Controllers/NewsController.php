@@ -3,46 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(News $news)
     {
-        return News::all();
+        //$games = DB::table('games')->get();
+        // $games = Game::all();
+        
+        $publications = Publication::get();
+        return view('test.news.index', ['news' => $news, 'publications' => $publications]);
     }
 
     public function create()
     {
-        //
+        return view('test.news.create');
     }
 
     public function store(Request $request)
     {
-        $news = News::create($request->all());
-        return response()->json($news, 201);
+        $validated = $request->validate([
+            'title' => ['required']
+        ]);
+
+        // $game = new Game;
+        // $game->title = $request->input('title');
+        // $game->save();
+        // HACE LO MISMO QUE LO COMENTADO PERO CON ELOQUENT
+        News::create($validated);
+
+        session()->flash('status', 'News Created!');
+
+        return to_route('test.News.index');
+    }
+    
+    public function show($id)
+    {
+        $publications = Publication::findOrFail($id);
+        return view('test.news.publications.show', ['publications' => $publications]);
     }
 
-    static public function show($id)
+    public function edit(News $news)
     {
-        return News::find($id);
+        return view('test.news.edit', ['news' => $news]);
     }
 
-    public function edit($id)
+    public function update(Request $request, News $news)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required']
+        ]);
+
+        $news->update($validated);
+
+        session()->flash('status', 'New Update!');
+
+        return to_route('test.news.index');
     }
 
-    public function update(Request $request, $id)
+    public function destroy(News $news)
     {
-        $news = News::findOrFail($id);
-        $news->update($request->all());
-        return response()->json($news, 200);
-    }
+        $news->delete();
 
-    public function destroy($id)
-    {
-        News::destroy($id);
-        return response()->json(null, 204);
+        session()->flash('status', 'New Deleted!');
+
+        return to_route('test.news.index');
     }
 }

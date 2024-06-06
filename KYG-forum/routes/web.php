@@ -13,7 +13,10 @@ use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -97,6 +100,14 @@ Route::get('/wiki/{idwiki}/article/{idarticle}/create', function ($idwiki, $idar
 
 Route::post('/wiki/{idwiki}/article/{idarticle}/insert', [SectionController::class, 'insert']);
 
+
+Route::get('test/news/{news}', [NewsController::class, 'index'])->name('test.news.index');
+Route::get('test/{news}/publications/create', [PublicationController::class, 'create'])->name('test.news.publications.create');
+Route::post('test/news/{news}', [PublicationController::class, 'store'])->name('test.news.publications.store');
+Route::get('test/news/publication/{publication}', [PublicationController::class, 'show'])->name('test.news.publications.show');
+Route::get('test/news/publication/{publication}/edit', [PublicationController::class, 'edit'])->name('test.news.publications.edit');
+Route::patch('test/news/publication/{publication}', [PublicationController::class, 'update'])->name('test.news.publications.update');
+Route::delete('test/news/{news}/{publication}', [PublicationController::class, 'destroy'])->name('test.news.publications.destroy');
 // TODO Refactor up till here. ^^^
 
 
