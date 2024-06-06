@@ -2,51 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Portal;
 use Illuminate\Http\Request;
 
 class PortalController extends Controller
 {
-    static public function index()
+
+
+    // Muestra una lista de todos los portales.
+    public function index()
     {
-        return Portal::all();
+        $portals = Portal::get();
+        return view('test.portals.index', ['portals' => $portals]);
     }
 
-    public function create()
+
+    // Muestra un formulario para crear un nuevo portal, incluyendo una lista de juegos.
+    public function create(Portal $portals)
     {
-        //
+        $games = Game::get();
+        return view('test.portals.create', ['portals' => $portals, 'games' => $games]);
     }
 
+
+    // Almacena un nuevo portal en la base de datos después de validar los datos de la solicitud.
     public function store(Request $request)
     {
-        $portal = Portal::create($request->all());
-        return response()->json($portal, 201);
+        $validated = $request->validate([
+            'idgame' => ['required', 'exists:games,idgame'],
+            'name' => ['required'],
+            'description' => ['required'],
+        ]);
+        Portal::create($validated);
+        session()->flash('status', '¡Portal creado!');
+        return redirect()->route('test.portals.index');
     }
 
-    static public function show($id)
+
+    // Muestra un portal específico basado en el ID dado.
+    public function show($id)
     {
-        return Portal::find($id);
+        $portals = Portal::findOrFail($id);
+        return view('test.portals.show', ['portals' => $portals]);
     }
 
-    static public function findFrom(string $columnName, $value){
-        return Portal::where($columnName, $value)->get();
-    }
 
-    public function edit($id)
+    // Muestra un formulario para editar un portal existente, incluyendo una lista de juegos.
+    public function edit(Portal $portals)
     {
-        //
+        $games = Game::all();
+        return view('test.portals.edit', ['portals' => $portals, 'games' => $games]);
     }
 
-    public function update(Request $request, $id)
+
+    // Actualiza un portal existente en la base de datos después de validar los datos de la solicitud.
+    public function update(Request $request, Portal $portals)
     {
-        $portal = Portal::findOrFail($id);
-        $portal->update($request->all());
-        return response()->json($portal, 200);
+        $validated = $request->validate([
+            'idgame' => ['required', 'exists:games,idgame'],
+            'name' => ['required'],
+            'description' => ['required'],
+        ]);
+        $portals->update($validated);
+        session()->flash('status', '¡Portal actualizado!');
+        return redirect()->route('test.portals.index');
     }
 
-    public function destroy($id)
+
+    // Elimina un portal específico de la base de datos.
+    public function destroy(Portal $portals)
     {
-        Portal::destroy($id);
-        return response()->json(null, 204);
+        $portals->delete();
+        session()->flash('status', '¡Portal eliminado!');
+        return to_route('test.portals.index');
     }
 }

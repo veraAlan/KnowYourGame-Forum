@@ -3,46 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
+use App\Models\Portal;
 use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
+
+
+    // Muestra una lista de todos los foros
     public function index()
     {
-        return Forum::all();
+        $forums = Forum::get();
+        return view('test.forums.index', ['forums' => $forums]);
     }
 
-    public function create()
+
+    // Muestra el formulario para crear un nuevo foro
+    public function create(Forum $forums)
     {
-        //
+        $portals = Portal::get();
+        return view('test.forums.create', ['forums' => $forums, 'portals' => $portals]);
     }
 
+
+    // Almacena un nuevo foro en la base de datos
     public function store(Request $request)
     {
-        $forum = Forum::create($request->all());
-        return response()->json($forum, 201);
+        $validated = $request->validate([
+            'idportal' => ['required', 'exists:portals,idportal'],
+            'title' => ['required'],
+            'img' => ['required'],
+        ]);
+        Forum::create($validated);
+        session()->flash('status', '¡Foro creado!');
+        return redirect()->route('test.forums.index');
     }
 
-    static public function show($id)
+
+    // Muestra un foro específico basado en su ID
+    public function show($id)
     {
-        return Forum::find($id);
+        $forums = Forum::findOrFail($id);
+        return view('test.forums.show', ['forums' => $forums]);
     }
 
-    public function edit($id)
+
+    // Muestra el formulario para editar un foro existente
+    public function edit(Forum $forums)
     {
-        //
+        $portals = Portal::all();
+        return view('test.forums.edit', ['forums' => $forums, 'portals' => $portals]);
     }
 
-    public function update(Request $request, $id)
+
+    // Actualiza un foro existente en la base de datos
+    public function update(Request $request, Forum $forums)
     {
-        $forum = Forum::findOrFail($id);
-        $forum->update($request->all());
-        return response()->json($forum, 200);
+        $validated = $request->validate([
+            'idportal' => ['required', 'exists:portals,idportal'],
+            'title' => ['required'],
+            'img' => ['required'],
+        ]);
+        $forums->update($validated);
+        session()->flash('status', '¡Foro actualizado!');
+        return redirect()->route('test.forums.index');
     }
 
-    public function destroy($id)
+
+    // Elimina un foro de la base de datos
+    public function destroy(Forum $forums)
     {
-        Forum::destroy($id);
-        return response()->json(null, 204);
+        $forums->delete();
+        session()->flash('status', '¡Foro eliminado!');
+        return to_route('test.forums.index');
     }
 }

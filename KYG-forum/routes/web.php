@@ -9,6 +9,7 @@ use App\Http\Controllers\PortalController;
 use App\Http\Controllers\WikiController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\SectionController;
 
 Route::get('/', function () {
@@ -125,7 +126,25 @@ Route::get('test/collections/{collections}/edit', [CollectionController::class, 
 Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
 Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
 
+//Rotas de Portals
+Route::get('test/portals', [PortalController::class, 'index'])->name('test.portals.index');
+Route::get('test/portals/create', [PortalController::class, 'create'])->name('test.portals.create');
+Route::post('test/portals', [PortalController::class, 'store'])->name('test.portals.store');
+Route::get('test/portals/{portals}', [PortalController::class, 'show'])->name('test.portals.show');
+Route::get('test/portals/{portals}/edit', [PortalController::class, 'edit'])->name('test.portals.edit');
+Route::patch('test/portals/{portals}', [PortalController::class, 'update'])->name('test.portals.update');
+Route::delete('test/portals/{portals}', [PortalController::class, 'destroy'])->name('test.portals.destroy');
 
+//Rotas de Forums
+Route::get('test/forums', [ForumController::class, 'index'])->name('test.forums.index');
+Route::get('test/forums/create', [ForumController::class, 'create'])->name('test.forums.create');
+Route::post('test/forums', [ForumController::class, 'store'])->name('test.forums.store');
+Route::get('test/forums/{forums}', [ForumController::class, 'show'])->name('test.forums.show');
+Route::get('test/forums/{forums}/edit', [ForumController::class, 'edit'])->name('test.forums.edit');
+Route::patch('test/forums/{forums}', [ForumController::class, 'update'])->name('test.forums.update');
+Route::delete('test/forums/{forums}', [ForumController::class, 'destroy'])->name('test.forums.destroy');
+
+//Rotas de Discussions
 
 
 require __DIR__ . '/auth.php';
