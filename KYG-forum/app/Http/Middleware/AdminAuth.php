@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Role;
 use App\Models\UserRole;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,14 +17,14 @@ class AdminAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
-            $roleid = UserRole::where('id_user', auth()->user()->id);
-            if(Role::find($roleid)->description == Role::find(1)->description){
+            $sessionRole = UserRole::find(auth()->user()->id);
+            if(in_array($sessionRole->role_id, [1])){
                 return $next($request);
             }
             // TODO Redirect and show error message for lesser privileges.
             return redirect('unauthorized');
         }
 
-        return redirect('not-logged.');
+        return redirect('not-logged');
     }
 }

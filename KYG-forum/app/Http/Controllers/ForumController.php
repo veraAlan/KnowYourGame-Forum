@@ -30,7 +30,7 @@ class ForumController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idportal' => ['required', 'exists:portals,idportal'],
+            'portal_id' => ['required', 'exists:portals,portal_id'],
             'title' => ['required'],
             'img' => ['required'],
         ]);
@@ -60,7 +60,7 @@ class ForumController extends Controller
     public function update(Request $request, Forum $forums)
     {
         $validated = $request->validate([
-            'idportal' => ['required', 'exists:portals,idportal'],
+            'portal_id' => ['required', 'exists:portals,portal_id'],
             'title' => ['required'],
             'img' => ['required'],
         ]);

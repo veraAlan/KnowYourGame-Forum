@@ -14,7 +14,7 @@
 
    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
       @foreach($games as $game)
-         <a href={{ "/portal/" . $game->idgame }}>
+         <a href={{ "/portal/" . $game->game_id }}>
             <img src="" alt={{ $game->title }}>
             <h5>{{ $game->title }}</h5>
          </a>

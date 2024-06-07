@@ -9,15 +9,15 @@ class CreatePublicationsTable extends Migration
     public function up()
     {
         Schema::create('publications', function (Blueprint $table) {
-            $table->bigIncrements('idpublication'); // Auto incremento y clave primaria
-            $table->integer('idnew');
-            $table->integer('idgame');
+            $table->bigIncrements('publication_id'); // Auto incremento y clave primaria
+            $table->integer('news_id');
+            $table->integer('game_id');
             $table->string('title', 100);
             $table->text('content');
             $table->date('date');
             $table->binary('img');
             $table->timestamps();
-            $table->foreign('idnew')->references('idnew')->on('news')->onDelete('cascade');
+            $table->foreign('news_id')->references('news_id')->on('news')->onDelete('cascade');
         });
     }
 

@@ -12,15 +12,15 @@ class MenuRole extends Model
     protected $table = 'menuroles';
     protected $primaryKey = null;
     public $incrementing = false;
-    protected $fillable = ['idmenu', 'idrole'];
+    protected $fillable = ['menu_id', 'role_id'];
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class, 'idmenu');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'idrole');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

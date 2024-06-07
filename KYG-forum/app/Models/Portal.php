@@ -10,11 +10,11 @@ class Portal extends Model
     use HasFactory;
 
     protected $table = 'portals';
-    protected $primaryKey = 'idportal';
-    protected $fillable = ['idgame', 'name', 'description'];
+    protected $primaryKey = 'portal_id';
+    protected $fillable = ['game_id', 'name', 'description'];
 
     public function game()
     {
-        return $this->belongsTo(Game::class, 'idgame');
+        return $this->belongsTo(Game::class, 'game_id');
     }
 }

@@ -11,11 +11,11 @@ class Collection extends Model
     public $timestamps = true;
 
     protected $table = 'collections';
-    protected $primaryKey = 'idcollection';
-    protected $fillable = ['idgame', 'category'];
+    protected $primaryKey = 'collection_id';
+    protected $fillable = ['game_id', 'category'];
 
     public function game()
     {
-        return $this->belongsTo(Game::class, 'idgame');
+        return $this->belongsTo(Game::class, 'game_id');
     }
 }

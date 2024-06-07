@@ -1,35 +1,30 @@
 -- Datos para la tabla games
 INSERT INTO
-    games (idgame, title, img)
-VALUES
-    (1, 'Counter-Strike 2'),
-    (2, 'Minecraft'),
-    (3, 'League of Legends');
-
+    games (game_id, title, img)
+VALUES (1, 'Counter-Strike 2', 1),
+    (2, 'Minecraft', 1),
+    (3, 'League of Legends', 1);
 
 -- Insertar datos en las tablas
 INSERT INTO
     collections (
-        idcollection,
+        collection_id,
         category,
-        idgame
+        game_id
     )
-VALUES
-    (1, 'Shooter', 1),
+VALUES (1, 'Shooter', 1),
     (2, 'Survival', 2),
     (3, 'Moba', 3);
-
 
 -- Datos para la tabla portals
 INSERT INTO
     portals (
-        idportal,
-        idgame,
+        portal_id,
+        game_id,
         name,
         description
     )
-VALUES
-    (
+VALUES (
         1,
         1,
         'CS2 Portal',
@@ -48,78 +43,78 @@ VALUES
         'Portal de League of Legends'
     );
 
-
 -- Datos para la tabla wikis
 INSERT INTO
-    wikis (idwiki, idportal, title)
-VALUES
-    (1, 1, 'CS2 Wiki'),
+    wikis (wiki_id, portal_id, title)
+VALUES (1, 1, 'CS2 Wiki'),
     (2, 2, 'Minecraft Wiki'),
     (3, 3, 'LoL Wiki');
 
-
 -- Datos para la tabla articles
 INSERT INTO
-    articles (idarticle, idwiki, title)
-VALUES
-    (1, 1, 'Guía de Armas'),
-    (2, 2,'Construcciones Impresionantes'),
+    articles (article_id, wiki_id, title)
+VALUES (1, 1, 'Guía de Armas'),
+    (
+        2,
+        2,
+        'Construcciones Impresionantes'
+    ),
     (3, 3, 'Personajes Destacados');
-
 
 -- Datos para la tabla sections
 INSERT INTO
-    sections (idsection, idarticle, content)
-VALUES
-    (
+    sections (
+        section_id,
+        article_id,
+        content,
+        img
+    )
+VALUES (
         1,
         1,
-        'Descripción de las armas principales'
+        'Descripción de las armas principales',
+        1
     ),
     (
         2,
         2,
-        'Instrucciones para construir una mansión'
+        'Instrucciones para construir una mansión',
+        1
     ),
     (
         3,
         3,
-        'Resumen de los campeones más destacados'
+        'Resumen de los campeones más destacados',
+        1
     ),
-        (
-        4,
-        1,
-        'Nose'
-    );
-
+    (4, 1, 'Nose', 1);
 
 -- Datos para la tabla news
 INSERT INTO
-    news (idnew, idportal)
-VALUES
-    (1, 1),
+    news (news_id, portal_id)
+VALUES (1, 1),
     (2, 2),
     (3, 3);
 
-
-    -- Datos para la tabla publications
+-- Datos para la tabla publications
 INSERT INTO
     publications (
-        idpublication,
-        idnew,
-        idgame,
+        publication_id,
+        news_id,
+        game_id,
         title,
         content,
-        date
+        date,
+        img
     )
-VALUES
-    (
+VALUES (
         1,
         1,
         1,
         'Nuevo Parche CS2',
         'Se ha lanzado un nuevo parche para CS2.',
-        '2024-05-01'
+        '2024-05-01',
+        1
     ),
     (
         2,
@@ -127,7 +122,8 @@ VALUES
         2,
         'Nuevo Parche Minecarft',
         '¡Evento especial de Minecraft este fin de semana!',
-        '2024-05-15'
+        '2024-05-15',
+        1
     ),
     (
         3,
@@ -135,7 +131,8 @@ VALUES
         3,
         'Nuevo Parche LoL',
         'Resultados del Campeonato Mundial de LoL.',
-        '2024-04-28'
+        '2024-04-28',
+        1
     ),
     (
         4,
@@ -143,33 +140,16 @@ VALUES
         1,
         'Nueva Skin CS2',
         'Horrible!!!',
-        '2024-04-28'
+        '2024-04-28',
+        1
     );
-
 
 -- Datos para la tabla forums
 INSERT INTO
-    forums (idforum, idportal, title, img)
-VALUES
-    (
-        1,
-        1,
-        'CS2 Forum',
-        'cs2_forum.jpg'
-    ),
-    (
-        2,
-        2,
-        'Minecraft Forum',
-        'minecraft_forum.jpg'
-    ),
-    (
-        3,
-        3,
-        'LoL Forum',
-        'lol_forum.jpg'
-    );
-
+    forums (forum_id, portal_id, title)
+VALUES (1, 1, 'CS2 Forum'),
+    (2, 2, 'Minecraft Forum'),
+    (3, 3, 'LoL Forum');
 
 -- Datos para la tabla users
 -- Password: Aaron: 41837661
@@ -177,8 +157,7 @@ VALUES
 --           Santi: M123456789
 INSERT INTO
     users (id, name, email, password)
-VALUES
-    (
+VALUES (
         1,
         'Aaron',
         'nero14nz@gmail.com',
@@ -195,22 +174,19 @@ VALUES
         'Alan',
         'alan.vera@est.fi.uncoma.edu.ar',
         '$2y$12$uUldIGMFwjTPvUmOtAL37O3/s8j5cqJAv1tSAJq4E0TPimkYRXDeC'
-    )
-;
-
+    );
 
 -- Datos para la tabla discussions
 INSERT INTO
     discussions (
-        iddiscussion,
-        idforum,
-        id_user,
+        discussion_id,
+        forum_id,
+        user_id,
         date,
         title,
         content
     )
-VALUES
-    (
+VALUES (
         1,
         1,
         1,
@@ -234,7 +210,7 @@ VALUES
         'Anuncios Importantes',
         'Por favor, revisa las nuevas reglas del foro.'
     ),
-        (
+    (
         4,
         1,
         1,
@@ -243,18 +219,16 @@ VALUES
         'No quedan usuarios.'
     );
 
-
 -- Datos para la tabla replies
 INSERT INTO
     replies (
-        idreply,
-        iddiscussion,
-        id_user,
+        reply_id,
+        discussion_id,
+        user_id,
         date,
         content
     )
-VALUES
-    (
+VALUES (
         1,
         1,
         1,
@@ -275,7 +249,7 @@ VALUES
         '2024-04-30',
         'Gracias por mantenernos informados.'
     ),
-        (
+    (
         4,
         1,
         3,
@@ -283,41 +257,16 @@ VALUES
         'De nada.'
     );
 
-
 -- Datos para la tabla roles
 INSERT INTO
-    roles (idrole, description)
-VALUES
-    (1, 'admin'),
+    roles (role_id, description)
+VALUES (1, 'admin'),
     (2, 'moderator'),
     (3, 'user');
 
-
 -- Asignación de roles a usuarios
 INSERT INTO
-    userroles (id_user, idrole)
-VALUES
-    (1, 2),
+    userroles (user_id, role_id)
+VALUES (1, 2),
     (2, 3),
     (3, 1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

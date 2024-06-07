@@ -18,10 +18,10 @@
         </select> <br><br>
 
         <label for="id">Id Role:</label>
-        <select id="idrole" name="idrole" style="color: black;">
+        <select id="role_id" name="role_id" style="color: black;">
             @if ($roles)
                 @foreach ($roles as $role)
-                    <option value="{{ $role->idrole }}">{{ $role->description }} (ID: {{ $role->idrole }})</option>
+                    <option value="{{ $role->role_id }}">{{ $role->description }} (ID: {{ $role->role_id }})</option>
                 @endforeach
             @endif
         </select> <br><br>

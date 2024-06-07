@@ -9,11 +9,11 @@ class CreateWikisTable extends Migration
     public function up()
     {
         Schema::create('wikis', function (Blueprint $table) {
-            $table->bigIncrements('idwiki'); // Cambiado a bigIncrements
-            $table->unsignedInteger('idportal');
+            $table->bigIncrements('wiki_id'); // Cambiado a bigIncrements
+            $table->unsignedInteger('portal_id');
             $table->string('title', 100);
             $table->timestamps();
-            $table->foreign('idportal')->references('idportal')->on('portals')->onDelete('cascade');
+            $table->foreign('portal_id')->references('portal_id')->on('portals')->onDelete('cascade');
         });
     }
 

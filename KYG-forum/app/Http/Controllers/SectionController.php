@@ -17,7 +17,7 @@ class SectionController extends Controller
      */
     public function index(Wiki $wiki, Article $article)
     {
-        $sections = Section::where('idarticle', $article->idarticle)->get();
+        $sections = Section::where('article_id', $article->article_id)->get();
         return view('wiki.article.section.index', compact('sections', 'article', 'wiki'));
     }
 
@@ -35,8 +35,8 @@ class SectionController extends Controller
         }
 
         $validated = $request->validate([
-            'idwiki' => 'required',
-            'idarticle' => 'required',
+            'wiki_id' => 'required',
+            'article_id' => 'required',
             'content' => 'required|min:6'
         ]);
 
@@ -60,12 +60,12 @@ class SectionController extends Controller
         }
 
         $validated = $request->validate([
-            'idsection' => 'required',
+            'section_id' => 'required',
             'content' => 'required'
         ]);
 
         $section->update($validated);
-        return redirect()->route('wiki.article.section.index', ['wiki' => $wiki, 'article' => $article, '#show-update'])->with(['status' => 'updated', 'idupdated' => $section->idsection]);
+        return redirect()->route('wiki.article.section.index', ['wiki' => $wiki, 'article' => $article, '#show-update'])->with(['status' => 'updated', 'idupdated' => $section->section_id]);
     }
 
     /**

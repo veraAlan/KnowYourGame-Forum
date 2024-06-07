@@ -18,7 +18,6 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserRoleController;
 
 
 Route::get('/', function () {
@@ -30,7 +29,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/unauthorized', function () {
-    return view('unauthorized');
+    return view('auth.unauthorized');
+});
+
+Route::get('/not-logged', function () {
+    return view('auth.not-logged');
 });
 
 Route::middleware('auth')->group(function () {
@@ -61,6 +64,14 @@ Route::middleware('modAuth')->group(function () {
 Route::middleware('adminAuth')->group(function (){
     
 });
+
+Route::get('test/news/{news}', [NewsController::class, 'index'])->name('test.news.index');
+Route::get('test/{news}/publications/create', [PublicationController::class, 'create'])->name('test.news.publications.create');
+Route::post('test/news/{news}', [PublicationController::class, 'store'])->name('test.news.publications.store');
+Route::get('test/news/publication/{publication}', [PublicationController::class, 'show'])->name('test.news.publications.show');
+Route::get('test/news/publication/{publication}/edit', [PublicationController::class, 'edit'])->name('test.news.publications.edit');
+Route::patch('test/news/publication/{publication}', [PublicationController::class, 'update'])->name('test.news.publications.update');
+Route::delete('test/news/{news}/{publication}', [PublicationController::class, 'destroy'])->name('test.news.publications.destroy');
 
 
 // Test all data in database. (No auth needed)

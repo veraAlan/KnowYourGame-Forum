@@ -17,7 +17,7 @@
         @foreach ($userroles as $userrole)
             <h2>
                 <a href="{{ route('test.userroles.show', $userrole->user_id) }}">
-                    {{ $userrole->user_id }} (ID : {{ $userrole->idrole }})
+                    {{ $userrole->user_id }} (ID : {{ $userrole->role_id }})
                 </a>
             </h2> &nbsp;
             <a href="{{ route('test.userroles.edit', $userrole->user_id) }}">Edit</a>

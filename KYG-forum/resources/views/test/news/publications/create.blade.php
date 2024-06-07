@@ -7,8 +7,8 @@
 
     <form action=" {{ route('test.news.publications.store', $news) }}" method="POST" style="color :white;">
         @csrf
-        <input id="idnews" name="idnews" value="{{ $news->idnews }}" hidden>
-        <input id="idgame" name="idgame" value="{{ $games->idgame }}" hidden>
+        <input id="news_ids" name="news_ids" value="{{ $news->news_ids }}" hidden>
+        <input id="game_id" name="game_id" value="{{ $games->game_id }}" hidden>
         <label for="title">Tittle</label>
         <input type="text" id="title" name="title" style="color: black;">
         <label for="content">Content of the new</label>

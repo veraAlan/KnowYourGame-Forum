@@ -13,15 +13,15 @@
 
    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
       @if(isset($options['wiki']))
-      <a href={{ "/wiki/" . $options['wiki']->idwiki }}>{{ $options['wiki']->title }}</a> <br>
+      <a href={{ "/wiki/" . $options['wiki']->wiki_id }}>{{ $options['wiki']->title }}</a> <br>
       @endif
 
       @if(isset($options['forum']))
-         <a href={{ "/forum/" . $options['forum']->idforum }}>{{ $options['forum']->title }}</a> <br>
+         <a href={{ "/forum/" . $options['forum']->forum_id }}>{{ $options['forum']->title }}</a> <br>
       @endif
 
       @if(isset($options['news']))
-         <a href={{ "/news/" . $options['news']->idnews }}>News</a>
+         <a href={{ "/news/" . $options['news']->news_ids }}>News</a>
       @endif
    </h2>
 </x-app-layout>

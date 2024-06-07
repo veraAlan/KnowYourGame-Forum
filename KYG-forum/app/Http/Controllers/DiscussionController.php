@@ -32,8 +32,8 @@ class DiscussionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idforum' => ['required', 'exists:forums,idforum'],
-            'id_user' => ['required', 'exists:users,id'],
+            'forum_id' => ['required', 'exists:forums,forum_id'],
+            'user_id' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'title' => ['required'],
             'content' => ['required'],
@@ -65,8 +65,8 @@ class DiscussionController extends Controller
     public function update(Request $request, Discussion $discussions)
     {
         $validated = $request->validate([
-            'idforum' => ['required', 'exists:forums,idforum'],
-            'id_user' => ['required', 'exists:users,id'],
+            'forum_id' => ['required', 'exists:forums,forum_id'],
+            'user_id' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'title' => ['required'],
             'content' => ['required'],

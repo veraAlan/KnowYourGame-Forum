@@ -11,7 +11,7 @@
         @method('PATCH')
         <div>
             <label for="id">ID Roles:</label>
-            <input name="id" value="{{ $roles->idrole }}" style="color: black;" readonly>
+            <input name="id" value="{{ $roles->role_id }}" style="color: black;" readonly>
         </div><br>
         <label for="description">Description</label>
         <input type="text" id="description" name="description" style="color: black;" value="{{ old('description', $roles['description']) }}"><br><br>

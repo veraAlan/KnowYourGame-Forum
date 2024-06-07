@@ -8,11 +8,11 @@
 
     <form action="{{ route('test.portals.store') }}" method="POST" style="color: white;">
         @csrf
-        <label for="idgame">Id Game:</label><br>
-        <select id="idgame" name="idgame" style="color: black;">
+        <label for="game_id">Id Game:</label><br>
+        <select id="game_id" name="game_id" style="color: black;">
             @if ($games)
                 @foreach ($games as $game)
-                    <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
+                    <option value="{{ $game->game_id }}">{{ $game->title }} (ID: {{ $game->game_id }})</option>
                 @endforeach
             @endif
         </select> <br><br>

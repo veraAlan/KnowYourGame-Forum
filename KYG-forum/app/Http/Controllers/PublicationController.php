@@ -19,22 +19,22 @@ class PublicationController extends Controller
 
     public function create( News $news)
     {
-        $portal = Portal::find($news->idnews);
-        $games = Game::find($portal->idportal);
+        $portal = Portal::find($news->news_ids);
+        $games = Game::find($portal->portal_id);
         return view('test.news.publications.create', ['portal' => $portal, 'news' => $news, 'games' => $games]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idnews' =>['required'],
-            'idgame' =>['required'],
+            'news_ids' =>['required'],
+            'game_id' =>['required'],
             'title' =>['required'],
             'content' =>['required'],
             'date' =>['required']
         ]);
         Publication::create($validated);
-        $news = News::find($request->input('idnews'));
+        $news = News::find($request->input('news_ids'));
         session()->flash('status', 'Publication Created!');
         return to_route('test.news.index', ['news' => $news]);
     }

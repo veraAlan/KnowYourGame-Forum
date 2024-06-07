@@ -32,8 +32,8 @@ class ReplyController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'iddiscussion' => ['required', 'exists:discussions,iddiscussion'],
-            'id_user' => ['required', 'exists:users,id'],
+            'discussion_id' => ['required', 'exists:discussions,discussion_id'],
+            'user_id' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'content' => ['required'],
         ]);
@@ -64,8 +64,8 @@ class ReplyController extends Controller
     public function update(Request $request, Reply $replies)
     {
         $validated = $request->validate([
-            'iddiscussion' => ['required', 'exists:discussions,iddiscussion'],
-            'id_user' => ['required', 'exists:users,id'],
+            'discussion_id' => ['required', 'exists:discussions,discussion_id'],
+            'user_id' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'content' => ['required'],
         ]);

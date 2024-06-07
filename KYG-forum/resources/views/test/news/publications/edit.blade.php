@@ -8,9 +8,9 @@
     <form action="{{ route('test.news.publications.update', $publications) }}" method="POST" style="color: white;">
     @csrf
     @method('PATCH')
-    <input name="idpublication" value="{{ old('idpublication', $publications->idpublications)}}" hidden>
-    <input name="idnews" value="{{ old('idnews', $publications->idnews)}}" hidden>
-    <input name="idgame" vañie="{{ old('idgame', $publications->idgame)}}" hidden>
+    <input name="publication_id" value="{{ old('publication_id', $publications->publication_ids)}}" hidden>
+    <input name="news_ids" value="{{ old('news_ids', $publications->news_ids)}}" hidden>
+    <input name="game_id" vañie="{{ old('game_id', $publications->game_id)}}" hidden>
     <label for="title">Tittle</label>
     <input type="text" id="title" name="title" style="color: black;" value="{{ old('title', $publications->title) }}">
     <label for="content">Content of the new</label>

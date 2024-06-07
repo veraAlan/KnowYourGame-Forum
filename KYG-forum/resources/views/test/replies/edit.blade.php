@@ -10,16 +10,16 @@
         @csrf
         @method('PATCH')
         <div>
-            <label for="idreply">ID Reply:</label>
-            <input name="idreply" value="{{ $replies->idreply }}" style="color: black;" readonly>
+            <label for="reply_id">ID Reply:</label>
+            <input name="reply_id" value="{{ $replies->reply_id }}" style="color: black;" readonly>
         </div><br>
         <label for="id">Id Discussion:</label>
-        <select id="iddiscussion" name="iddiscussion" style="color: black;">
+        <select id="discussion_id" name="discussion_id" style="color: black;">
             @if ($discussions)
                 @foreach ($discussions as $discussion)
-                    <option value="{{ $discussion->iddiscussion }}"
-                        {{ old('iddiscussion', $replies['iddiscussion']) == $discussion->iddiscussion ? 'selected' : '' }}>
-                        {{ $discussion->title }} (ID: {{ $discussion->iddiscussion }})</option>
+                    <option value="{{ $discussion->discussion_id }}"
+                        {{ old('discussion_id', $replies['discussion_id']) == $discussion->discussion_id ? 'selected' : '' }}>
+                        {{ $discussion->title }} (ID: {{ $discussion->discussion_id }})</option>
                 @endforeach
             @endif
         </select> <br><br>

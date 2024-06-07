@@ -11,6 +11,6 @@ class Game extends Model
     public $timestamps = true;
 
     protected $table = 'games';
-    protected $primaryKey = 'idgame';
+    protected $primaryKey = 'game_id';
     protected $fillable = ['title', 'img'];
 }

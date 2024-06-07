@@ -10,11 +10,11 @@ class CreateCollectionsTable extends Migration
     {
         // Crear la tabla collections
         Schema::create('collections', function (Blueprint $table) {
-            $table->bigIncrements('idcollection');
-            $table->unsignedInteger('idgame'); // Cambiado a unsignedInteger
+            $table->bigIncrements('collection_id');
+            $table->unsignedInteger('game_id'); // Cambiado a unsignedInteger
             $table->string('category', 100);
             $table->timestamps();
-            $table->foreign('idgame')->references('idgame')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('game_id')->on('games')->onDelete('cascade');
         });
     }
 

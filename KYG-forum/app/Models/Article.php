@@ -10,11 +10,11 @@ class Article extends Model
     use HasFactory;
 
     protected $table = 'articles';
-    protected $primaryKey = 'idarticle';
-    protected $fillable = ['idwiki', 'title'];
+    protected $primaryKey = 'article_id';
+    protected $fillable = ['wiki_id', 'title'];
 
     public function wiki()
     {
-        return $this->belongsTo(Wiki::class, 'idwiki');
+        return $this->belongsTo(Wiki::class, 'wiki_id');
     }
 }

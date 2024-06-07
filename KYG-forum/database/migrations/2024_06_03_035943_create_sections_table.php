@@ -9,12 +9,12 @@ class CreateSectionsTable extends Migration
     public function up()
     {
         Schema::create('sections', function (Blueprint $table) {
-            $table->bigIncrements('idsection'); // Auto incremento y clave primaria
-            $table->unsignedBigInteger('idarticle'); // Cambiado a unsignedBigInteger
+            $table->bigIncrements('section_id'); // Auto incremento y clave primaria
+            $table->unsignedBigInteger('article_id'); // Cambiado a unsignedBigInteger
             $table->text('content');
             $table->timestamps();
             $table->binary('img');
-            $table->foreign('idarticle')->references('idarticle')->on('articles')->onDelete('cascade');
+            $table->foreign('article_id')->references('article_id')->on('articles')->onDelete('cascade');
         });
     }
 

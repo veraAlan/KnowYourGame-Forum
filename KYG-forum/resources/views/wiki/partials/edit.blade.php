@@ -5,14 +5,14 @@
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
          
       </h2>
-      <input type="number" value="{{ $wiki->idwiki }}" name="idwiki" hidden>
+      <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
       <a href="{{ route('wiki.article.index', $wiki) }}" class="flex items-center gap-4 text-white">
          {{ __('Go to Articles.') }}
       </a>
       <input type="text" value="{{ old('title', $wiki->title) }}" name="title">
       <div class="flex items-center gap-4">
          <x-primary-button>{{ __('Update this Wiki') }}</x-primary-button>
-         @if(session('idupdated') == $wiki->idwiki)
+         @if(session('idupdated') == $wiki->wiki_id)
             <p
                id="show-update"
                x-data="{ show: true }"
@@ -27,7 +27,7 @@
    <form method="POST" action="{{ route('wiki.destroy') }}">
       @csrf
       @method('delete')
-      <input type="number" value="{{ $wiki->idwiki }}" name="idwiki" hidden>
+      <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
       <div class="flex items-center gap-4">
          <x-primary-button>{{ __('Delete this Wiki') }}</x-primary-button>
       </div>

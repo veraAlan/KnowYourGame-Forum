@@ -9,11 +9,11 @@ class CreateForumsTable extends Migration
     public function up()
     {
         Schema::create('forums', function (Blueprint $table) {
-            $table->bigIncrements('idforum');
-            $table->unsignedInteger('idportal'); // Cambiado a unsignedInteger
+            $table->bigIncrements('forum_id');
+            $table->unsignedInteger('portal_id'); // Cambiado a unsignedInteger
             $table->string('title', 100);
             $table->timestamps();
-            $table->foreign('idportal')->references('idportal')->on('portals')->onDelete('cascade');
+            $table->foreign('portal_id')->references('portal_id')->on('portals')->onDelete('cascade');
         });
     }
 

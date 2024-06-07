@@ -9,7 +9,7 @@ class CreateMenusTable extends Migration
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->bigIncrements('idmenu'); // Auto incremento y clave primaria
+            $table->bigIncrements('menu_id'); // Auto incremento y clave primaria
             $table->string('name', 100);
             $table->timestamps();
         });

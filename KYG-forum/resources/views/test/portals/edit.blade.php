@@ -10,16 +10,16 @@
         @csrf
         @method('PATCH')
         <div>
-            <label for="idportal">ID Category:</label>
-            <input name="idportal" value="{{ $portals->idportal }}" style="color: black;" readonly>
+            <label for="portal_id">ID Category:</label>
+            <input name="portal_id" value="{{ $portals->portal_id }}" style="color: black;" readonly>
         </div>
-        <label for="idgame">Id Game:</label><br>
-        <select id="idgame" name="idgame" style="color: black;">
+        <label for="game_id">Id Game:</label><br>
+        <select id="game_id" name="game_id" style="color: black;">
             @if ($games)
                 @foreach ($games as $game)
-                    <option value="{{ $game->idgame }}"
-                        {{ old('idgame', $portals['idgame']) == $game->idgame ? 'selected' : '' }}>
-                        {{ $game->title }} (ID: {{ $game->idgame }})
+                    <option value="{{ $game->game_id }}"
+                        {{ old('game_id', $portals['game_id']) == $game->game_id ? 'selected' : '' }}>
+                        {{ $game->title }} (ID: {{ $game->game_id }})
                     </option>
                 @endforeach
             @endif

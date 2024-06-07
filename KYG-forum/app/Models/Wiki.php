@@ -10,11 +10,11 @@ class Wiki extends Model
     use HasFactory;
 
     protected $table = 'wikis';
-    protected $primaryKey = 'idwiki';
-    protected $fillable = ['idportal', 'title'];
+    protected $primaryKey = 'wiki_id';
+    protected $fillable = ['portal_id', 'title'];
 
     public function portal()
     {
-        return $this->belongsTo(Portal::class, 'idportal');
+        return $this->belongsTo(Portal::class, 'portal_id');
     }
 }

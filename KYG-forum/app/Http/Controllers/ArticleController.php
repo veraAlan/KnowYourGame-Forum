@@ -16,8 +16,8 @@ class ArticleController extends Controller
      */
     public function index(Wiki $wiki)
     {
-        $articles = Article::where('idwiki', $wiki->idwiki)->get();
-        $portals = Portal::find($wiki->idportal);
+        $articles = Article::where('wiki_id', $wiki->wiki_id)->get();
+        $portals = Portal::find($wiki->portal_id);
         return view('wiki.article.index', compact('articles', 'wiki', 'portals'));
     }
 
@@ -34,13 +34,13 @@ class ArticleController extends Controller
         }
 
         $validated = $request->validate([
-            'idwiki' => 'required',
+            'wiki_id' => 'required',
             'title' => 'required|min:3'
         ]);
 
        Article::create($validated);
 
-       return redirect()->route('wiki.article.index', $wiki->idwiki)->with('status', 'created');
+       return redirect()->route('wiki.article.index', $wiki->wiki_id)->with('status', 'created');
     }
 
     /**
@@ -53,12 +53,12 @@ class ArticleController extends Controller
     public function update(Request $request, Wiki $wiki, Article $article)
     {
         $validated = $request->validate([
-            'idwiki' => 'required',
+            'wiki_id' => 'required',
             'title' => 'required'
         ]);
 
-        Article::find($article->idarticle)->update($validated);
-        return redirect()->route('wiki.article.index', ['wiki' => $wiki, '#show-update'])->with(['status' => 'updated', 'idupdated' => $article->idarticle]);
+        Article::find($article->article_id)->update($validated);
+        return redirect()->route('wiki.article.index', ['wiki' => $wiki, '#show-update'])->with(['status' => 'updated', 'idupdated' => $article->article_id]);
     }
 
     /**
@@ -72,7 +72,7 @@ class ArticleController extends Controller
         if(session()->token() !== $request->input('_token')){
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-        Article::find($article->idarticle)->delete();
+        Article::find($article->article_id)->delete();
         return redirect()->route('wiki.article.index', $wiki)->with('status', 'deleted');
     }
 }

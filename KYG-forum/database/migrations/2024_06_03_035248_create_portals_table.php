@@ -9,12 +9,12 @@ class CreatePortalsTable extends Migration
     public function up()
     {
         Schema::create('portals', function (Blueprint $table) {
-            $table->increments('idportal');  // Auto increment y clave primaria
-            $table->unsignedInteger('idgame');
+            $table->increments('portal_id');  // Auto increment y clave primaria
+            $table->unsignedInteger('game_id');
             $table->string('name', 100);
             $table->string('description', 255);
             $table->timestamps();
-            $table->foreign('idgame')->references('idgame')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('game_id')->on('games')->onDelete('cascade');
         });
     }
 

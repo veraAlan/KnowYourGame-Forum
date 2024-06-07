@@ -8,11 +8,11 @@
 
     <form action="{{ route('test.forums.store') }}" method="POST" style="color: white;">
         @csrf
-        <label for="idportal">Id Portal:</label><br>
-        <select id="idportal" name="idportal" style="color: black;">
+        <label for="portal_id">Id Portal:</label><br>
+        <select id="portal_id" name="portal_id" style="color: black;">
             @if ($portals)
                 @foreach ($portals as $portal)
-                    <option value="{{ $portal->idportal }}">{{ $portal->name }} (ID: {{ $portal->idportal }})</option>
+                    <option value="{{ $portal->portal_id }}">{{ $portal->name }} (ID: {{ $portal->portal_id }})</option>
                 @endforeach
             @endif
         </select> <br><br>

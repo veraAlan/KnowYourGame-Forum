@@ -10,11 +10,11 @@ class Forum extends Model
     use HasFactory;
 
     protected $table = 'forums';
-    protected $primaryKey = 'idforum';
-    protected $fillable = ['idportal', 'title'];
+    protected $primaryKey = 'forum_id';
+    protected $fillable = ['portal_id', 'title'];
 
     public function portal()
     {
-        return $this->belongsTo(Portal::class, 'idportal');
+        return $this->belongsTo(Portal::class, 'portal_id');
     }
 }

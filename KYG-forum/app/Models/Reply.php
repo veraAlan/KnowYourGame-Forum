@@ -10,12 +10,12 @@ class Reply extends Model
     use HasFactory;
 
     protected $table = 'replies';
-    protected $primaryKey = 'idreply';
-    protected $fillable = ['iddiscussion', 'user_id', 'date', 'content'];
+    protected $primaryKey = 'reply_id';
+    protected $fillable = ['discussion_id', 'user_id', 'date', 'content'];
 
     public function discussion()
     {
-        return $this->belongsTo(Discussion::class, 'iddiscussion');
+        return $this->belongsTo(Discussion::class, 'discussion_id');
     }
 
     //CONSULTAR

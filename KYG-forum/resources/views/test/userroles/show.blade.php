@@ -8,7 +8,7 @@
 
     @foreach ($userroles as $userrole)
         <div style="color: white;">
-            <h1>{{ $userrole->user_id }} (ID : {{ $userrole->idrole }})</h1>
+            <h1>{{ $userrole->user_id }} (ID : {{ $userrole->role_id }})</h1>
         </div>
     @endforeach
 

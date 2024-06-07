@@ -10,12 +10,12 @@ class Discussion extends Model
     use HasFactory;
 
     protected $table = 'discussions';
-    protected $primaryKey = 'iddiscussion';
-    protected $fillable = ['idforum', 'user_id', 'date', 'title', 'content'];
+    protected $primaryKey = 'discussion_id';
+    protected $fillable = ['forum_id', 'user_id', 'date', 'title', 'content'];
 
     public function forum()
     {
-        return $this->belongsTo(Forum::class, 'idforum');
+        return $this->belongsTo(Forum::class, 'forum_id');
     }
 
     //CONSULTAR

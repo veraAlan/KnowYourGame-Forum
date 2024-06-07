@@ -10,13 +10,13 @@
         @csrf
         @method('PATCH')
         <div>
-            <label for="idcollections">ID Category:</label>
-            <input name="idcollections" value="{{ $collections->idcollection }}" style="color: black;" readonly>
+            <label for="collection_ids">ID Category:</label>
+            <input name="collection_ids" value="{{ $collections->collection_id }}" style="color: black;" readonly>
         </div>
-        <select id="idgame" name="idgame" style="color: black;">
+        <select id="game_id" name="game_id" style="color: black;">
             @if ($games)
                 @foreach ($games as $game)
-                    <option value="{{ $game->idgame }}">{{ $game->title }} (ID: {{ $game->idgame }})</option>
+                    <option value="{{ $game->game_id }}">{{ $game->title }} (ID: {{ $game->game_id }})</option>
                 @endforeach
             @endif
         </select>

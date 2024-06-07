@@ -39,7 +39,7 @@ class UserRoleController extends Controller
     {
         $validated = $request->validate([
             'user_id' => ['required',],
-            'idrole' => ['required',],
+            'role_id' => ['required',],
         ]);
         UserRole::create($validated);
         session()->flash('status', 'UserRole creado!');

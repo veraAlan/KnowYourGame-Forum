@@ -39,7 +39,7 @@ class CollectionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idgame' => ['required', 'exists:games,idgame'],
+            'game_id' => ['required', 'exists:games,game_id'],
             'category' => ['required']
         ]);
         Collection::create($validated);
@@ -60,7 +60,7 @@ class CollectionController extends Controller
     public function update(Request $request, Collection $collections)
     {
         $validated = $request->validate([
-            'idgame' => 'required',
+            'game_id' => 'required',
             'category' => 'required',
         ]);
         $collections->update($validated);

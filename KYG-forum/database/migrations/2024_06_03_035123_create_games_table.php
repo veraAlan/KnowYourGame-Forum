@@ -9,7 +9,7 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->increments('idgame');
+            $table->increments('game_id');
             $table->string('title', 100);
             $table->binary('img');
             $table->timestamps();

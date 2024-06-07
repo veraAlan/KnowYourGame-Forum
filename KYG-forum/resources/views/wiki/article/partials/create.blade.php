@@ -7,7 +7,7 @@
          <form method="POST" action="{{route('wiki.article.create', $wiki)}}">
             @csrf
             @method('get')
-            <input value="{{$wiki->idwiki}}" name="idwiki" hidden/>
+            <input value="{{$wiki->wiki_id}}" name="wiki_id" hidden/>
             <x-input-label class="py-2">
                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                      {{ __('Title of the Article') }}

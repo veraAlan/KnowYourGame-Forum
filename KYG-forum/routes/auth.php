@@ -60,9 +60,9 @@ Route::middleware('auth')->group(function () {
 
 // Test Privileges.
 Route::get('admin', function () {
-    return view('admin');
+    return view('auth.admin');
 })->middleware('adminAuth');
 
 Route::get('mod', function () {
-    return view('moderator');
+    return view('auth.moderator');
 })->middleware('modAuth');

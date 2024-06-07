@@ -9,10 +9,10 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->integer('idnew')->primary();
-            $table->unsignedInteger('idportal'); // Cambiado a unsignedInteger
+            $table->integer('news_id')->primary();
+            $table->unsignedInteger('portal_id'); // Cambiado a unsignedInteger
             $table->timestamps();
-            $table->foreign('idportal')->references('idportal')->on('portals')->onDelete('cascade');
+            $table->foreign('portal_id')->references('portal_id')->on('portals')->onDelete('cascade');
         });
     }
 

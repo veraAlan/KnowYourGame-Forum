@@ -11,7 +11,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                   {{ __('Portal') }}
             </h2>
-            <select name='idportal' id='idportal' class="text-black">
+            <select name='portal_id' id='portal_id' class="text-black">
                @foreach($portals as $portal)
                   <option value={{ print_r($portal->id); }}>{{ $portal->name }}</option>
                @endforeach

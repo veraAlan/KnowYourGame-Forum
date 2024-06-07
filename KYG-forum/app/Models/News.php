@@ -10,11 +10,11 @@ class News extends Model
     use HasFactory;
 
     protected $table = 'news';
-    protected $primaryKey = 'idnews';
-    protected $fillable = ['idportal'];
+    protected $primaryKey = 'news_ids';
+    protected $fillable = ['portal_id'];
 
     public function portal()
     {
-        return $this->belongsTo(Portal::class, 'idportal');
+        return $this->belongsTo(Portal::class, 'portal_id');
     }
 }

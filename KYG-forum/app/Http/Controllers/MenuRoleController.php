@@ -25,7 +25,7 @@ class MenuRoleController extends Controller
 
     public function show($id)
     {
-        return MenuRole::where('idmenu', $id)->get();
+        return MenuRole::where('menu_id', $id)->get();
     }
 
     public function edit($id)
@@ -40,7 +40,7 @@ class MenuRoleController extends Controller
 
     public function destroy($id)
     {
-        MenuRole::where('idmenu', $id)->delete();
+        MenuRole::where('menu_id', $id)->delete();
         return response()->json(null, 204);
     }
 }

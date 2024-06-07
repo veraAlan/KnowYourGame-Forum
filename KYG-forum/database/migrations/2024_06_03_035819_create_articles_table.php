@@ -9,11 +9,11 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->bigIncrements('idarticle'); // Auto incremento y clave primaria
-            $table->unsignedBigInteger('idwiki');
+            $table->bigIncrements('article_id'); // Auto incremento y clave primaria
+            $table->unsignedBigInteger('wiki_id');
             $table->string('title', 100);
             $table->timestamps();
-            $table->foreign('idwiki')->references('idwiki')->on('wikis')->onDelete('cascade');
+            $table->foreign('wiki_id')->references('wiki_id')->on('wikis')->onDelete('cascade');
         });
     }
 

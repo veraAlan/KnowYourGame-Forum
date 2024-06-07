@@ -30,7 +30,7 @@ class PortalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idgame' => ['required', 'exists:games,idgame'],
+            'game_id' => ['required', 'exists:games,game_id'],
             'name' => ['required'],
             'description' => ['required'],
         ]);
@@ -60,7 +60,7 @@ class PortalController extends Controller
     public function update(Request $request, Portal $portals)
     {
         $validated = $request->validate([
-            'idgame' => ['required', 'exists:games,idgame'],
+            'game_id' => ['required', 'exists:games,game_id'],
             'name' => ['required'],
             'description' => ['required'],
         ]);

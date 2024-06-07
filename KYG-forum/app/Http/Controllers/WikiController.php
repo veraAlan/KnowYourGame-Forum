@@ -30,7 +30,7 @@ class WikiController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|min:3|unique:wikis,title',
-            'idportal' => 'required'
+            'portal_id' => 'required'
         ]);
 
         Wiki::create($validated);
@@ -53,8 +53,8 @@ class WikiController extends Controller
      */
     public function update(Request $request)
     {
-        Wiki::find($request->input('idwiki'))->update($request->input());
-        return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('idwiki')]);
+        Wiki::find($request->input('wiki_id'))->update($request->input());
+        return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('wiki_id')]);
     }
 
     /**
@@ -63,7 +63,7 @@ class WikiController extends Controller
      * @param Request
      */
     public function destroy(Request $request){
-        Wiki::find($request->input('idwiki'))->delete();
+        Wiki::find($request->input('wiki_id'))->delete();
         return redirect()->route('wiki.index')->with('status', 'deleted');
     }
 }

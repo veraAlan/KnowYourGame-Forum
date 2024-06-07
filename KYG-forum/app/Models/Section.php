@@ -10,11 +10,11 @@ class Section extends Model
     use HasFactory;
 
     protected $table = 'sections';
-    protected $primaryKey = 'idsection';
-    protected $fillable = ['idarticle', 'content', 'img'];
+    protected $primaryKey = 'section_id';
+    protected $fillable = ['article_id', 'content', 'img'];
 
     public function article()
     {
-        return $this->belongsTo(Article::class, 'idarticle');
+        return $this->belongsTo(Article::class, 'article_id');
     }
 }

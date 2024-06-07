@@ -9,10 +9,10 @@
     <form action="{{ route('test.discussions.store') }}" method="POST" style="color: white;">
         @csrf
         <label for="id">Id Forum:</label>
-        <select id="idforum" name="idforum" style="color: black;">
+        <select id="forum_id" name="forum_id" style="color: black;">
             @if ($forums)
                 @foreach ($forums as $forum)
-                    <option value="{{ $forum->idforum }}">{{ $forum->title }} (ID: {{ $forum->idforum }})</option>
+                    <option value="{{ $forum->forum_id }}">{{ $forum->title }} (ID: {{ $forum->forum_id }})</option>
                 @endforeach
             @endif
         </select> <br><br>

@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Role;
 use App\Models\UserRole;
 
 class ModAuth
@@ -18,9 +17,8 @@ class ModAuth
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->check()){
-            $roleid = UserRole::where('id_user', auth()->user()->id);
-            $role = Role::find($roleid)->description;
-            if (($role == Role::find(2)->description || $role == Role::find(1)->description)) {
+            $sessionRole = UserRole::find(auth()->user()->id);
+            if(in_array($sessionRole->role_id, [1, 2])){
                 return $next($request);
             }
             // TODO Redirect and show error message for lesser privileges.

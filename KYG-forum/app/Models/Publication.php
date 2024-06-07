@@ -10,22 +10,22 @@ class Publication extends Model
     use HasFactory;
 
     protected $table = 'publications';
-    protected $primaryKey = 'idpublications';
-    protected $fillable = ['idnews','idportal', 'idgame', 'title', 'content', 'date', 'img'];
+    protected $primaryKey = 'publication_ids';
+    protected $fillable = ['news_ids','portal_id', 'game_id', 'title', 'content', 'date', 'img'];
 
     public function news()
     {
-        return $this->belongsTo(News::class, 'idnews');
+        return $this->belongsTo(News::class, 'news_ids');
     }
 
     public function portal()
     {
-        return $this->belongsTo(Portal::class, 'idportal');
+        return $this->belongsTo(Portal::class, 'portal_id');
     }
 
     // CONSULTAR
     // public function game()
     // {
-    //     return $this->belongsTo(Game::class, 'idgame');
+    //     return $this->belongsTo(Game::class, 'game_id');
     // }
 }
