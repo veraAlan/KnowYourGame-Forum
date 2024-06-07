@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('userroles', function (Blueprint $table) {
-            // Agregar columna iduserrole
-            $table->bigIncrements('iduserrole'); // Esto agrega la columna y la define como clave primaria
+        Schema::table('menus', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('userroles', function (Blueprint $table) {
-            // Eliminar la columna iduserrole
-            $table->dropColumn('iduserrole');
+        Schema::table('menus', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 };

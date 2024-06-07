@@ -7,42 +7,63 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+
+
+    // Listar roles
     public function index()
     {
-        return Role::all();
+        $roles = Role::get();
+        return view('test.roles.index', ['roles' => $roles]);
     }
 
-    public function create()
+
+    // Formulario de creación de rol
+    public function create(Role $roles)
     {
-        //
+        return view('test.roles.create', ['roles' => $roles]);
     }
 
+
+    // Guardar nuevo rol
     public function store(Request $request)
     {
-        $role = Role::create($request->all());
-        return response()->json($role, 201);
+        $validated = $request->validate(['description' => ['required']]);
+        Role::create($validated);
+        session()->flash('status', 'Role creado!');
+        return redirect()->route('test.roles.index');
     }
 
+
+    // Mostrar rol específico
     public function show($id)
     {
-        return Role::find($id);
+        $roles = Role::findOrFail($id);
+        return view('test.roles.show', ['roles' => $roles]);
     }
 
-    public function edit($id)
+
+    // Formulario de edición de rol
+    public function edit(Role $roles)
     {
-        //
+        return view('test.roles.edit', ['roles' => $roles]);
     }
 
-    public function update(Request $request, $id)
+
+    // Actualizar rol
+    public function update(Request $request, Role $roles)
     {
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
-        return response()->json($role, 200);
+        $validated = $request->validate(['description' => ['required']]);
+        $roles->update($validated);
+        session()->flash('status', 'Role actualizado!');
+        return redirect()->route('test.roles.index');
     }
 
-    public function destroy($id)
+
+    // Eliminar rol
+    public function destroy(Role $roles)
     {
-        Role::destroy($id);
-        return response()->json(null, 204);
+        $roles->delete();
+        session()->flash('status', 'Role eliminado!');
+        return to_route('test.roles.index');
     }
 }

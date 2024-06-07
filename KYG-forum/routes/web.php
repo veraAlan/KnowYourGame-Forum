@@ -11,10 +11,12 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 
@@ -177,13 +179,36 @@ Route::get('test/users/{users}/edit', [UserController::class, 'edit'])->name('te
 Route::patch('test/users/{users}', [UserController::class, 'update'])->name('test.users.update');
 Route::delete('test/users/{users}', [UserController::class, 'destroy'])->name('test.users.destroy');
 
+//INCOMPLETO COMPLETARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+//INCOMPLETO COMPLETARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+//INCOMPLETO COMPLETARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 //Rotas de Userroles
-Route::get('test/userroles', [UserRoleController::class, 'index'])->name('test.userroles.index');
-Route::get('test/userroles/create', [UserRoleController::class, 'create'])->name('test.userroles.create');
-Route::post('test/userroles', [UserRoleController::class, 'store'])->name('test.userroles.store');
-Route::get('test/userroles/{user_id}', [UserRoleController::class, 'show'])->name('test.userroles.show');
-Route::get('test/userroles/{user_id}/edit', [UserRoleController::class, 'edit'])->name('test.userroles.edit');
-//INCOMPLETO
+// Route::get('test/userroles', [UserRoleController::class, 'index'])->name('test.userroles.index');
+// Route::get('test/userroles/create', [UserRoleController::class, 'create'])->name('test.userroles.create');
+// Route::post('test/userroles', [UserRoleController::class, 'store'])->name('test.userroles.store');
+// Route::get('test/userroles/{user_id}', [UserRoleController::class, 'show'])->name('test.userroles.show');
+// Route::get('test/userroles/{user_id}/edit', [UserRoleController::class, 'edit'])->name('test.userroles.edit');
 //Route::patch('test/userroles/{user_id}', [UserRoleController::class, 'update'])->name('test.userroles.update');
+
+
+//Rotas de Userroles
+Route::get('test/roles', [RoleController::class, 'index'])->name('test.roles.index');
+Route::get('test/roles/create', [RoleController::class, 'create'])->name('test.roles.create');
+Route::post('test/roles', [RoleController::class, 'store'])->name('test.roles.store');
+Route::get('test/roles/{roles}', [RoleController::class, 'show'])->name('test.roles.show');
+Route::get('test/roles/{roles}/edit', [RoleController::class, 'edit'])->name('test.roles.edit');
+Route::patch('test/roles/{roles}', [RoleController::class, 'update'])->name('test.roles.update');
+Route::delete('test/roles/{roles}', [RoleController::class, 'destroy'])->name('test.roles.destroy');
+
+
+//Rotas de Menus
+// NO FUNCIONA 
+Route::get('test/menus', [MenuController::class, 'index'])->name('test.menus.index');
+Route::get('test/menus/create', [MenuController::class, 'create'])->name('test.menus.create');
+Route::post('test/menus', [MenuController::class, 'store'])->name('test.menus.store');
+Route::get('test/menus/{menus}', [MenuController::class, 'show'])->name('test.menus.show');
+Route::get('test/menus/{menus}/edit', [MenuController::class, 'edit'])->name('test.menus.edit');
+Route::patch('test/menus/{menus}', [MenuController::class, 'update'])->name('test.menus.update');
+Route::delete('test/menus/{menus}', [MenuController::class, 'destroy'])->name('test.menus.destroy');
 
 require __DIR__ . '/auth.php';
