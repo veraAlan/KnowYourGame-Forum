@@ -9,7 +9,7 @@
       <a href="{{ route('wiki.article.index', $wiki) }}" class="flex items-center gap-4 text-white">
          {{ __('Go to Articles.') }}
       </a>
-      <input type="text" value="{{ old('title', $wiki->title) }}" name="title">
+      <input type="textarea" value="{{ old('title', $wiki->title) }}" name="title">
       <div class="flex items-center gap-4">
          <x-primary-button>{{ __('Update this Wiki') }}</x-primary-button>
          @if(session('idupdated') == $wiki->wiki_id)
