@@ -58,6 +58,11 @@ Route::middleware('modAuth')->group(function () {
     Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 });
 
+Route::middleware('adminAuth')->group(function (){
+    
+});
+
+
 // Test all data in database. (No auth needed)
 Route::get('/database/tables', function () {
     testDatabaseController::showDatabaseTables();
