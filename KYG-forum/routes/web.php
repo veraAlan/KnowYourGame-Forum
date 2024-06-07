@@ -14,6 +14,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -164,5 +165,14 @@ Route::get('test/users/{users}', [UserController::class, 'show'])->name('test.us
 Route::get('test/users/{users}/edit', [UserController::class, 'edit'])->name('test.users.edit');
 Route::patch('test/users/{users}', [UserController::class, 'update'])->name('test.users.update');
 Route::delete('test/users/{users}', [UserController::class, 'destroy'])->name('test.users.destroy');
+
+//Rotas de Userroles
+Route::get('test/userroles', [UserRoleController::class, 'index'])->name('test.userroles.index');
+Route::get('test/userroles/create', [UserRoleController::class, 'create'])->name('test.userroles.create');
+Route::post('test/userroles', [UserRoleController::class, 'store'])->name('test.userroles.store');
+Route::get('test/userroles/{user_id}', [UserRoleController::class, 'show'])->name('test.userroles.show');
+Route::get('test/userroles/{user_id}/edit', [UserRoleController::class, 'edit'])->name('test.userroles.edit');
+//INCOMPLETO
+//Route::patch('test/userroles/{user_id}', [UserRoleController::class, 'update'])->name('test.userroles.update');
 
 require __DIR__ . '/auth.php';
