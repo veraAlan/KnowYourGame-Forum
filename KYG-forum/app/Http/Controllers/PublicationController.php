@@ -50,7 +50,7 @@ class PublicationController extends Controller
         $validated['img'] = 'images/' . $validated['img'];
         Publication::create($validated);
 
-        $news = News::find($request->input('news_ids'));
+        $news = News::find($request->input('news_id'));
         session()->flash('status', 'Publication Created!');
         return to_route('test.news.index', ['news' => $news]);
     }
