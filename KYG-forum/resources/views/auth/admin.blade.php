@@ -14,4 +14,9 @@
             </div>
         </div>
     </div>
+
+
+    <a href="/adm/game" class="flex items-center gap-4 text-white">
+        {{ __('Go to admin page for Game.') }}
+    </a>
 </x-app-layout>

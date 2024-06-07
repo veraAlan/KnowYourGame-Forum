@@ -61,8 +61,20 @@ Route::middleware('modAuth')->group(function () {
     Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 });
 
-Route::middleware('adminAuth')->group(function (){
-    
+Route::middleware('adminAuth')->group(function () {
+    //Game
+    Route::get('adm/game', [GameController::class, 'index'])->name('game.index');
+    Route::get('adm/game/create', [GameController::class, 'create'])->name('game.create');
+    Route::patch('adm/game/update', [GameController::class, 'update'])->name('game.update');
+    //Portal
+    Route::get('adm/{game}', [PortalController::class, 'index'])->name('game.portal.index');
+    // Route::get('test/games', [GameController::class, 'index'])->name('test.games.index'); LISTO
+    // Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
+    // Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
+    // Route::get('test/games/{games}', [GameController::class, 'show'])->name('test.games.show');
+    // Route::get('test/games/{games}/edit', [GameController::class, 'edit'])->name('test.games.edit');
+    // Route::patch('test/games/{games}', [GameController::class, 'update'])->name('test.games.update');
+    // Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
 });
 
 Route::get('test/news/{news}', [NewsController::class, 'index'])->name('test.news.index');
@@ -81,13 +93,13 @@ Route::get('/database/tables', function () {
 
 
 //Rotas de Games
-Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
-Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
-Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
-Route::get('test/games/{games}', [GameController::class, 'show'])->name('test.games.show');
-Route::get('test/games/{games}/edit', [GameController::class, 'edit'])->name('test.games.edit');
-Route::patch('test/games/{games}', [GameController::class, 'update'])->name('test.games.update');
-Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
+// Route::get('test/games', [GameController::class, 'index'])->name('test.games.index');
+// Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
+// Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
+// Route::get('test/games/{games}', [GameController::class, 'show'])->name('test.games.show');
+// Route::get('test/games/{games}/edit', [GameController::class, 'edit'])->name('test.games.edit');
+// Route::patch('test/games/{games}', [GameController::class, 'update'])->name('test.games.update');
+// Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
 
 //Rotas de Collections
 Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');

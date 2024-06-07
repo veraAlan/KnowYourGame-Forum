@@ -16,6 +16,6 @@
     </div>
 
     <a href="/mod/wiki" class="flex items-center gap-4 text-white">
-         {{ __('Go to moderator page for WIKI.') }}
-      </a>
+        {{ __('Go to moderator page for WIKI.') }}
+    </a>
 </x-app-layout>
