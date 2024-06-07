@@ -6,10 +6,10 @@
    
       </h2>
       <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
-      <a href="{{ '/mod/' . $wiki->wiki_id . '/' . $article->article_id }}" class="flex items-center gap-4 text-white">
+      <a href="{{ route('wiki.article.section.index', [$wiki, $article]) }}" class="flex items-center gap-4 text-white">
          {{ __('Go to this article`s Sections.') }}
       </a>
-      <input type="text" value="{{ old('title', $article->title) }}" name="title">
+      <input type="textarea" value="{{ old('title', $article->title) }}" name="title">
       <div class="flex items-center gap-4">
          <x-primary-button>{{ __('Update this Article') }}</x-primary-button>
          @if(session('idupdated') == $article->article_id)

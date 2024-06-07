@@ -21,7 +21,7 @@
       @endif
 
       @if(isset($options['news']))
-         <a href={{ "/news/" . $options['news']->news_ids }}>News</a>
+         <a href={{ "/news/" . $options['news']->news_id }}>News</a>
       @endif
    </h2>
 </x-app-layout>
