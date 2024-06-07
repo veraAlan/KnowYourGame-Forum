@@ -33,7 +33,7 @@ class DiscussionController extends Controller
     {
         $validated = $request->validate([
             'idforum' => ['required', 'exists:forums,idforum'],
-            'user_id' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'title' => ['required'],
             'content' => ['required'],
@@ -66,7 +66,7 @@ class DiscussionController extends Controller
     {
         $validated = $request->validate([
             'idforum' => ['required', 'exists:forums,idforum'],
-            'user_id' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'title' => ['required'],
             'content' => ['required'],

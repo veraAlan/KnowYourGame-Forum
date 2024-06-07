@@ -33,7 +33,7 @@ class ReplyController extends Controller
     {
         $validated = $request->validate([
             'iddiscussion' => ['required', 'exists:discussions,iddiscussion'],
-            'user_id' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'content' => ['required'],
         ]);
@@ -65,7 +65,7 @@ class ReplyController extends Controller
     {
         $validated = $request->validate([
             'iddiscussion' => ['required', 'exists:discussions,iddiscussion'],
-            'user_id' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
             'date' => ['required'],
             'content' => ['required'],
         ]);

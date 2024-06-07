@@ -10,10 +10,11 @@ class CreateMenurolesTable extends Migration
     {
         Schema::create('menuroles', function (Blueprint $table) {
             $table->bigInteger('idrole')->unsigned(); // Cambiado a bigInteger
-            $table->bigInteger('menuid')->unsigned(); // Cambiado a bigInteger
-            $table->primary(['idrole', 'menuid']);
+            $table->bigInteger('idmenu')->unsigned(); // Cambiado a bigInteger
+            $table->primary(['idrole', 'idmenu']);
+            $table->timestamps();
             $table->foreign('idrole')->references('idrole')->on('roles')->onDelete('cascade');
-            $table->foreign('menuid')->references('menuid')->on('menus')->onDelete('cascade');
+            $table->foreign('idmenu')->references('idmenu')->on('menus')->onDelete('cascade');
         });
     }
 

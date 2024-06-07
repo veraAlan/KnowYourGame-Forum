@@ -12,6 +12,7 @@ class CreateSectionsTable extends Migration
             $table->bigIncrements('idsection'); // Auto incremento y clave primaria
             $table->unsignedBigInteger('idarticle'); // Cambiado a unsignedBigInteger
             $table->text('content');
+            $table->timestamps();
             $table->foreign('idarticle')->references('idarticle')->on('articles')->onDelete('cascade');
         });
     }

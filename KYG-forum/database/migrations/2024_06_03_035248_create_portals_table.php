@@ -13,6 +13,7 @@ class CreatePortalsTable extends Migration
             $table->unsignedInteger('idgame');
             $table->string('name', 100);
             $table->string('description', 255);
+            $table->timestamps();
             $table->foreign('idgame')->references('idgame')->on('games')->onDelete('cascade');
         });
     }

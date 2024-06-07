@@ -12,6 +12,7 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('idarticle'); // Auto incremento y clave primaria
             $table->unsignedBigInteger('idwiki');
             $table->string('title', 100);
+            $table->timestamps();
             $table->foreign('idwiki')->references('idwiki')->on('wikis')->onDelete('cascade');
         });
     }

@@ -11,6 +11,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('idgame');  // Auto increment y clave primaria
             $table->string('title', 100);
+            $table->timestamps();
         });
     }
 
