@@ -4,28 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use App\Models\News;
+use App\Models\Game;
+use App\Models\Portal;
+
 
 class PublicationController extends Controller
 {
-    public function index()
+    public function index(News $news)
     {
-        return Publication::all();
+        $publications = Publication::get();
+        return view('test.news.publications.index', ['publications' => $publications, 'news' => $news]);
     }
 
-    public function create()
+    public function create( News $news)
     {
-        //
+        $portal = Portal::find($news->idnews);
+        $games = Game::find($portal->idportal);
+        return view('test.news.publications.create', ['portal' => $portal, 'news' => $news, 'games' => $games]);
     }
 
     public function store(Request $request)
     {
-        $publication = Publication::create($request->all());
-        return response()->json($publication, 201);
+        $validated = $request->validate([
+            'idnews' =>['required'],
+            'idgame' =>['required'],
+            'title' =>['required'],
+            'content' =>['required'],
+            'date' =>['required']
+        ]);
+        Publication::create($validated);
+        $news = News::find($request->input('idnews'));
+        session()->flash('status', 'Publication Created!');
+        return to_route('test.news.index', ['news' => $news]);
     }
 
     public function show($id)
     {
-        return Publication::find($id);
+        $publications = Publication::findOrFail($id);
+        return view('test.news.publications.show', ['publications' => $publications]);
     }
 
     
@@ -33,21 +50,25 @@ class PublicationController extends Controller
         return Publication::where($columnName, $value)->get();
     }
 
-    public function edit($id)
+    public function edit(Publication $publication)
     {
-        //
+        return view('test.news.publications.edit', ['publications' => $publication]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Publication $publication)
     {
-        $publication = Publication::findOrFail($id);
-        $publication->update($request->all());
-        return response()->json($publication, 200);
+        $validated = $request->validate([
+            'title' => ['required']
+        ]);
+        $publication->update($validated);
+        session()->flash('status', 'Publication Update!');
+        return to_route('test.news.index');
     }
 
-    public function destroy($id)
+    public function destroy(News $news , Publication $publication)
     {
-        Publication::destroy($id);
-        return response()->json(null, 204);
+        $publication->delete();
+        session()->flash('status', 'Publication Deleted!');
+        return to_route('test.news.index' , $news);
     }
 }

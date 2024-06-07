@@ -11,11 +11,12 @@ class CreateRepliesTable extends Migration
         Schema::create('replies', function (Blueprint $table) {
             $table->bigIncrements('idreply'); // Auto incremento y clave primaria
             $table->unsignedBigInteger('iddiscussion');
-            $table->unsignedBigInteger('user_id'); // Cambiado de 'username' a 'user_id'
+            $table->unsignedBigInteger('id_user'); // Cambiado de 'username' a 'user_id'
             $table->date('date');
             $table->text('content');
+            $table->timestamps();
             $table->foreign('iddiscussion')->references('iddiscussion')->on('discussions')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Referencia al campo 'id' en 'users'
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade'); // Referencia al campo 'id' en 'users'
         });
     }
 

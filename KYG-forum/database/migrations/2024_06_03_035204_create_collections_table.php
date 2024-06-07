@@ -13,6 +13,7 @@ class CreateCollectionsTable extends Migration
             $table->bigIncrements('idcollection');
             $table->unsignedInteger('idgame'); // Cambiado a unsignedInteger
             $table->string('category', 100);
+            $table->timestamps();
             $table->foreign('idgame')->references('idgame')->on('games')->onDelete('cascade');
         });
     }

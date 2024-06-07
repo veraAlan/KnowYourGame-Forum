@@ -3,50 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discussion;
+use App\Models\Forum;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DiscussionController extends Controller
 {
+
+
+    // Muestra la lista de discusiones.
     public function index()
     {
-        return Discussion::all();
+        $discussions = Discussion::get();
+        return view('test.discussions.index', ['discussions' => $discussions]);
     }
 
-    public function create()
+
+    // Muestra el formulario de creación de discusión.
+    public function create(Discussion $discussions)
     {
-        //
+        $forums = Forum::get();
+        $users = User::all();
+        return view('test.discussions.create', ['discussions' => $discussions, 'forums' => $forums, 'users' => $users]);
     }
 
+
+    // Almacena una nueva discusión.
     public function store(Request $request)
     {
-        $discussion = Discussion::create($request->all());
-        return response()->json($discussion, 201);
+        $validated = $request->validate([
+            'idforum' => ['required', 'exists:forums,idforum'],
+            'id_user' => ['required', 'exists:users,id'],
+            'date' => ['required'],
+            'title' => ['required'],
+            'content' => ['required'],
+        ]);
+        Discussion::create($validated);
+        session()->flash('status', '¡Discussion creado!');
+        return redirect()->route('test.discussions.index');
     }
 
+
+    // Muestra una discusión específica.
     public function show($id)
     {
-        return Discussion::find($id);
-    }
-    
-    static public function findFrom(string $columnName, $value){
-        return Discussion::where($columnName, $value)->get();
+        $discussions = Discussion::findOrFail($id);
+        return view('test.discussions.show', ['discussions' => $discussions]);
     }
 
-    public function edit($id)
+
+    // Muestra el formulario de edición de discusión.
+    public function edit(Discussion $discussions)
     {
-        //
+        $forums = Forum::get();
+        $users = User::all();
+        return view('test.discussions.edit', ['discussions' => $discussions, 'forums' => $forums, 'users' => $users]);
     }
 
-    public function update(Request $request, $id)
+
+    // Actualiza una discusión existente.
+    public function update(Request $request, Discussion $discussions)
     {
-        $discussion = Discussion::findOrFail($id);
-        $discussion->update($request->all());
-        return response()->json($discussion, 200);
+        $validated = $request->validate([
+            'idforum' => ['required', 'exists:forums,idforum'],
+            'id_user' => ['required', 'exists:users,id'],
+            'date' => ['required'],
+            'title' => ['required'],
+            'content' => ['required'],
+        ]);
+        $discussions->update($validated);
+        session()->flash('status', 'Discussion actualizado!');
+        return redirect()->route('test.discussions.index');
     }
 
-    public function destroy($id)
+
+    // Elimina una discusión existente.
+    public function destroy(Discussion $discussions)
     {
-        Discussion::destroy($id);
-        return response()->json(null, 204);
+        $discussions->delete();
+        session()->flash('status', 'Discussion eliminado!');
+        return to_route('test.discussions.index');
     }
 }

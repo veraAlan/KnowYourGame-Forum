@@ -9,8 +9,10 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->increments('idgame');  // Auto increment y clave primaria
+            $table->increments('idgame');
             $table->string('title', 100);
+            $table->binary('img');
+            $table->timestamps();
         });
     }
 

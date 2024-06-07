@@ -12,6 +12,7 @@ class CreateWikisTable extends Migration
             $table->bigIncrements('idwiki'); // Cambiado a bigIncrements
             $table->unsignedInteger('idportal');
             $table->string('title', 100);
+            $table->timestamps();
             $table->foreign('idportal')->references('idportal')->on('portals')->onDelete('cascade');
         });
     }
