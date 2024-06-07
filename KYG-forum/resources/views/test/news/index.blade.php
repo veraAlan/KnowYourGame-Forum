@@ -12,17 +12,22 @@
             <div> {{ $value }}</div>
         @endsession
         <br><br>
+
         @foreach ($publications as $publication)
             <h2>
-                <a href="{{ route('test.news.publications.show', $publication) }}">
+                <a href="{{ route('test.news.publications.show', $publication->publication_id) }}">
                     {{ $publication->title }}
                 </a>
             </h2> &nbsp;
             <h3>
                 {{ $publication->content }}
             </h3>
-            <a href=" {{ route('test.news.publications.edit', $publication) }}">Edit</a>
-            <form action=" {{ route('test.news.publications.destroy', ['news' => $news, 'publication' => $publication]) }}" method="POST">
+
+            <!-- Caller for the image -->
+            <img src="{{asset($publication->img)}}" alt="here">
+
+            <a href=" {{ route('test.news.publications.edit', $publication->publication_id) }}">Edit</a>
+            <form action=" {{ route('test.news.publications.destroy', ['news' => $news, 'publication' => $publication->publication_id]) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Delete</button>

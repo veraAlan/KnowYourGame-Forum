@@ -5,8 +5,9 @@
         </h2>
     </x-slot>
 
-    <form action=" {{ route('test.news.publications.store', $news) }}" method="POST" style="color :white;">
+    <form action=" {{ route('test.news.publications.store', $news) }}" method="POST" style="color :white;" enctype="multipart/form-data">
         @csrf
+        <input id="news_id" name="news_id" value="{{ $news->news_id }}" hidden>
         <input id="news_id" name="news_id" value="{{ $news->news_id }}" hidden>
         <input id="game_id" name="game_id" value="{{ $games->game_id }}" hidden>
         <label for="title">Tittle</label>

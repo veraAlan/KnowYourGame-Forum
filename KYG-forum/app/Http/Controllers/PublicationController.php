@@ -41,11 +41,16 @@ class PublicationController extends Controller
             'title' =>['required'],
             'content' =>['required'],
             'date' =>['required'],
-            'img' => ['required']
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
+        $imageName = time().'.'.$request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+
+        $validated['img'] = 'images/' . $validated['img'];
         Publication::create($validated);
-        $news = News::find($request->input('news_id'));
+
+        $news = News::find($request->input('news_ids'));
         session()->flash('status', 'Publication Created!');
         return to_route('test.news.index', ['news' => $news]);
     }

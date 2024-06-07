@@ -16,6 +16,7 @@ class Publication extends Model
     public function news()
     {
         return $this->belongsTo(News::class, 'news_id');
+        return $this->belongsTo(News::class, 'news_id');
     }
 
     public function portal()
