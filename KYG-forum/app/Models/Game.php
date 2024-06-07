@@ -12,5 +12,5 @@ class Game extends Model
 
     protected $table = 'games';
     protected $primaryKey = 'idgame';
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'img'];
 }

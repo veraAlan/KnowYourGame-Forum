@@ -13,6 +13,7 @@ class CreateSectionsTable extends Migration
             $table->unsignedBigInteger('idarticle'); // Cambiado a unsignedBigInteger
             $table->text('content');
             $table->timestamps();
+            $table->binary('img');
             $table->foreign('idarticle')->references('idarticle')->on('articles')->onDelete('cascade');
         });
     }

@@ -11,7 +11,7 @@ class Forum extends Model
 
     protected $table = 'forums';
     protected $primaryKey = 'idforum';
-    protected $fillable = ['idportal', 'title', 'img'];
+    protected $fillable = ['idportal', 'title'];
 
     public function portal()
     {

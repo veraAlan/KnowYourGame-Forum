@@ -11,7 +11,7 @@ class Publication extends Model
 
     protected $table = 'publications';
     protected $primaryKey = 'idpublications';
-    protected $fillable = ['idnews','idportal', 'idgame', 'title', 'content', 'date'];
+    protected $fillable = ['idnews','idportal', 'idgame', 'title', 'content', 'date', 'img'];
 
     public function news()
     {

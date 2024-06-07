@@ -12,7 +12,6 @@ class CreateForumsTable extends Migration
             $table->bigIncrements('idforum');
             $table->unsignedInteger('idportal'); // Cambiado a unsignedInteger
             $table->string('title', 100);
-            $table->string('img', 255);
             $table->timestamps();
             $table->foreign('idportal')->references('idportal')->on('portals')->onDelete('cascade');
         });

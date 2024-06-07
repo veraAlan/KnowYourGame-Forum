@@ -15,6 +15,7 @@ class CreatePublicationsTable extends Migration
             $table->string('title', 100);
             $table->text('content');
             $table->date('date');
+            $table->binary('img');
             $table->timestamps();
             $table->foreign('idnew')->references('idnew')->on('news')->onDelete('cascade');
         });

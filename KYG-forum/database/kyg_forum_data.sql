@@ -1,6 +1,6 @@
 -- Datos para la tabla games
 INSERT INTO
-    games (idgame, title)
+    games (idgame, title, img)
 VALUES
     (1, 'Counter-Strike 2'),
     (2, 'Minecraft'),
