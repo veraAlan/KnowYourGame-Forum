@@ -19,7 +19,7 @@ class PublicationController extends Controller
 
     public function create( News $news)
     {
-        $portal = Portal::find($news->news_ids);
+        $portal = Portal::find($news->news_id);
         $games = Game::find($portal->portal_id);
         return view('test.news.publications.create', ['portal' => $portal, 'news' => $news, 'games' => $games]);
     }
@@ -27,13 +27,20 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'news_ids' =>['required'],
+            'news_id' =>['required'],
             'game_id' =>['required'],
             'title' =>['required'],
             'content' =>['required'],
-            'date' =>['required']
+            'date' =>['required'],
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+
+        $imageName = time().'.'.$request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+
+        $validated['img'] = 'images/' . $validated['img'];
         Publication::create($validated);
+
         $news = News::find($request->input('news_ids'));
         session()->flash('status', 'Publication Created!');
         return to_route('test.news.index', ['news' => $news]);

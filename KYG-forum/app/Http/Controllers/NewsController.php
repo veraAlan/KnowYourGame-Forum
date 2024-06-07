@@ -13,7 +13,7 @@ class NewsController extends Controller
         //$games = DB::table('games')->get();
         // $games = Game::all();
         
-        $publications = Publication::get();
+        $publications = Publication::where('news_id', $news->news_id)->get();
         return view('test.news.index', ['news' => $news, 'publications' => $publications]);
     }
 

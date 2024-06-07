@@ -10,7 +10,7 @@ class News extends Model
     use HasFactory;
 
     protected $table = 'news';
-    protected $primaryKey = 'news_ids';
+    protected $primaryKey = 'news_id';
     protected $fillable = ['portal_id'];
 
     public function portal()
