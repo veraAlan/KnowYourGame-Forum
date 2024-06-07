@@ -107,8 +107,8 @@ VALUES (
 -- Datos para la tabla publications
 INSERT INTO
     publications (
+        idpublications,
         idnews,
-        idportal,
         idgame,
         title,
         content,
@@ -155,7 +155,7 @@ INSERT INTO
     discussions (
         iddiscussion,
         idforum,
-        username,
+        user_id,
         date,
         title,
         content
@@ -163,7 +163,7 @@ INSERT INTO
 VALUES (
         1,
         1,
-        'regular_user',
+        'regular user',
         '2024-05-02',
         'Discusión sobre el nuevo parche',
         '¿Qué opinas sobre los cambios?'
