@@ -1,11 +1,11 @@
 @foreach ($games as $game)
-    <form method="POST" action="{{ route('game.update') }}">
+    <form method="POST" action="{{ route('game.update') }}" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         </h2>
-        <input type="number" value="{{ $game->game_id }}" name="wiki_id" hidden>
+        <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
         <a href="{{ route('game.portal.index', $game) }}" class="flex items-center gap-4 text-white">
             {{ __('Go to Portal.') }}
         </a>
@@ -15,7 +15,7 @@
         <br><br>
         <input type="file" name="img" class="text-black">
         
-        <img src="{{ asset($game->img) }}" alt="">
+        {{-- <img src="{{ asset($game->img) }}" alt=""> --}}
         <br><br>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Update this Game') }}</x-primary-button>

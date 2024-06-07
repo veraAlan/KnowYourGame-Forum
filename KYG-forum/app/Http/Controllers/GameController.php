@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Storage;
+
+use function Pest\Laravel\delete;
 
 class GameController extends Controller
 {
@@ -37,6 +41,20 @@ class GameController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request->input());
+        // exit();
+        // dd($request->game_id);
+        // exit();
+
+        $img = Storage::url(public_path(Game::find($request->input('game_id'))->img));
+        dd($img);
+        exit();
+
+        $imageName = time() . '.' . $request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+        $validated['img'] = 'images/' . $imageName;
+
+
         Game::find($request->input('game_id'))->update($request->input());
         return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('game_id')]);
     }
