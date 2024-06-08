@@ -37,8 +37,7 @@ class PublicationController extends Controller
         $imageName = time() . '.' . $request->img->extension();
         $request->img->move(public_path('images'), $imageName);
         $validated['img'] = 'images/' . $imageName;
-        dd($validated);
-        exit();
+
         Publication::create($validated);
 
         return redirect()->route('news.publications.index', ['news' => $news])->with('status', 'created');

@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-x1 text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Create a new section.') }}
             </h2>
-            <form action="{{ route('news.publications.create', ['news' => $news, 'publication' => $publication]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('news.publications.create', ['news' => $news]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('get')
                 <input value="{{ $news->news_id }}" name="news_id" id="news_id" hidden>
@@ -19,9 +19,8 @@
                     <h2 class="font-semibold text-x1 text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Content of publication') }}
                     </h2>
-
                     <input type="textarea" name="content" id="content" class="text-black">
-                    <input type="date" name="date" id="date">
+                   <br> <br> <input type="date" name="date" id="date">
                     <x-input-label class="py-2">
                         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                             {{ __('Img of Game') }}
