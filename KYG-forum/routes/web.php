@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
 
 // Routes that go through Moderator Authentication.
 Route::middleware('modAuth')->group(function () {
+    Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::get('mod/news/update', [NewsController::class, 'update'])->name('news.update');
+    Route::get('mod/news/update', [NewsController::class, 'destroy'])->name('news/destroy');
+    
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
@@ -59,6 +64,8 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/{wiki}/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
     Route::patch('mod/{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
     Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+
+
 });
 
 Route::middleware('adminAuth')->group(function () {
