@@ -1,9 +1,54 @@
 -- Datos para la tabla games
 INSERT INTO
-    games (game_id, title, img)
-VALUES (1, 'Counter-Strike 2', 1),
-    (2, 'Minecraft', 1),
-    (3, 'League of Legends', 1);
+    games (
+        game_id,
+        title,
+        img,
+        created_at,
+        updated_at
+    )
+VALUES (
+        1,
+        'Counter-Strike 2',
+        'games/images/counter-strike-2-1717878632.png',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        2,
+        'Minecraft',
+        'games/images/minecraft-1717878656.png',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        3,
+        'League of Legends',
+        'games/images/league-of-legends:-ijbinij-edition-1717881342.png',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        4,
+        'Frog Game: Nae Nae',
+        'games/images/Frog-Game-Nae-Nae-1717884579.png',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        5,
+        'Kirby Angry Edition',
+        'games/images/kirby-angry-edition-1717880243.jpg',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        6,
+        'Pingu: French Accent Edition',
+        'games/images/Pingu-French-Accent-Edition-1717889907.jpg',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    );
 
 -- Insertar datos en las tablas
 INSERT INTO
