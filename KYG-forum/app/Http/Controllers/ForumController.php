@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discussion;
 use App\Models\Forum;
 use App\Models\Game;
 use App\Models\Portal;
@@ -12,8 +13,10 @@ class ForumController extends Controller
 
     public function index(Game $game, Portal $portal)
     {
-        $forums = Forum::where('forum_id', $portal->portal_id)->get();
-        return view('game.portal.forum.index', compact('forums', 'portal', 'game'));
+        $forums = Forum::where('portal_id', $portal->portal_id)->get();
+        $discussions = Discussion::whereIn('forum_id', $forums->pluck('forum_id'))->get()->groupBy('forum_id');
+        
+        return view('game.portal.forum.index', compact('forums', 'portal', 'game', 'discussions'));
     }
 
 

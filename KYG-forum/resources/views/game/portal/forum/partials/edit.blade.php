@@ -1,3 +1,5 @@
+@include('game.portal.forum.discussion.partials.create')
+
 @foreach ($forums as $forum)
     <form method="POST"
         action="{{ route('game.portal.forum.update', ['game' => $game, 'portal' => $portal, 'forum' => $forum]) }}">
@@ -6,9 +8,6 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"></h2>
 
         <input type="number" value="{{ $portal->portal_id }}" name="portal_id" hidden>
-        <a href="{{ route('game.portal.forum.discussion.index', [$game, $portal, $forum]) }}" class="flex items-center gap-4 text-white">
-            {{ __('Go to this discussion Forum.') }}
-         </a>
         <input type="text" value="{{ old('title', $forum->title) }}" name="title">
 
         <div class="flex items-center gap-4">
@@ -28,4 +27,16 @@
             <x-primary-button>{{ __('Delete this Forum') }}</x-primary-button>
         </div>
     </form>
+    <br><br>
+
+    @if(isset($discussions[$forum->forum_id]))
+        @foreach ($discussions[$forum->forum_id] as $discussion)
+            @include('game.portal.forum.discussion.index', [
+                'game' => $game,
+                'portal' => $portal,
+                'forum' => $forum,
+                'discussion' => $discussion,
+            ])
+        @endforeach
+    @endif
 @endforeach

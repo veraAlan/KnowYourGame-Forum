@@ -14,24 +14,28 @@ class DiscussionController extends Controller
 
     public function index(Game $game, Portal $portal, Forum $forum)
     {
-        $discussion = Discussion::where('forum_id', $forum->forum_id)->get();
-        return view('game.portal.forum.discussion.index', compact('game', 'portal', 'forum', 'discussion'));
+        $discussions = Discussion::where('forum_id', $forum->forum_id)->get();
+        return view('forum.partials.edit', compact('game', 'portal', 'forum', 'discussions'));
     }
-    // Muestra la lista de discusiones.
-    // public function index()
-    // {
-    //     $discussions = Discussion::get();
-    //     return view('test.discussions.index', ['discussions' => $discussions]);
-    // }
 
 
     // Muestra el formulario de creación de discusión.
-    public function create(Discussion $discussions)
+    public function create(Request $request, Game $game, Portal $portal, Forum $forum)
     {
-        $forums = Forum::get();
-        $users = User::all();
-        return view('test.discussions.create', ['discussions' => $discussions, 'forums' => $forums, 'users' => $users]);
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        $validated = $request->validate([
+            'forum_id' => 'required', 
+            'user_id' => 'required', 
+            'date' => 'required',
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        Discussion::create($validated);
+        return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal, 'forum' => $forum])->with('status', 'created');
     }
+    
 
 
     // Almacena una nueva discusión.

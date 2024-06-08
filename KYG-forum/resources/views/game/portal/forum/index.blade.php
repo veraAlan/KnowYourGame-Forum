@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
-    {{-- @include('game.portal.forum.partials.create') --}}
-    @include('game.portal.forum.partials.edit')
+    @include('game.portal.forum.discussion.partials.create', [
+        'game' => $game,
+        'portal' => $portal,
+        'forum' => $forums,
+        'discussion' => $discussions,
+    ])
 </x-app-layout>

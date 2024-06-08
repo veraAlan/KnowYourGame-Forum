@@ -80,6 +80,11 @@ Route::middleware('adminAuth')->group(function () {
 
     //Discussion
     Route::get('adm/{game}/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
+    Route::get('adm/{game}/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
+
+    //Reply
+    Route::get('adm/{game}/{portal}/{forum}/{discussion}/reply', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply');
+
 });
 
 // Test all data in database. (No auth needed)
@@ -87,25 +92,14 @@ Route::get('/database/tables', function () {
     testDatabaseController::showDatabaseTables();
 });
 
-
-//Rotas de Collections
-// Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
-// Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
-// Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
-// Route::get('test/collections/{collections}', [CollectionController::class, 'show'])->name('test.collections.show');
-// Route::get('test/collections/{collections}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
-// Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
-// Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
-
-
 //Rotas de Discussions
-Route::get('test/discussions', [DiscussionController::class, 'index'])->name('test.discussions.index');
-Route::get('test/discussions/create', [DiscussionController::class, 'create'])->name('test.discussions.create');
-Route::post('test/discussions', [DiscussionController::class, 'store'])->name('test.discussions.store');
-Route::get('test/discussions/{discussions}', [DiscussionController::class, 'show'])->name('test.discussions.show');
-Route::get('test/discussions/{discussions}/edit', [DiscussionController::class, 'edit'])->name('test.discussions.edit');
-Route::patch('test/discussions/{discussions}', [DiscussionController::class, 'update'])->name('test.discussions.update');
-Route::delete('test/discussions/{discussions}', [DiscussionController::class, 'destroy'])->name('test.discussions.destroy');
+// Route::get('test/discussions', [DiscussionController::class, 'index'])->name('test.discussions.index');
+// Route::get('test/discussions/create', [DiscussionController::class, 'create'])->name('test.discussions.create');
+// Route::post('test/discussions', [DiscussionController::class, 'store'])->name('test.discussions.store');
+// Route::get('test/discussions/{discussions}', [DiscussionController::class, 'show'])->name('test.discussions.show');
+// Route::get('test/discussions/{discussions}/edit', [DiscussionController::class, 'edit'])->name('test.discussions.edit');
+// Route::patch('test/discussions/{discussions}', [DiscussionController::class, 'update'])->name('test.discussions.update');
+// Route::delete('test/discussions/{discussions}', [DiscussionController::class, 'destroy'])->name('test.discussions.destroy');
 
 //Rotas de Replies
 Route::get('test/replies', [ReplyController::class, 'index'])->name('test.replies.index');
