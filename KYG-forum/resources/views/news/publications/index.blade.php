@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    @include('news.publication.create')
+    @include('news.publications.partials.create')
 
-    @include('news.publication.edit')
+    {{-- @include('news.publications.partials.edit') --}}
 </x-app-layout>

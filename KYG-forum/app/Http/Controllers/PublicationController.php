@@ -15,50 +15,13 @@ class PublicationController extends Controller
     public function index(News $news, Publication $publication)
     {
         $publications = News::where('news_id', $news->news_id)->get();
-        return view('test.news.publications.index', compact('publication', 'news'));
+        return view('news.publications.index', compact('publication', 'news'));
     }
 
     public function create(Request $request, News $news)
     {
+
         if (session()->token() !== $request->input('_token')) {
-            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
-        }
-
-        $validated = $request->validate([
-            'new_id' => 'required',
-            'game_id' => 'required',
-            'title' => 'required',
-            'content' => 'required|min:6',
-            'date' => 'required|{date()}'
-        ]);
-
-        Publication::create($validated);
-
-        return redirect()->route('news.publication.index', ['news' => $news])->with('status', 'created');
-    }
-
-
-
-    public function show($id)
-    {
-        $publications = Publication::findOrFail($id);
-        return view('test.news.publications.show', ['publications' => $publications]);
-    }
-
-
-    static public function findFrom(string $columnName, $value)
-    {
-        return Publication::where($columnName, $value)->get();
-    }
-
-    public function edit(Publication $publication)
-    {
-        return view('test.news.publications.edit', ['publications' => $publication]);
-    }
-
-    public function update(Request $request, News $news, Publication $publication)
-    {
-        if (session()->token() !== $request ->Input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
 
@@ -67,11 +30,35 @@ class PublicationController extends Controller
             'game_id' => 'required',
             'title' => 'required',
             'content' => 'required',
-            'date' => 'required|{date()}'
+            'date' => 'required',
+            'img' => 'required'
+        ]);
+
+        $imageName = time() . '.' . $request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+        $validated['img'] = 'images/' . $imageName;
+        dd($validated);
+        exit();
+        Publication::create($validated);
+
+        return redirect()->route('news.publications.index', ['news' => $news])->with('status', 'created');
+    }
+
+
+    public function update(Request $request, News $news, Publication $publication)
+    {
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+
+        $validated = $request->validate([
+            'publication_id' => 'required',
+            'title' => 'required',
+            'content' => 'required'
         ]);
 
         $publication->update($validated);
-        return redirect()->route('news.publication.index', ['news' => $news, '#show-update'])->with(['status' => 'update', 'idupdated' => $publication->publication_id]);
+        return redirect()->route('news.publications.index', ['news' => $news, '#show-update'])->with(['status' => 'updated', 'idupdated' => $publication->publication_id]);
     }
 
     public function destroy(Request $request, News $news, Publication $publication)
@@ -80,6 +67,6 @@ class PublicationController extends Controller
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
         $publication->delete();
-        return redirect()->route('news.publication.index', ['news' => $news])->with('status', 'deleted');
+        return redirect()->route('wiki.article.section.index', ['news' => $news])->with('status', 'deleted');
     }
 }

@@ -18,4 +18,6 @@
 
     @include('news.partials.create')
 
+    @include('news.partials.edit')
+
 </x-app-layout>
