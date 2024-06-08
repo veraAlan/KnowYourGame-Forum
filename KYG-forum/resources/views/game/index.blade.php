@@ -10,7 +10,6 @@
             class="text-sm text-gray-600 dark:text-gray-400">{{ __('The wiki was deleted.') }}</p>
     @endif
 
-    @include('game.partials.create')
-
-    @include('game.partials.edit')
+    @include('game.partials.create');
+    @include('game.partials.edit');
 </x-app-layout>

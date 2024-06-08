@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Discussion;
 use App\Models\Forum;
+use App\Models\Game;
+use App\Models\Portal;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class DiscussionController extends Controller
 {
 
-
-    // Muestra la lista de discusiones.
-    public function index()
+    public function index(Game $game, Portal $portal, Forum $forum)
     {
-        $discussions = Discussion::get();
-        return view('test.discussions.index', ['discussions' => $discussions]);
+        $discussion = Discussion::where('forum_id', $forum->forum_id)->get();
+        return view('game.portal.forum.discussion.index', compact('game', 'portal', 'forum', 'discussion'));
     }
+    // Muestra la lista de discusiones.
+    // public function index()
+    // {
+    //     $discussions = Discussion::get();
+    //     return view('test.discussions.index', ['discussions' => $discussions]);
+    // }
 
 
     // Muestra el formulario de creación de discusión.

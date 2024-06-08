@@ -15,71 +15,46 @@ class ForumController extends Controller
         $forums = Forum::where('forum_id', $portal->portal_id)->get();
         return view('game.portal.forum.index', compact('forums', 'portal', 'game'));
     }
-    // // Muestra una lista de todos los foros
-    // public function index()
+
+
+    // public function create(Request $request, Game $game, Portal $portal)
     // {
-    //     $forums = Forum::get();
-    //     return view('test.forums.index', ['forums' => $forums]);
-    // }
-
-
-    // // Muestra el formulario para crear un nuevo foro
-    // public function create(Forum $forums)
-    // {
-    //     $portals = Portal::get();
-    //     return view('test.forums.create', ['forums' => $forums, 'portals' => $portals]);
-    // }
-
-
-    // // Almacena un nuevo foro en la base de datos
-    // public function store(Request $request)
-    // {
+    //     if (session()->token() !== $request->input('_token')) {
+    //         return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+    //     }
     //     $validated = $request->validate([
-    //         'portal_id' => ['required', 'exists:portals,portal_id'],
-    //         'title' => ['required'],
-    //         'img' => ['required'],
+    //         'portal_id' => 'required',
+    //         'title' => 'required|min:3|max:25'
     //     ]);
     //     Forum::create($validated);
-    //     session()->flash('status', '¡Foro creado!');
-    //     return redirect()->route('test.forums.index');
+    //     return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal])->with('status', 'created');
     // }
 
 
-    // // Muestra un foro específico basado en su ID
-    // public function show($id)
-    // {
-    //     $forums = Forum::findOrFail($id);
-    //     return view('test.forums.show', ['forums' => $forums]);
-    // }
+    public function update(Request $request, Game $game, Portal $portal, Forum $forum)
+    {
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Token inválido.');
+        }
+
+        $validated = $request->validate([
+            'portal_id' => 'required',
+            'title' => 'required|min:3|max:25'
+        ]);
+
+        $forum->update($validated);
+
+        return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal, '#show-update'])
+            ->with(['status' => 'actualizado', 'idupdated' => $forum->forum_id]);
+    }
 
 
-    // // Muestra el formulario para editar un foro existente
-    // public function edit(Forum $forums)
-    // {
-    //     $portals = Portal::all();
-    //     return view('test.forums.edit', ['forums' => $forums, 'portals' => $portals]);
-    // }
-
-
-    // // Actualiza un foro existente en la base de datos
-    // public function update(Request $request, Forum $forums)
-    // {
-    //     $validated = $request->validate([
-    //         'portal_id' => ['required', 'exists:portals,portal_id'],
-    //         'title' => ['required'],
-    //         'img' => ['required'],
-    //     ]);
-    //     $forums->update($validated);
-    //     session()->flash('status', '¡Foro actualizado!');
-    //     return redirect()->route('test.forums.index');
-    // }
-
-
-    // // Elimina un foro de la base de datos
-    // public function destroy(Forum $forums)
-    // {
-    //     $forums->delete();
-    //     session()->flash('status', '¡Foro eliminado!');
-    //     return to_route('test.forums.index');
-    // }
+    public function destroy(Request $request, Game $game, Portal $portal, Forum $forum)
+    {
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        $forum->delete();
+        return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal])->with('status', 'deleted');
+    }
 }

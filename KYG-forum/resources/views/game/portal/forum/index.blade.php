@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-    @include('game.portal.forum.partials.create')
-
+    {{-- @include('game.portal.forum.partials.create') --}}
     @include('game.portal.forum.partials.edit')
 </x-app-layout>

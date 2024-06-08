@@ -8,7 +8,7 @@
                 @csrf
                 @method('get')
                 <input value="{{ $game->game_id }}" name="game_id" hidden />
-                <input value="{{ $portal->portal_id }}" name="article_id" hidden />
+                <input value="{{ $portal->portal_id }}" name="portal_id" hidden />
                 <x-input-label class="py-2">
                     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Title of the forum') }}
