@@ -66,15 +66,22 @@ Route::middleware('adminAuth')->group(function () {
     Route::get('adm/game', [GameController::class, 'index'])->name('game.index');
     Route::get('adm/game/create', [GameController::class, 'create'])->name('game.create');
     Route::patch('adm/game/update', [GameController::class, 'update'])->name('game.update');
+    Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     //Portal
     Route::get('adm/{game}', [PortalController::class, 'index'])->name('game.portal.index');
-    // Route::get('test/games', [GameController::class, 'index'])->name('test.games.index'); LISTO
-    // Route::get('test/games/create', [GameController::class, 'create'])->name('test.games.create');
-    // Route::post('test/games', [GameController::class, 'store'])->name('test.games.store');
-    // Route::get('test/games/{games}', [GameController::class, 'show'])->name('test.games.show');
-    // Route::get('test/games/{games}/edit', [GameController::class, 'edit'])->name('test.games.edit');
-    // Route::patch('test/games/{games}', [GameController::class, 'update'])->name('test.games.update');
-    // Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
+    Route::get('adm/{game}/create', [PortalController::class, 'create'])->name('game.portal.create');
+    Route::patch('adm/{games}/{portal}/update', [PortalController::class, 'update'])->name('game.portal.update');
+    Route::delete('adm/{games}/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
+    //Forum
+    Route::get('adm/{game}/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
+
+    // Route::get('test/forums', [ForumController::class, 'index'])->name('test.forums.index');
+    // Route::get('test/forums/create', [ForumController::class, 'create'])->name('test.forums.create');
+    // Route::post('test/forums', [ForumController::class, 'store'])->name('test.forums.store');
+    // Route::get('test/forums/{forums}', [ForumController::class, 'show'])->name('test.forums.show');
+    // Route::get('test/forums/{forums}/edit', [ForumController::class, 'edit'])->name('test.forums.edit');
+    // Route::patch('test/forums/{forums}', [ForumController::class, 'update'])->name('test.forums.update');
+    // Route::delete('test/forums/{forums}', [ForumController::class, 'destroy'])->name('test.forums.destroy');
 });
 
 Route::get('test/news/{news}', [NewsController::class, 'index'])->name('test.news.index');
@@ -102,31 +109,31 @@ Route::get('/database/tables', function () {
 // Route::delete('test/games/{games}', [GameController::class, 'destroy'])->name('test.games.destroy');
 
 //Rotas de Collections
-Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
-Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
-Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
-Route::get('test/collections/{collections}', [CollectionController::class, 'show'])->name('test.collections.show');
-Route::get('test/collections/{collections}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
-Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
-Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
+// Route::get('test/collections', [CollectionController::class, 'index'])->name('test.collections.index');
+// Route::get('test/collections/create', [CollectionController::class, 'create'])->name('test.collections.create');
+// Route::post('test/collections', [CollectionController::class, 'store'])->name('test.collections.store');
+// Route::get('test/collections/{collections}', [CollectionController::class, 'show'])->name('test.collections.show');
+// Route::get('test/collections/{collections}/edit', [CollectionController::class, 'edit'])->name('test.collections.edit');
+// Route::patch('test/collections/{collections}', [CollectionController::class, 'update'])->name('test.collections.update');
+// Route::delete('test/collections/{collections}', [CollectionController::class, 'destroy'])->name('test.collections.destroy');
 
 //Rotas de Portals
-Route::get('test/portals', [PortalController::class, 'index'])->name('test.portals.index');
-Route::get('test/portals/create', [PortalController::class, 'create'])->name('test.portals.create');
-Route::post('test/portals', [PortalController::class, 'store'])->name('test.portals.store');
-Route::get('test/portals/{portals}', [PortalController::class, 'show'])->name('test.portals.show');
-Route::get('test/portals/{portals}/edit', [PortalController::class, 'edit'])->name('test.portals.edit');
-Route::patch('test/portals/{portals}', [PortalController::class, 'update'])->name('test.portals.update');
-Route::delete('test/portals/{portals}', [PortalController::class, 'destroy'])->name('test.portals.destroy');
+// Route::get('test/portals', [PortalController::class, 'index'])->name('test.portals.index');
+// Route::get('test/portals/create', [PortalController::class, 'create'])->name('test.portals.create');
+// Route::post('test/portals', [PortalController::class, 'store'])->name('test.portals.store');
+// Route::get('test/portals/{portals}', [PortalController::class, 'show'])->name('test.portals.show');
+// Route::get('test/portals/{portals}/edit', [PortalController::class, 'edit'])->name('test.portals.edit');
+// Route::patch('test/portals/{portals}', [PortalController::class, 'update'])->name('test.portals.update');
+// Route::delete('test/portals/{portals}', [PortalController::class, 'destroy'])->name('test.portals.destroy');
 
 //Rotas de Forums
-Route::get('test/forums', [ForumController::class, 'index'])->name('test.forums.index');
-Route::get('test/forums/create', [ForumController::class, 'create'])->name('test.forums.create');
-Route::post('test/forums', [ForumController::class, 'store'])->name('test.forums.store');
-Route::get('test/forums/{forums}', [ForumController::class, 'show'])->name('test.forums.show');
-Route::get('test/forums/{forums}/edit', [ForumController::class, 'edit'])->name('test.forums.edit');
-Route::patch('test/forums/{forums}', [ForumController::class, 'update'])->name('test.forums.update');
-Route::delete('test/forums/{forums}', [ForumController::class, 'destroy'])->name('test.forums.destroy');
+// Route::get('test/forums', [ForumController::class, 'index'])->name('test.forums.index');
+// Route::get('test/forums/create', [ForumController::class, 'create'])->name('test.forums.create');
+// Route::post('test/forums', [ForumController::class, 'store'])->name('test.forums.store');
+// Route::get('test/forums/{forums}', [ForumController::class, 'show'])->name('test.forums.show');
+// Route::get('test/forums/{forums}/edit', [ForumController::class, 'edit'])->name('test.forums.edit');
+// Route::patch('test/forums/{forums}', [ForumController::class, 'update'])->name('test.forums.update');
+// Route::delete('test/forums/{forums}', [ForumController::class, 'destroy'])->name('test.forums.destroy');
 
 //Rotas de Discussions
 Route::get('test/discussions', [DiscussionController::class, 'index'])->name('test.discussions.index');

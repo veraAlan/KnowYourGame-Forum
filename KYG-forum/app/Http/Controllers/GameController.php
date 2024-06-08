@@ -16,7 +16,7 @@ class GameController extends Controller
     // Muestra la lista de juegos.
     public function index()
     {
-        $games = Game::get();
+        $games = Game::all();
         return view('game.index', ['games' => $games]);
     }
 
@@ -57,6 +57,12 @@ class GameController extends Controller
 
         Game::find($request->input('game_id'))->update($request->input());
         return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('game_id')]);
+    }
+
+
+    public function destroy(Request $request){
+        Game::find($request->input('game_id'))->delete();
+        return redirect()->route('game.index')->with('status', 'deleted');
     }
     // Muestra los detalles de un juego específico.
     // public function show($id)

@@ -10,6 +10,11 @@
             {{ __('Go to Portal.') }}
         </a>
 
+        {{-- <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
+        <a href="{{ route('game.collection.index', $game) }}" class="flex items-center gap-4 text-white">
+            {{ __('Go to Collection.') }}
+        </a> --}}
+
 
         <input type="text" value="{{ old('title', $game->title) }}" name="title">
         <br><br>
@@ -25,13 +30,13 @@
             @endif
         </div>
     </form>
-    {{-- <form method="POST" action="{{ route('wiki.destroy') }}">
+    <form method="POST" action="{{ route('game.destroy') }}">
         @csrf
         @method('delete')
-        <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
+        <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Delete this Wiki') }}</x-primary-button>
+            <x-primary-button>{{ __('Delete this Game') }}</x-primary-button>
         </div>
-    </form> --}}
+    </form>
     <br>
 @endforeach
