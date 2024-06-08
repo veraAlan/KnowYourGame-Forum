@@ -74,6 +74,7 @@ Route::middleware('adminAuth')->group(function () {
     Route::delete('adm/{games}/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
     //Forum
     Route::get('adm/{game}/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
+    Route::get('adm/{game}/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
 
     // Route::get('test/forums', [ForumController::class, 'index'])->name('test.forums.index');
     // Route::get('test/forums/create', [ForumController::class, 'create'])->name('test.forums.create');

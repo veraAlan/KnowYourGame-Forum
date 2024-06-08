@@ -91,10 +91,10 @@ VALUES (
 
 -- Datos para la tabla news
 INSERT INTO
-    news (news_id, portal_id)
-VALUES (1, 1),
-    (2, 2),
-    (3, 3);
+    news (news_id, portal_id, title)
+VALUES (1, 1, 'Title CS2'),
+    (2, 2, 'Title Minecraft'),
+    (3, 3, 'Title LoL');
 
 -- Datos para la tabla publications
 INSERT INTO

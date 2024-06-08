@@ -11,7 +11,7 @@ class News extends Model
 
     protected $table = 'news';
     protected $primaryKey = 'news_id';
-    protected $fillable = ['portal_id'];
+    protected $fillable = ['portal_id', 'title'];
 
     public function portal()
     {

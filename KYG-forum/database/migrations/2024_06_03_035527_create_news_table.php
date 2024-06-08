@@ -11,6 +11,7 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->integer('news_id')->primary();
             $table->unsignedInteger('portal_id'); // Cambiado a unsignedInteger
+            $table->string('title', 100);
             $table->timestamps();
             $table->foreign('portal_id')->references('portal_id')->on('portals')->onDelete('cascade');
         });
