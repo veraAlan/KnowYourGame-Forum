@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
 
 // Routes that go through Moderator Authentication.
 Route::middleware('modAuth')->group(function () {
+    Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
+
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
@@ -57,7 +59,7 @@ Route::middleware('modAuth')->group(function () {
     // Sections
     Route::get('mod/{wiki}/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
     Route::get('mod/{wiki}/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
-    Route::patch('mod/{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
+    Route::patch('{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
     Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 });
 
@@ -66,6 +68,7 @@ Route::middleware('adminAuth')->group(function () {
     Route::get('adm/game', [GameController::class, 'index'])->name('game.index');
     Route::get('adm/game/create', [GameController::class, 'create'])->name('game.create');
     Route::patch('adm/game/update', [GameController::class, 'update'])->name('game.update');
+    Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     //Portal
     Route::get('adm/{game}', [PortalController::class, 'index'])->name('game.portal.index');
     // Route::get('test/games', [GameController::class, 'index'])->name('test.games.index'); LISTO

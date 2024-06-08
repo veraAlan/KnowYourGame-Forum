@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Facades\Storage;
-
-use function Pest\Laravel\delete;
 
 class GameController extends Controller
 {
-
+    // Define the route for storing assets, in this case image directory is needed.
+    private $storage_path = 'games/images/';
 
     // Muestra la lista de juegos.
     public function index()
@@ -20,44 +17,73 @@ class GameController extends Controller
         return view('game.index', ['games' => $games]);
     }
 
-
     // Muestra el formulario para crear un nuevo juego.
     public function create(Request $request)
     {
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
+        // Validate necesita todos los valores que van a salir, si en validate('title') no sale, entonces $validated->title no exite.
         $validated = $request->validate([
-            'title' => 'required|min:3|unique:games,title|max:20',
+            'title' => 'required|min:2|max:50',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-        $imageName = time() . '.' . $request->img->extension();
-        $request->img->move(public_path('images'), $imageName);
-        $validated['img'] = 'images/' . $imageName;
+        $validated['img'] = $this->storeImage($request, $validated, $this->storage_path);
         Game::create($validated);
-
         return redirect()->route('game.index')->with(['status' => 'created']);
+        return redirect()->route('game.index')->withErrors($validated);
     }
 
+    /**
+     * Update a Games's information.
+     * 
+     * @param Request
+     */
     public function update(Request $request)
-    {
-        // dd($request->input());
-        // exit();
-        // dd($request->game_id);
-        // exit();
+    {   
+        $validated = $request->validate([
+            'game_id' => 'required|exists:games',
+            'title' => 'nullable|min:2|max:50',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+        $game = Game::find($request->input('game_id'));
 
-        $img = Storage::url(public_path(Game::find($request->input('game_id'))->img));
-        dd($img);
-        exit();
-
-        $imageName = time() . '.' . $request->img->extension();
-        $request->img->move(public_path('images'), $imageName);
-        $validated['img'] = 'images/' . $imageName;
-
-
-        Game::find($request->input('game_id'))->update($request->input());
-        return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('game_id')]);
+        // Solo realizar update de imagen si cambia la imagen.
+        if(isset($validated['title'])){
+            if(isset($validated['img'])){
+                // If an image is validated, delete stored image and update a new one.
+                $this->deleteImage($game->img);
+                $validated['img'] = $this->storeImage($request->img, $validated, $this->storage_path);
+            }else{
+                // If there is a name change but no image, only update the image name.
+                $validated['img'] = $this->updateStoredName($game, $validated, $this->storage_path);
+            }
+        }
+        $game->update($validated);
+        return redirect()->route('game.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('game_id')]);
+        return redirect()->route('game.index')->withErrors($validated);
     }
+
+    /**
+     * Delete the selected Game.
+     * 
+     * @param Request
+     */
+    public function destroy(Request $request){
+        $validated = $request->validate([
+            'game_id' => 'required|exists:games'
+        ]);
+
+        $gameobj = Game::find($request->input('game_id'));
+        // First remove the image from storage.
+        $this->deleteImage($gameobj->img);
+        // Then complete removal from DB.
+        $gameobj->delete();
+
+        return redirect()->route('game.index')->with('status', 'deleted');
+        return redirect()->route('game.index')->withErrors($validated);
+    }
+
     // Muestra los detalles de un juego específico.
     // public function show($id)
     // {

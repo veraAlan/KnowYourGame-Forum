@@ -47,7 +47,7 @@ class WikiController extends Controller
     }
 
     /**
-     * Update the Wiki's information.
+     * Update a Wiki's information.
      * 
      * @param Request
      */

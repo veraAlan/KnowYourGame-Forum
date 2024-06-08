@@ -2,7 +2,6 @@
     <form method="POST" action="{{ route('game.update') }}" enctype="multipart/form-data">
         @csrf
         @method('patch')
-
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         </h2>
         <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
@@ -10,12 +9,11 @@
             {{ __('Go to Portal.') }}
         </a>
 
-
         <input type="text" value="{{ old('title', $game->title) }}" name="title">
         <br><br>
-        <input type="file" name="img" class="text-black">
+        <input type="file" name="img" id="img" class="text-black" value="null">
         
-        {{-- <img src="{{ asset($game->img) }}" alt=""> --}}
+        <img src="{{ asset($game->img) }}" name="img" alt="{{ $game->title . ' thumbnail image'}}">
         <br><br>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Update this Game') }}</x-primary-button>
@@ -25,13 +23,13 @@
             @endif
         </div>
     </form>
-    {{-- <form method="POST" action="{{ route('wiki.destroy') }}">
+    <form method="POST" action="{{ route('game.destroy') }}">
         @csrf
         @method('delete')
-        <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
+        <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Delete this Wiki') }}</x-primary-button>
         </div>
-    </form> --}}
+    </form>
     <br>
 @endforeach
