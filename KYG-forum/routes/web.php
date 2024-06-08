@@ -18,7 +18,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
+use App\Models\Publication;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,6 +44,18 @@ Route::middleware('auth')->group(function () {
 
 // Routes that go through Moderator Authentication.
 Route::middleware('modAuth')->group(function () {
+    // News
+    Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::get('mod/news/update', [NewsController::class, 'update'])->name('news.update');
+    Route::get('mod/news/update', [NewsController::class, 'destroy'])->name('news/destroy');
+
+    Route::get('mod/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
+    Route::get('mod/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');
+    Route::patch('mod/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
+    Route::delete('mod/{news}/{publication}/destroy', [PublicationController:: class, 'destroy'])->name('news.publications.destroy');
+
+    
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
@@ -59,6 +71,8 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/{wiki}/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
     Route::patch('mod/{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
     Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+
+
 });
 
 Route::middleware('adminAuth')->group(function () {

@@ -11,11 +11,10 @@ class Publication extends Model
 
     protected $table = 'publications';
     protected $primaryKey = 'publication_id';
-    protected $fillable = ['news_id','portal_id', 'game_id', 'title', 'content', 'date', 'img'];
+    protected $fillable = ['news_id', 'game_id', 'title', 'content', 'date', 'img'];
 
     public function news()
     {
-        return $this->belongsTo(News::class, 'news_id');
         return $this->belongsTo(News::class, 'news_id');
     }
 

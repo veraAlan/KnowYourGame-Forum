@@ -3,72 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Portal;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 
+
 class NewsController extends Controller
 {
-    public function index(News $news)
+    public function index()
     {
-        //$games = DB::table('games')->get();
-        // $games = Game::all();
-        
-        $publications = Publication::where('news_id', $news->news_id)->get();
-        return view('test.news.index', ['news' => $news, 'publications' => $publications]);
+        $news = News::all();
+        $portals = Portal::all();
+        return view('news.index', compact('news', 'portals'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('test.news.create');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => ['required']
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'invalid token.');
+        }
+        $validated = $request->validated([
+            'news_id' => 'required|unique:news,idnews',
+            'portal_id' => 'required'
         ]);
-
-        // $game = new Game;
-        // $game->title = $request->input('title');
-        // $game->save();
-        // HACE LO MISMO QUE LO COMENTADO PERO CON ELOQUENT
         News::create($validated);
 
-        session()->flash('status', 'News Created!');
-
-        return to_route('test.News.index');
-    }
-    
-    public function show($id)
-    {
-        $publications = Publication::findOrFail($id);
-        return view('test.news.publications.show', ['publications' => $publications]);
+        return redirect()->route('wiki.index')->with(['status' => 'created']);
     }
 
-    public function edit(News $news)
+    public function edit()
     {
-        return view('test.news.edit', ['news' => $news]);
+        return view('news.index', ['news' => News::all()]);
     }
 
-    public function update(Request $request, News $news)
+
+    public function update(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required']
-        ]);
-
-        $news->update($validated);
-
-        session()->flash('status', 'New Update!');
-
-        return to_route('test.news.index');
+        News::find($request->input('wiki_id'))->update($request->input());
+        return redirect()->route('news.index', '#show-update')->with(['status' => 'update', 'idupdated' => $request->input('news_id')]);
     }
 
-    public function destroy(News $news)
+    public function destroy(Request $request)
     {
-        $news->delete();
-
-        session()->flash('status', 'New Deleted!');
-
-        return to_route('test.news.index');
+        News::find($request->input('wiki_id'))->delete();
+        return redirect()->route('wiki.index')->with('status', 'deleted');
     }
 }
