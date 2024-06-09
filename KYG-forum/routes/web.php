@@ -10,13 +10,9 @@ use App\Http\Controllers\WikiController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,22 +49,22 @@ Route::middleware('modAuth')->group(function () {
     Route::patch('mod/news/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
     Route::delete('mod/news/{news}/{publication}/destroy', [PublicationController:: class, 'destroy'])->name('news.publication.destroy');
 
-    
+
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
     Route::patch('mod/wiki/update', [WikiController::class, 'update'])->name('wiki.update');
     Route::delete('mod/wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
     // Articles
-    Route::get('mod/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
-    Route::get('mod/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');
-    Route::patch('mod/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
-    Route::delete('mod/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
+    Route::get('mod/wiki/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
+    Route::get('mod/wiki/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');
+    Route::patch('mod/wiki/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
+    Route::delete('mod/wiki/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
     // Sections
-    Route::get('mod/{wiki}/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
-    Route::get('mod/{wiki}/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
-    Route::patch('{wiki}/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
-    Route::delete('mod/{wiki}/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+    Route::get('mod/wiki/{wiki}/article/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
+    Route::get('mod/wiki/{wiki}/article/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
+    Route::patch('mod/wiki/{wiki}/article/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
+    Route::delete('mod/wiki/{wiki}/article/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 
 
 });
@@ -81,23 +77,19 @@ Route::middleware('adminAuth')->group(function () {
     Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     //Portal
-    Route::get('adm/{game}', [PortalController::class, 'index'])->name('game.portal.index');
-    Route::get('adm/{game}/create', [PortalController::class, 'create'])->name('game.portal.create');
-    Route::patch('adm/{games}/{portal}/update', [PortalController::class, 'update'])->name('game.portal.update');
-    Route::delete('adm/{games}/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
+    Route::get('adm/game/{game}', [PortalController::class, 'index'])->name('game.portal.index');
+    Route::get('adm/game/{game}/create', [PortalController::class, 'create'])->name('game.portal.create');
+    Route::patch('adm/game/{games}/portal/{portal}/update', [PortalController::class, 'update'])->name('game.portal.update');
+    Route::delete('adm/game/{games}/portal/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
     //Forum
-    Route::get('adm/{game}/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
-    //Route::get('adm/{game}/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
-    Route::patch('adm/{game}/{portal}/{forum}/update', [ForumController::class, 'update'])->name('game.portal.forum.update');
-    Route::delete('adm/{game}/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
+    Route::get('adm/game/{game}/portal/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
+    //Route::get('adm/game/{game}/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
+    Route::patch('adm/game/{game}/portal/{portal}/{forum}/update', [ForumController::class, 'update'])->name('game.portal.forum.update');
+    Route::delete('adm/game/{game}/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
 
     //Discussion
-    Route::get('adm/{game}/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
-    Route::get('adm/{game}/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
-
-    //Reply
-    Route::get('adm/{game}/{portal}/{forum}/{discussion}/reply', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply');
-
+    Route::get('adm/game/{game}/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
+    Route::get('adm/game/{game}/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
 });
 
 // Test all data in database. (No auth needed)
@@ -114,41 +106,41 @@ Route::get('/database/tables', function () {
 // Route::patch('test/discussions/{discussions}', [DiscussionController::class, 'update'])->name('test.discussions.update');
 // Route::delete('test/discussions/{discussions}', [DiscussionController::class, 'destroy'])->name('test.discussions.destroy');
 
-//Rotas de Replies
-Route::get('test/replies', [ReplyController::class, 'index'])->name('test.replies.index');
-Route::get('test/replies/create', [ReplyController::class, 'create'])->name('test.replies.create');
-Route::post('test/replies', [ReplyController::class, 'store'])->name('test.replies.store');
-Route::get('test/replies/{replies}', [ReplyController::class, 'show'])->name('test.replies.show');
-Route::get('test/replies/{replies}/edit', [ReplyController::class, 'edit'])->name('test.replies.edit');
-Route::patch('test/replies/{replies}', [ReplyController::class, 'update'])->name('test.replies.update');
-Route::delete('test/replies/{replies}', [ReplyController::class, 'destroy'])->name('test.replies.destroy');
+// //Rotas de Replies
+// Route::get('test/replies', [ReplyController::class, 'index'])->name('test.replies.index');
+// Route::get('test/replies/create', [ReplyController::class, 'create'])->name('test.replies.create');
+// Route::post('test/replies', [ReplyController::class, 'store'])->name('test.replies.store');
+// Route::get('test/replies/{replies}', [ReplyController::class, 'show'])->name('test.replies.show');
+// Route::get('test/replies/{replies}/edit', [ReplyController::class, 'edit'])->name('test.replies.edit');
+// Route::patch('test/replies/{replies}', [ReplyController::class, 'update'])->name('test.replies.update');
+// Route::delete('test/replies/{replies}', [ReplyController::class, 'destroy'])->name('test.replies.destroy');
 
-//Rotas de Users
-Route::get('test/users', [UserController::class, 'index'])->name('test.users.index');
-Route::get('test/users/create', [UserController::class, 'create'])->name('test.users.create');
-Route::post('test/users', [UserController::class, 'store'])->name('test.users.store');
-Route::get('test/users/{users}', [UserController::class, 'show'])->name('test.users.show');
-Route::get('test/users/{users}/edit', [UserController::class, 'edit'])->name('test.users.edit');
-Route::patch('test/users/{users}', [UserController::class, 'update'])->name('test.users.update');
-Route::delete('test/users/{users}', [UserController::class, 'destroy'])->name('test.users.destroy');
+// //Rotas de Users
+// Route::get('test/users', [UserController::class, 'index'])->name('test.users.index');
+// Route::get('test/users/create', [UserController::class, 'create'])->name('test.users.create');
+// Route::post('test/users', [UserController::class, 'store'])->name('test.users.store');
+// Route::get('test/users/{users}', [UserController::class, 'show'])->name('test.users.show');
+// Route::get('test/users/{users}/edit', [UserController::class, 'edit'])->name('test.users.edit');
+// Route::patch('test/users/{users}', [UserController::class, 'update'])->name('test.users.update');
+// Route::delete('test/users/{users}', [UserController::class, 'destroy'])->name('test.users.destroy');
 
-//Rotas de Userroles
-Route::get('test/roles', [RoleController::class, 'index'])->name('test.roles.index');
-Route::get('test/roles/create', [RoleController::class, 'create'])->name('test.roles.create');
-Route::post('test/roles', [RoleController::class, 'store'])->name('test.roles.store');
-Route::get('test/roles/{roles}', [RoleController::class, 'show'])->name('test.roles.show');
-Route::get('test/roles/{roles}/edit', [RoleController::class, 'edit'])->name('test.roles.edit');
-Route::patch('test/roles/{roles}', [RoleController::class, 'update'])->name('test.roles.update');
-Route::delete('test/roles/{roles}', [RoleController::class, 'destroy'])->name('test.roles.destroy');
+// //Rotas de Userroles
+// Route::get('test/roles', [RoleController::class, 'index'])->name('test.roles.index');
+// Route::get('test/roles/create', [RoleController::class, 'create'])->name('test.roles.create');
+// Route::post('test/roles', [RoleController::class, 'store'])->name('test.roles.store');
+// Route::get('test/roles/{roles}', [RoleController::class, 'show'])->name('test.roles.show');
+// Route::get('test/roles/{roles}/edit', [RoleController::class, 'edit'])->name('test.roles.edit');
+// Route::patch('test/roles/{roles}', [RoleController::class, 'update'])->name('test.roles.update');
+// Route::delete('test/roles/{roles}', [RoleController::class, 'destroy'])->name('test.roles.destroy');
 
-//Rotas de Menus
-// NO FUNCIONA 
-Route::get('test/menus', [MenuController::class, 'index'])->name('test.menus.index');
-Route::get('test/menus/create', [MenuController::class, 'create'])->name('test.menus.create');
-Route::post('test/menus', [MenuController::class, 'store'])->name('test.menus.store');
-Route::get('test/menus/{menus}', [MenuController::class, 'show'])->name('test.menus.show');
-Route::get('test/menus/{menus}/edit', [MenuController::class, 'edit'])->name('test.menus.edit');
-Route::patch('test/menus/{menus}', [MenuController::class, 'update'])->name('test.menus.update');
-Route::delete('test/menus/{menus}', [MenuController::class, 'destroy'])->name('test.menus.destroy');
+// //Rotas de Menus
+// // NO FUNCIONA 
+// Route::get('test/menus', [MenuController::class, 'index'])->name('test.menus.index');
+// Route::get('test/menus/create', [MenuController::class, 'create'])->name('test.menus.create');
+// Route::post('test/menus', [MenuController::class, 'store'])->name('test.menus.store');
+// Route::get('test/menus/{menus}', [MenuController::class, 'show'])->name('test.menus.show');
+// Route::get('test/menus/{menus}/edit', [MenuController::class, 'edit'])->name('test.menus.edit');
+// Route::patch('test/menus/{menus}', [MenuController::class, 'update'])->name('test.menus.update');
+// Route::delete('test/menus/{menus}', [MenuController::class, 'destroy'])->name('test.menus.destroy');
 
 require __DIR__ . '/auth.php';
