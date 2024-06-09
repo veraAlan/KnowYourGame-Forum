@@ -11,11 +11,21 @@
                     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Portal') }}
                     </h2>
-                    <select name='portal_id' id='portal_id' class="text-black">
-                        @foreach ($portals as $portal)
-                            <option value={{ print_r($portal->id) }}>{{ $portal->name }}</option>
-                        @endforeach
-                    </select>
+                    @if(isset($portals))
+                        <select name='portal_id' id='portal_id' class="text-black">
+                            @foreach ($portals as $portal)
+                                <option value={{ print_r($portal->id) }}>{{ $portal->name }}</option>
+                            @endforeach
+                        </select>
+                    @else
+                        <input type="number" value="{{ $portal->portal_id }}" name="portal_id" hidden>
+                    @endif
+                </x-input-label>
+                <x-input-label class="py-2">
+                    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        {{ __('Title of News Portal') }}
+                    </h2>
+                    <input type="text" name="title" class="text-black">
                 </x-input-label>
                 <button type="submit" class="rounded-full text-white bg-slate-800 border p-2">Create a new</button>
                 @if (session('status') == 'created')
