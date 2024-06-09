@@ -53,7 +53,7 @@ class GameController extends Controller
             if(isset($validated['img'])){
                 // If an image is validated, delete stored image and update a new one.
                 $this->deleteImage($game->img);
-                $validated['img'] = $this->storeImage($request->img, $validated, $this->storage_path);
+                $validated['img'] = $this->storeImage($validated, $this->storage_path);
             }else{
                 // If there is a name change but no image, only update the image name.
                 $validated['img'] = $this->updateStoredName($game, $validated, $this->storage_path);
