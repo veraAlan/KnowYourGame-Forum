@@ -28,7 +28,7 @@ class GameController extends Controller
             'title' => 'required|min:2|max:50',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-        $validated['img'] = $this->storeImage($request, $validated, $this->storage_path);
+        $validated['img'] = $this->storeImage($validated, $this->storage_path);
         Game::create($validated);
         return redirect()->route('game.index')->with(['status' => 'created']);
         return redirect()->route('game.index')->withErrors($validated);

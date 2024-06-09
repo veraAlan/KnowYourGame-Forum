@@ -26,7 +26,7 @@ abstract class Controller
      * @param string Path relative to Storage/app/public.
      * @return string Path that asset can use to access the stored image.
      */
-    protected function storeImage(object $image, array $validated, string $storage_path){
+    protected function storeImage(array $validated, string $storage_path){
 
         // Generar un nombre de imagen, si les parece, la convencion aca es
         // {nombre-juego}-{tiempoCreacion}.{extensionImagen}
@@ -34,11 +34,7 @@ abstract class Controller
         $imageName = $this->createNameImage($validated['title'], $validated['img']->extension());
 
         // Store in 'storage/app/games/images/**'
-        
-
-        Storage::disk('public')->putFileAs($storage_path, $image, $imageName);
-        dd();
-        exit();
+        Storage::disk('public')->putFileAs($storage_path, $validated['img'], $imageName);
         return $storage_path . $imageName;
     }
 

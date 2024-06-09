@@ -22,11 +22,9 @@ class PublicationController extends Controller
 
     public function create(Request $request, News $news)
     {
-
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-
 
         $validated = $request->validate([
             'news_id' => 'required',
@@ -34,10 +32,10 @@ class PublicationController extends Controller
             'title' => 'required',
             'content' => 'required',
             'date' => 'required',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
-        $validated['img'] = $this->storeImage($request, $validated, $this->storage_path);
+        $validated['img'] = $this->storeImage($validated, $this->storage_path);
         
         Publication::create($validated);
 

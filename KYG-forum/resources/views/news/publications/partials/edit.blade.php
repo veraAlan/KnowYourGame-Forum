@@ -7,6 +7,7 @@
         <input type="number" value="{{ $news->portal_id }}" name="game_id" hidden>
         <input type="text" value="{{ old('title', $publication->title) }}" name="title">
         <input type="textarea" value="{{ old('content', $publication->content) }}" name="content">
+        <img src="{{asset($publication->img)}}" alt="">
         <input type="file" name="img" class="text-black">
         <div class="flex-items-center gap-4">
             <x-primary-button> {{ __('Update this publication')}}</x-primary-button>
