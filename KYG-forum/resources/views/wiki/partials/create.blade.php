@@ -8,18 +8,22 @@
          @csrf
          @method('get')
          <x-input-label class="py-2">
+            @if(isset($portals))
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                   {{ __('Portal') }}
             </h2>
-            <select name='portal_id' id='portal_id' class="text-black">
-               @foreach($portals as $portal)
-                  <option value={{ print_r($portal->id); }}>{{ $portal->name }}</option>
-               @endforeach
-            </select>
+               <select name='portal_id' id='portal_id' class="text-black">
+                  @foreach($portals as $portal)
+                     <option value={{ print_r($portal->id); }}>{{ $portal->name }}</option>
+                  @endforeach
+               </select>
+            @else
+               <input type="number" value="{{ $portal->portal_id }}" name="portal_id" hidden>
+            @endif
          </x-input-label>
          <x-input-label class="py-2">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                  {{ __('Title of Wiki') }}
+                  {{ __('Title of Wiki Portal') }}
             </h2>
             <input type="text" name="title" class="text-black">
          </x-input-label>
