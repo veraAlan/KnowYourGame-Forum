@@ -27,12 +27,18 @@ abstract class Controller
      * @return string Path that asset can use to access the stored image.
      */
     protected function storeImage(object $image, array $validated, string $storage_path){
+
         // Generar un nombre de imagen, si les parece, la convencion aca es
         // {nombre-juego}-{tiempoCreacion}.{extensionImagen}
         // Se podria hacer un hash o un UUID, no se que cambio en performance tendria por la cantidad de caracteres.
         $imageName = $this->createNameImage($validated['title'], $validated['img']->extension());
+
         // Store in 'storage/app/games/images/**'
+        
+
         Storage::disk('public')->putFileAs($storage_path, $image, $imageName);
+        dd();
+        exit();
         return $storage_path . $imageName;
     }
 

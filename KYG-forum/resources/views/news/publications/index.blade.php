@@ -7,5 +7,5 @@
 
     @include('news.publications.partials.create')
 
-    {{-- @include('news.publications.partials.edit') --}}
+    @include('news.publications.partials.edit')
 </x-app-layout>

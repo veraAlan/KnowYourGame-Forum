@@ -17,8 +17,7 @@
                         @endforeach
                     </select>
                 </x-input-label>
-                <button type="submit" class="rounded-full text-white bg-slate-800 border-2 border p-2">Create new
-                    Wiki</button>
+                <button type="submit" class="rounded-full text-white bg-slate-800 border p-2">Create a new</button>
                 @if (session('status') == 'created')
                     <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
                         class="text-sm text-gray-600 dark:text-gray-400">{{ __('The New was created.') }}</p>

@@ -12,10 +12,12 @@ use Symfony\Component\Console\Input\Input;
 
 class PublicationController extends Controller
 {
-    public function index(News $news, Publication $publication)
+    private $storage_path = 'publications/images/';
+
+    public function index(News $news)
     {
-        $publications = News::where('news_id', $news->news_id)->get();
-        return view('news.publications.index', compact('publication', 'news'));
+        $publications = Publication::where('news_id', $news->news_id)->get();
+        return view('news.publications.index', compact('publications', 'news'));
     }
 
     public function create(Request $request, News $news)
@@ -25,19 +27,18 @@ class PublicationController extends Controller
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
 
+
         $validated = $request->validate([
             'news_id' => 'required',
             'game_id' => 'required',
             'title' => 'required',
             'content' => 'required',
             'date' => 'required',
-            'img' => 'required'
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
-        $imageName = time() . '.' . $request->img->extension();
-        $request->img->move(public_path('images'), $imageName);
-        $validated['img'] = 'images/' . $imageName;
-
+        $validated['img'] = $this->storeImage($request, $validated, $this->storage_path);
+        
         Publication::create($validated);
 
         return redirect()->route('news.publications.index', ['news' => $news])->with('status', 'created');
@@ -51,9 +52,12 @@ class PublicationController extends Controller
         }
 
         $validated = $request->validate([
-            'publication_id' => 'required',
+            'news_id' => 'required',
+            'game_id' => 'required',
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'date' => 'required',
+            'img' => 'required'
         ]);
 
         $publication->update($validated);
