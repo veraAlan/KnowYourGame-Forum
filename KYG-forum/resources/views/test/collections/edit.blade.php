@@ -10,8 +10,8 @@
         @csrf
         @method('PATCH')
         <div>
-            <label for="collection_ids">ID Category:</label>
-            <input name="collection_ids" value="{{ $collections->collection_id }}" style="color: black;" readonly>
+            <label for="tag_ids">ID Category:</label>
+            <input name="tag_ids" value="{{ $collections->tag_id }}" style="color: black;" readonly>
         </div>
         <select id="game_id" name="game_id" style="color: black;">
             @if ($games)

@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 use App\Models\News;
-use App\Models\Game;
-use App\Models\Portal;
-use Illuminate\Validation\Rules\Exists;
-use Symfony\Component\Console\Input\Input;
 
 class PublicationController extends Controller
 {
@@ -31,7 +27,6 @@ class PublicationController extends Controller
             'game_id' => 'required',
             'title' => 'required',
             'content' => 'required',
-            'date' => 'required',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
@@ -48,15 +43,25 @@ class PublicationController extends Controller
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-
         $validated = $request->validate([
             'news_id' => 'required',
             'game_id' => 'required',
             'title' => 'required',
             'content' => 'required',
-            'date' => 'required',
-            'img' => 'required'
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+
+        // Solo realizar update de imagen si cambia la imagen.
+        if(isset($validated['title'])){
+            if(isset($validated['img'])){
+                // If an image is validated, delete stored image and update a new one.
+                $this->deleteImage($publication->img);
+                $validated['img'] = $this->storeImage($validated, $this->storage_path);
+            }else{
+                // If there is a name change but no image, only update the image name.
+                $validated['img'] = $this->updateStoredName($publication, $validated, $this->storage_path);
+            }
+        }
 
         $publication->update($validated);
         return redirect()->route('news.publications.index', ['news' => $news, '#show-update'])->with(['status' => 'updated', 'idupdated' => $publication->publication_id]);

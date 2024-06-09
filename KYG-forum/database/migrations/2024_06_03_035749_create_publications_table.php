@@ -14,7 +14,6 @@ class CreatePublicationsTable extends Migration
             $table->integer('game_id');
             $table->string('title', 100);
             $table->text('content');
-            $table->date('date');
             $table->binary('img');
             $table->timestamps();
             $table->foreign('news_id')->references('news_id')->on('news')->onDelete('cascade');

@@ -12,7 +12,6 @@ class CreateRepliesTable extends Migration
             $table->bigIncrements('reply_id'); // Auto incremento y clave primaria
             $table->unsignedBigInteger('discussion_id');
             $table->unsignedBigInteger('user_id'); // Cambiado de 'username' a 'user_id'
-            $table->date('date');
             $table->text('content');
             $table->timestamps();
             $table->foreign('discussion_id')->references('discussion_id')->on('discussions')->onDelete('cascade');

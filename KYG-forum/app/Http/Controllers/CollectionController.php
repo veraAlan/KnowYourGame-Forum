@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Collection;
+use App\Models\Tag;
 use App\Models\Game;
 
 class CollectionController extends Controller
 {
-
-
     // Muestra el formulario para crear una nueva colección, incluyendo la lista de juegos disponibles.
-    public function create(Collection $collections)
+    public function create(Tag $tags)
     {
         $games = Game::all();
-        return view('test.collections.create', ['collections' => $collections, 'games' => $games]);
+        return view('test.tags.create', ['tags' => $tags, 'games' => $games]);
     }
 
 
@@ -22,16 +20,16 @@ class CollectionController extends Controller
     public function index()
     {
         $games = Game::all();
-        $collections = Collection::get();
-        return view('test.collections.index', ['collections' => $collections, 'games' => $games]);
+        $tags = Tag::get();
+        return view('test.tags.index', ['tags' => $tags, 'games' => $games]);
     }
 
 
     // Muestra los detalles de una colección específica.
     public function show($id)
     {
-        $collections = Collection::findOrFail($id);
-        return view('test.collections.show', ['collections' => $collections]);
+        $tags = Tag::findOrFail($id);
+        return view('test.tags.show', ['tags' => $tags]);
     }
 
 
@@ -42,38 +40,38 @@ class CollectionController extends Controller
             'game_id' => ['required', 'exists:games,game_id'],
             'category' => ['required']
         ]);
-        Collection::create($validated);
-        session()->flash('status', 'Collection Created!');
-        return redirect()->route('test.collections.index');
+        Tag::create($validated);
+        session()->flash('status', 'Tag Created!');
+        return redirect()->route('test.tags.index');
     }
 
 
     // Muestra el formulario para editar una colección existente, incluyendo la lista de juegos disponibles.
-    public function edit(Collection $collections)
+    public function edit(Tag $tags)
     {
         $games = Game::all();
-        return view('test.collections.edit', ['collections' => $collections, 'games' => $games]);
+        return view('test.tags.edit', ['tags' => $tags, 'games' => $games]);
     }
 
 
     // Actualiza la información de una colección existente.
-    public function update(Request $request, Collection $collections)
+    public function update(Request $request, Tag $tags)
     {
         $validated = $request->validate([
             'game_id' => 'required',
             'category' => 'required',
         ]);
-        $collections->update($validated);
+        $tags->update($validated);
         session()->flash('status', 'Collections Update!');
-        return redirect()->route('test.collections.index');
+        return redirect()->route('test.tags.index');
     }
 
 
     // Elimina una colección existente.
-    public function destroy(Collection $collections)
+    public function destroy(Tag $tags)
     {
-        $collections->delete();
+        $tags->delete();
         session()->flash('status', 'Game Deleted!');
-        return to_route('test.collections.index');
+        return to_route('test.tags.index');
     }
 }

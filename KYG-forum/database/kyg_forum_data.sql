@@ -10,56 +10,57 @@ INSERT INTO
 VALUES (
         1,
         'Counter-Strike 2',
-        'games/images/counter-strike-2-1717878632.png',
+        'games/images/Counter-Strike-2-1717902887.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     ),
     (
         2,
         'Minecraft',
-        'games/images/minecraft-1717878656.png',
+        'games/images/Minecraft-1717902941.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     ),
     (
         3,
         'League of Legends',
-        'games/images/league-of-legends:-ijbinij-edition-1717881342.png',
+        'games/images/League-of-Legends-1717902960.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     ),
     (
         4,
-        'Frog Game: Nae Nae',
-        'games/images/Frog-Game-Nae-Nae-1717884579.png',
+        'Doom Eternal',
+        'games/images/Doom-Eternal-1717904156.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     ),
     (
         5,
         'Kirby Angry Edition',
-        'games/images/kirby-angry-edition-1717880243.jpg',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-    ),
-    (
-        6,
-        'Pingu: French Accent Edition',
-        'games/images/Pingu-French-Accent-Edition-1717889907.jpg',
+        'games/images/Kirby-Angry-Edition-1717903088.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     );
 
 -- Insertar datos en las tablas
 INSERT INTO
-    collections (
-        collection_id,
-        category,
-        game_id
-    )
-VALUES (1, 'Shooter', 1),
+    tags (tag_id, category, game_id)
+VALUES (1, 'First Person Shooter', 1),
     (2, 'Survival', 2),
-    (3, 'Moba', 3);
+    (3, 'Moba', 3),
+    (4, '2.5D', 5),
+    (5, 'Isometric Camera', 3),
+    (6, 'Multiplayer', 1),
+    (7, 'Multiplayer', 2),
+    (8, 'Free to Play', 3),
+    (9, 'Action', 3),
+    (10, 'Rol', 3),
+    (11, 'Adventure', 5),
+    (12, 'RPG', 3),
+    (13, 'Sandbox', 2),
+    (14, 'Multiplayer', 4),
+    (15, 'Free to Play', 1);
 
 -- Datos para la tabla portals
 INSERT INTO
@@ -149,8 +150,9 @@ INSERT INTO
         game_id,
         title,
         content,
-        date,
-        img
+        img,
+        created_at,
+        updated_at
     )
 VALUES (
         1,
@@ -158,8 +160,9 @@ VALUES (
         1,
         'Nuevo Parche CS2',
         'Se ha lanzado un nuevo parche para CS2.',
-        '2024-05-01',
-        1
+        'publications/images/Nuevo-Parche-CS2-1717904338.jpg',
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
     ),
     (
         2,
@@ -167,8 +170,9 @@ VALUES (
         2,
         'Nuevo Parche Minecarft',
         '¡Evento especial de Minecraft este fin de semana!',
-        '2024-05-15',
-        1
+        'publications/images/Nuevo-Parche-Minecarft-1717904726.png',
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
     ),
     (
         3,
@@ -176,8 +180,9 @@ VALUES (
         3,
         'Nuevo Parche LoL',
         'Resultados del Campeonato Mundial de LoL.',
-        '2024-04-28',
-        1
+        1,
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
     ),
     (
         4,
@@ -185,8 +190,19 @@ VALUES (
         1,
         'Nueva Skin CS2',
         'Horrible!!!',
-        '2024-04-28',
-        1
+        'publications/images/Nueva-Skin-CS2-1717904635.png',
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
+    ),
+    (
+        2,
+        2,
+        2,
+        'Aviso! Se busca urgente',
+        'Aaron perdio su pico de diamante, si alguien lo encuentra que avise',
+        'publications/images/Aviso!-Se-busca-urgente-1717905070.png',
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
     );
 
 -- Datos para la tabla forums
@@ -227,7 +243,6 @@ INSERT INTO
         discussion_id,
         forum_id,
         user_id,
-        date,
         title,
         content
     )
@@ -235,7 +250,6 @@ VALUES (
         1,
         1,
         1,
-        '2024-05-02',
         'Discusión sobre el nuevo parche',
         '¿Qué opinas sobre los cambios?'
     ),
@@ -243,7 +257,6 @@ VALUES (
         2,
         2,
         2,
-        '2024-05-16',
         'Comparte tus construcciones',
         '¡Muéstranos tus mejores creaciones!'
     ),
@@ -251,7 +264,6 @@ VALUES (
         3,
         3,
         3,
-        '2024-04-29',
         'Anuncios Importantes',
         'Por favor, revisa las nuevas reglas del foro.'
     ),
@@ -259,7 +271,6 @@ VALUES (
         4,
         1,
         1,
-        '2024-04-29',
         'Queja',
         'No quedan usuarios.'
     );
@@ -270,37 +281,27 @@ INSERT INTO
         reply_id,
         discussion_id,
         user_id,
-        date,
         content
     )
 VALUES (
         1,
         1,
         1,
-        '2024-05-03',
         'Creo que los cambios son positivos.'
     ),
     (
         2,
         2,
         2,
-        '2024-05-17',
         'Aquí está mi construcción favorita: [imagen]'
     ),
     (
         3,
         3,
         3,
-        '2024-04-30',
         'Gracias por mantenernos informados.'
     ),
-    (
-        4,
-        1,
-        3,
-        '2024-04-30',
-        'De nada.'
-    );
+    (4, 1, 3, 'De nada.');
 
 -- Datos para la tabla roles
 INSERT INTO

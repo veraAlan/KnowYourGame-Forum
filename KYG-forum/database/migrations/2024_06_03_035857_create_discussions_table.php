@@ -12,7 +12,6 @@ class CreateDiscussionsTable extends Migration
             $table->bigIncrements('discussion_id');
             $table->unsignedBigInteger('forum_id');
             $table->unsignedBigInteger('user_id'); // Cambiado de 'username' a 'user_id'
-            $table->date('date');
             $table->string('title', 100);
             $table->text('content');
             $table->timestamps();

@@ -8,7 +8,6 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\WikiController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MenuController;
@@ -18,7 +17,6 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Models\Publication;
 
 Route::get('/', function () {
     return view('welcome');

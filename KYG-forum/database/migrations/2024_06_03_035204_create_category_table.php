@@ -8,9 +8,9 @@ class CreateCollectionsTable extends Migration
 {
     public function up()
     {
-        // Crear la tabla collections
-        Schema::create('collections', function (Blueprint $table) {
-            $table->bigIncrements('collection_id');
+        // Crear la tabla tags
+        Schema::create('tags', function (Blueprint $table) {
+            $table->bigIncrements('tag_id');
             $table->unsignedInteger('game_id'); // Cambiado a unsignedInteger
             $table->string('category', 100);
             $table->timestamps();
@@ -20,6 +20,6 @@ class CreateCollectionsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('tags');
     }
 }
