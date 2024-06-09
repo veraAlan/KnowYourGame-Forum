@@ -88,6 +88,7 @@ Route::middleware('adminAuth')->group(function () {
     //Discussion
     Route::get('adm/game/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
     Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
+    Route::patch('adm/game/portal/{portal}/{forum}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
 });
 
 // Test all data in database. (No auth needed)

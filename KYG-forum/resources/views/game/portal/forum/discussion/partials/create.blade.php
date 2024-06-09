@@ -4,19 +4,18 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Create New Discussion') }}
             </h2>
-            @foreach($forum as $single_forum)
-            <form method="POST" action="{{ route('game.portal.forum.discussion.create', ['game' => $game, 'portal' => $portal, 'forum' => $single_forum, 'forum_id' => $single_forum->forum_id, 'portal_id' => $portal->portal_id, 'title' => $single_forum->title]) }}">
+
+            <form method="POST" action="{{ route('game.portal.forum.discussion.create', ['portal' => $portal, 'forum' => $forum, 'discussion' => $discussion]) }}">
                 @csrf
-                <input type="hidden" name="forum_id" value="{{ $single_forum->forum_id }}">
-                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                <input type="hidden" name="date" value="{{ now() }}">
-                <label for="title">Title:</label><br>
+                @method('get')
+                <input type="hidden" name="forum_id" value="{{ $forum->forum_id }}" hidden>
+                <input type="hidden" name="user_id" value="" hidden>
+                <label for="title" style="color: white">Title:</label><br>
                 <input type="text" id="title" name="title"><br>
-                <label for="content">Content:</label><br>
+                <label for="content" style="color: white">Content:</label><br>
                 <textarea id="content" name="content"></textarea><br><br>
                 <button type="submit" class="rounded-full text-white bg-slate-800 border-2 p-2">Create new Discussion</button>
-            </form>
-        @endforeach          
+            </form>     
         </div>
     </div>
 </div>

@@ -8,14 +8,16 @@ use App\Models\Game;
 use App\Models\Portal;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DiscussionController extends Controller
 {
 
     public function index(Portal $portal, Forum $forum)
     {
-        $discussions = Discussion::where('forum_id', $forum->forum_id)->get();
-        return view('forum.partials.edit', compact('portal', 'forum', 'discussions'));
+        $discussion = Discussion::where('forum_id', $forum->forum_id)->get();
+        $user = User::select('id', 'name')->get();
+        return view('game.portal.forum.discussion.index', compact('portal', 'forum', 'discussion', 'user'));
     }
 
 
@@ -25,10 +27,11 @@ class DiscussionController extends Controller
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
+        $user_id = Auth::id();
+        $request->merge(['user_id' => $user_id]);
         $validated = $request->validate([
             'forum_id' => 'required', 
             'user_id' => 'required', 
-            'date' => 'required',
             'title' => 'required',
             'content' => 'required'
         ]);

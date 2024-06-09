@@ -1,12 +1,13 @@
-@include('game.portal.forum.discussion.partials.create')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Estas en una discussion de {{ $forum->title }}.
+        </h2>
+    </x-slot>
 
 
+    @include('game.portal.forum.discussion.partials.create')
 
+    @include('game.portal.forum.discussion.partials.edit')
 
-<div style="color: white">
-    <p>Titulo: <a
-            href="{{ route('game.portal.forum.discussion.reply', ['game' => $game, 'portal' => $portal, 'forum' => $forum, 'discussion' => $discussion]) }}">{{ $discussion->title }}</a>
-    </p>
-    <p>Content: {{ $discussion->content }}</p>
-    <br>
-</div>--
+</x-app-layout>
