@@ -14,10 +14,14 @@
 
    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
       @foreach($games as $game)
-         <a href={{ "/portal/" . $game->game_id }}>
-            <img src="" alt={{ $game->title }}>
-            <h5>{{ $game->title }}</h5>
+         <a href="{{route('portal', $game)}}">
+            <img class="py-2 object-cover w-full" src="{{asset($game->img)}}" alt="{{'Thumbnail image of: ' . $game->title}}">
          </a>
+         @foreach($game->tags as $tag)
+         <span class="pt-1 inline-block font-semibold text-sm text-white dark:text-gray-200 leading-tight text-center">
+            {{ $tag->category }}
+         </span>
+         @endforeach
       @endforeach
    </h2>
 </x-app-layout>

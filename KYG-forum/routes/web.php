@@ -18,6 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/kyg', [GameController::class, 'show'])->name('games');
+Route::get('/portal/{game}', [PortalController::class, 'show'])->name('portal');
+Route::get('/wiki/{wiki}', [PortalController::class, 'show'])->name('portals.wiki');
+Route::get('/forum/{forum}', [PortalController::class, 'show'])->name('portals.forum');
+Route::get('/news/{news}', [PortalController::class, 'show'])->name('portals.news');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
