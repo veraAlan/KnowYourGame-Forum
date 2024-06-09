@@ -86,8 +86,8 @@ Route::middleware('adminAuth')->group(function () {
     Route::delete('adm/game/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
 
     //Discussion
-    Route::get('adm/game/{game}/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
-    Route::get('adm/game/{game}/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
+    Route::get('adm/game/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
+    Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
 });
 
 // Test all data in database. (No auth needed)

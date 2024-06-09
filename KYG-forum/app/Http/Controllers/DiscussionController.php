@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class DiscussionController extends Controller
 {
 
-    public function index(Game $game, Portal $portal, Forum $forum)
+    public function index(Portal $portal, Forum $forum)
     {
         $discussions = Discussion::where('forum_id', $forum->forum_id)->get();
-        return view('forum.partials.edit', compact('game', 'portal', 'forum', 'discussions'));
+        return view('forum.partials.edit', compact('portal', 'forum', 'discussions'));
     }
 
 
