@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Forum;
 use App\Models\Game;
+use App\Models\News;
 use App\Models\Portal;
+use App\Models\Wiki;
 use Illuminate\Http\Request;
-
 class PortalController extends Controller
 {
 
@@ -14,8 +16,12 @@ class PortalController extends Controller
     public function index(Game $game)
     {
         $games = Game::find($game->game_id);
-        $portals = Portal::all();
-        return view('game.portal.index', compact('games', 'portals'));
+        $portal = Portal::where('portal_id', $game->game_id)->get()[0];
+        $forum = Forum::where('portal_id', $game->game_id)->get()[0];
+        $new = News::where('portal_id', $game->game_id)->get()[0];
+        $wiki = Wiki::where('portal_id', $game->game_id)->get()[0];
+
+        return view('game.portal.index', compact('games', 'forum', 'new', 'wiki', 'portal'));
     }
 
 
@@ -34,22 +40,24 @@ class PortalController extends Controller
     }
 
 
-    public function update(Request $request, Game $games, Portal $portal)
+    public function update(Request $request, Portal $portal)
     {
+        $game = Game::find($portal->game_id);
         $validated = $request->validate([
             'name' => 'required|min:3| max: 25',
             'description' => 'required|min:3| max: 25',
         ]);
         Portal::find($portal->portal_id)->update($validated);
-        return redirect()->route('game.portal.index', ['game' => $games, '#show-update'])->with(['status' => 'updated', 'idupdated' => $portal->portal_id]);
+        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with(['status' => 'updated', 'idupdated' => $portal->portal_id]);
     }
 
 
-    public function destroy(Request $request, Game $games, Portal $portal){
+    public function destroy(Request $request, Portal $portal){
+        $game = Game::find($portal->game_id);
         if(session()->token() !== $request->input('_token')){
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
         Portal::find($portal->portal_id)->delete();
-        return redirect()->route('game.portal.index', $games)->with('status', 'deleted');
+        return redirect()->route('game.portal.index', $game)->with('status', 'deleted');
     }
 }

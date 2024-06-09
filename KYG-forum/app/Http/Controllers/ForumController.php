@@ -11,30 +11,14 @@ use Illuminate\Http\Request;
 class ForumController extends Controller
 {
 
-    public function index(Game $game, Portal $portal)
+    public function index(Portal $portal)
     {
-        $forums = Forum::where('portal_id', $portal->portal_id)->get();
-        $discussions = Discussion::whereIn('forum_id', $forums->pluck('forum_id'))->get()->groupBy('forum_id');
-        
-        return view('game.portal.forum.index', compact('forums', 'portal', 'game', 'discussions'));
+        $forum = Forum::find($portal->portal_id);
+        $discussions = Discussion::where('forum_id', $forum->forum_id)->get();
+        return view('game.portal.forum.index', compact('forum', 'discussions', 'portal'));
     }
 
-
-    // public function create(Request $request, Game $game, Portal $portal)
-    // {
-    //     if (session()->token() !== $request->input('_token')) {
-    //         return redirect()->route('unauthorized')->with('status', 'Invalid token.');
-    //     }
-    //     $validated = $request->validate([
-    //         'portal_id' => 'required',
-    //         'title' => 'required|min:3|max:25'
-    //     ]);
-    //     Forum::create($validated);
-    //     return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal])->with('status', 'created');
-    // }
-
-
-    public function update(Request $request, Game $game, Portal $portal, Forum $forum)
+    public function update(Request $request, Portal $portal, Forum $forum)
     {
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Token inválido.');
@@ -47,17 +31,17 @@ class ForumController extends Controller
 
         $forum->update($validated);
 
-        return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal, '#show-update'])
+        return redirect()->route('game.portal.forum.index', ['portal' => $portal, '#show-update'])
             ->with(['status' => 'actualizado', 'idupdated' => $forum->forum_id]);
     }
 
 
-    public function destroy(Request $request, Game $game, Portal $portal, Forum $forum)
+    public function destroy(Request $request, Portal $portal, Forum $forum)
     {
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
         $forum->delete();
-        return redirect()->route('game.portal.forum.index', ['game' => $game, 'portal' => $portal])->with('status', 'deleted');
+        return redirect()->route('game.portal.forum.index', ['portal' => $portal])->with('status', 'deleted');
     }
 }

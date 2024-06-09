@@ -6,7 +6,7 @@
    </x-slot>
    
    <!-- Wiki deleted toast -->
-   @if(session('status') == 'deleted')
+   {{-- @if(session('status') == 'deleted')
       <p
          x-data="{ show: true }"
          x-show="show"
@@ -14,7 +14,7 @@
          x-init="setTimeout(() => show = false, 2000)"
          class="text-sm text-gray-600 dark:text-gray-400"
       >{{ __('The wiki was deleted.') }}</p>
-   @endif
+   @endif --}}
 
    @include('wiki.partials.create')
 

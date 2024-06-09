@@ -4,7 +4,6 @@
             This are the articles inside {{ $games->title }}
         </h2>
     </x-slot>
-
-    @include('game.portal.partials.create');
-    @include('game.portal.partials.edit');
+    {{-- @include('game.portal.partials.create'); --}}
+    @include('game.portal.partials.edit', ['wiki' => $wiki, 'new' => $new, 'forum' => $forum, 'portal' => $portal]);
 </x-app-layout>
