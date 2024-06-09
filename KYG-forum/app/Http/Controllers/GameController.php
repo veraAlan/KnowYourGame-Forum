@@ -14,7 +14,7 @@ class GameController extends Controller
     public function index()
     {
         $games = Game::all();
-        return view('game.index', ['games' => $games]);
+        return view('game.index', compact('games'));
     }
 
     // Muestra el formulario para crear un nuevo juego.
@@ -23,7 +23,6 @@ class GameController extends Controller
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-        // Validate necesita todos los valores que van a salir, si en validate('title') no sale, entonces $validated->title no exite.
         $validated = $request->validate([
             'title' => 'required|min:2|max:50',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
@@ -40,7 +39,7 @@ class GameController extends Controller
      * @param Request
      */
     public function update(Request $request)
-    {   
+    {
         $validated = $request->validate([
             'game_id' => 'required|exists:games',
             'title' => 'nullable|min:2|max:50',
@@ -83,51 +82,4 @@ class GameController extends Controller
         return redirect()->route('game.index')->with('status', 'deleted');
         return redirect()->route('game.index')->withErrors($validated);
     }
-
-    // Muestra los detalles de un juego específico.
-    // public function show($id)
-    // {
-    //     $games = Game::findOrFail($id);
-    //     return view('test.games.show', ['games' => $games]);
-    // }
-
-
-    // // Almacena un nuevo juego creado.
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'title' => ['required']
-    //     ]);
-    //     Game::create($validated);
-    //     session()->flash('status', 'Game Created!');
-    //     return to_route('test.games.index');
-    // }
-
-
-    // // Muestra el formulario para editar un juego existente.
-    // public function edit(Game $games)
-    // {
-    //     return view('test.games.edit', ['games' => $games]);
-    // }
-
-
-    // // Actualiza la información de un juego existente.
-    // public function update(Request $request, Game $games)
-    // {
-    //     $validated = $request->validate([
-    //         'title' => ['required']
-    //     ]);
-    //     $games->update($validated);
-    //     session()->flash('status', 'Game Update!');
-    //     return to_route('test.games.index');
-    // }
-
-
-    // // Elimina un juego existente.
-    // public function destroy(Game $games)
-    // {
-    //     $games->delete();
-    //     session()->flash('status', 'Game Deleted!');
-    //     return to_route('test.games.index');
-    // }
 }
