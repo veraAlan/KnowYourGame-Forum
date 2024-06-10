@@ -93,10 +93,9 @@ class DiscussionController extends Controller
 
 
     // Elimina una discusión existente.
-    public function destroy(Discussion $discussions)
-    {
-        $discussions->delete();
-        session()->flash('status', 'Discussion eliminado!');
-        return to_route('test.discussions.index');
+    public function destroy(Request $request, Discussion $discussion){
+        $forum = $discussion->forum;
+        Discussion::find($request->input('discussion_id'))->delete();
+        return redirect()->route('game.portal.forum.index', $forum->portal_id)->with('status', 'deleted');
     }
 }
