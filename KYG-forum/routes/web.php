@@ -123,9 +123,10 @@ Route::middleware('adminAuth')->group(function () {
     Route::patch('adm/discussions/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
     Route::delete('adm/discussions/{discussion}/destroy', [DiscussionController::class, 'destroy'])->name('game.portal.forum.discussion.destroy');
 
-    Route::patch('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
+    Route::get('adm/discussion/{discussion}', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply.index');
+    Route::get('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
     Route::patch('adm/discussion/{discussion}/update', [ReplyController::class, 'update'])->name('game.portal.forum.discussion.reply.update');
-    Route::patch('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
+    Route::delete('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 require __DIR__ . '/auth.php';

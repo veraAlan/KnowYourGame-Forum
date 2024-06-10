@@ -34,7 +34,7 @@ class ReplyController extends Controller
         $validated['user_id'] = auth()->user()->id;
 
         Reply::create($validated);
-        return redirect()->route('game.portal.forum.discussion.reply.index', $discussion)->with(['status' => 'created']);
+        return redirect()->route('game.portal.forum.discussion.index', $discussion)->with(['status' => 'created']);
     }
 
     /**
@@ -52,6 +52,6 @@ class ReplyController extends Controller
      */
     public function destroy(Request $request, Discussion $discussion){
         Reply::find($request->input('reply_id'))->delete();
-        return redirect()->route('game.portal.forum.discussion.reply.index', $discussion)->with('status', 'deleted');
+        return redirect()->route('game.portal.forum.discussion.index', $discussion)->with('status', 'deleted');
     }
 }
