@@ -18,9 +18,13 @@ class Discussion extends Model
         return $this->belongsTo(Forum::class, 'forum_id');
     }
 
-    //CONSULTAR
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'discussion_id');
     }
 }

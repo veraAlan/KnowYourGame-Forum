@@ -13,6 +13,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ReplyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -56,7 +57,6 @@ Route::middleware('modAuth')->group(function () {
     Route::patch('mod/news/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
     Route::delete('mod/news/{news}/{publication}/destroy', [PublicationController:: class, 'destroy'])->name('news.publication.destroy');
 
-
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
@@ -72,6 +72,11 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/wiki/{wiki}/article/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
     Route::patch('mod/wiki/{wiki}/article/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
     Route::delete('mod/wiki/{wiki}/article/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+
+    // Replies
+    Route::get('mod/replies/{discussion}', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply.index');
+    Route::get('mod/replies/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
+    Route::delete('mod/replies/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 Route::middleware('adminAuth')->group(function () {
