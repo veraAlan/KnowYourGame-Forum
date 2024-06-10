@@ -6,8 +6,9 @@
     </x-slot>
 
 
-    @include('game.portal.forum.discussion.partials.create')
 
     @include('game.portal.forum.discussion.partials.edit')
+
+    @include('game.portal.forum.discussion.reply.index')
 
 </x-app-layout>

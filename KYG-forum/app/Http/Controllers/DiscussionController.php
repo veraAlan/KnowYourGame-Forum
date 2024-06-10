@@ -18,14 +18,16 @@ class DiscussionController extends Controller
     public function show(Discussion $discussion)
     {
         $forum = $discussion->forum;
+
         return view('portals.forum.discussion', compact('forum', 'discussion'));
     }
 
-    public function index(Portal $portal, Forum $forum)
+    public function index(Discussion $discussion)
     {
-        $discussion = Discussion::where('forum_id', $forum->forum_id)->get();
-        $user = User::select('id', 'name')->get();
-        return view('game.portal.forum.discussion.index', compact('portal', 'forum', 'discussion', 'user'));
+        $forum = $discussion->forum;
+        $user = $discussion->user;
+        $replies = $discussion->replies;
+        return view('game.portal.forum.discussion.index', compact('forum', 'discussion', 'user', 'replies'));
     }
 
 

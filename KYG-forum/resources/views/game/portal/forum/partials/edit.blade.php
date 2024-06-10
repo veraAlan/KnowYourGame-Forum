@@ -1,7 +1,6 @@
 @foreach ($discussions as $discussion)
-        <div>
 
-        <a href="{{ route('game.portal.forum.discussion.index', ['portal' => $portal, 'forum' => $forum]) }}" class="flex items-center gap-4 text-white">
+        <a href="{{ route('game.portal.forum.discussion.index', $discussion) }}" class="flex items-center gap-4 text-white">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ old('title', $discussion->title)}}</h2>
         </a>
 

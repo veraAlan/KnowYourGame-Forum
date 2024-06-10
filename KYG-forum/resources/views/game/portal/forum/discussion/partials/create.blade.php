@@ -5,7 +5,7 @@
                 {{ __('Create New Discussion') }}
             </h2>
 
-            <form method="POST" action="{{ route('game.portal.forum.discussion.create', ['portal' => $portal, 'forum' => $forum, 'discussion' => $discussion]) }}">
+            <form method="POST" action="{{ route('game.portal.forum.discussion.create', ['portal' => $portal, 'forum' => $forum]) }}">
                 @csrf
                 @method('get')
                 <input type="hidden" name="forum_id" value="{{ $forum->forum_id }}" hidden>

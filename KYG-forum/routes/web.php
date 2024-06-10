@@ -12,9 +12,12 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
+use App\Models\Discussion;
+use App\Models\Reply;
 
 Route::get('/', function () {
     return view('welcome');
@@ -121,9 +124,14 @@ Route::middleware('adminAuth')->group(function () {
     Route::delete('adm/game/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
 
     //Discussion
-    Route::get('adm/game/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
+    Route::get('adm/discussions/{discussion}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
     Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
-    Route::patch('adm/game/portal/{portal}/{forum}/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
+    Route::patch('adm/discussions/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
+    Route::delete('adm/discussions/{discussion}/destroy', [DiscussionController::class, 'destroy'])->name('game.portal.forum.discussion.destroy');
+
+    Route::patch('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
+    Route::patch('adm/discussion/{discussion}/update', [ReplyController::class, 'update'])->name('game.portal.forum.discussion.reply.update');
+    Route::patch('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 require __DIR__ . '/auth.php';
