@@ -3,7 +3,7 @@
         <div class="grid grid-cols-2 gap-4 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
             @foreach($games as $game)
             <div class="flex flex-col flex-wrap align-content-center p-6 inline-grid">
-                <form method="POST" action="{{ route('game.update', $game) }}" class="flex flex-col flex-wrap align-content-center inline-grid">
+                <form method="POST" action="{{ route('game.update', $game) }}" class="flex flex-col flex-wrap align-content-center inline-grid" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>

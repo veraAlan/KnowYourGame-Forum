@@ -29,12 +29,16 @@ class PortalController extends Controller
     public function index(Game $game)
     {
         $games = Game::find($game->game_id);
-        $portal = Portal::where('portal_id', $game->game_id)->get()[0];
-        $forum = Forum::where('portal_id', $game->game_id)->get()[0];
-        $new = News::where('portal_id', $game->game_id)->get()[0];
-        $wiki = Wiki::where('portal_id', $game->game_id)->get()[0];
+        $portal = Portal::where('game_id', $game->game_id)->get()[0];
 
-        return view('game.portal.index', compact('games', 'forum', 'new', 'wiki', 'portal'));
+        $wiki = Wiki::where('portal_id', $portal->portal_id)->get();
+        // dd($wiki);
+        // exit();
+        $forum = Forum::where('portal_id', $portal->portal_id)->get();
+        $new = News::where('portal_id', $portal->portal_id)->get();
+
+
+        return view('game.portal.index', compact('games', 'wiki', 'new', 'forum', 'portal'));
     }
 
     public function create(Request $request, Game $game)

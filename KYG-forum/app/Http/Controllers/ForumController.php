@@ -19,6 +19,22 @@ class ForumController extends Controller
         return view('game.portal.forum.index', compact('forum', 'discussions', 'portal'));
     }
 
+    public function create(Request $request){
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+            $portal = Portal::find($request->input('portal_id'));
+            $game = Game::find($portal->game_id);
+            $validated = $request->validate([
+            'title' => 'required|min:3|unique:wikis,title',
+            'portal_id' => 'required'
+        ]);
+
+        Forum::create($validated);
+
+        return redirect()->route('game.portal.index', $game->game_id)->with(['status' => 'created']);
+    }
+
     public function update(Request $request, Portal $portal, Forum $forum)
     {
         if (session()->token() !== $request->input('_token')) {

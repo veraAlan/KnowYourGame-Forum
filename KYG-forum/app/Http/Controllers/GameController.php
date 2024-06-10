@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
+use App\Models\Portal;
 
 class GameController extends Controller
 {
@@ -35,7 +36,14 @@ class GameController extends Controller
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
         $validated['img'] = $this->storeImage($validated, $this->storage_path);
-        Game::create($validated);
+
+        // Game::create($validated);
+        $game = Game::create($validated);
+        $gameid = $game->game_id;
+        $gametitulo = $game->title;
+        $gameDescription = " Portal de " . $gametitulo;
+        Portal::create(['portal_id' => $gameid, 'game_id' => $gameid, 'name' => $gametitulo, 'description' => $gameDescription]);
+
         return redirect()->route('game.index')->with(['status' => 'created']);
         return redirect()->route('game.index')->withErrors($validated);
     }

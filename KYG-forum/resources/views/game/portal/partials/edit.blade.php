@@ -1,3 +1,4 @@
+
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 gap-4 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
@@ -5,7 +6,7 @@
                 @csrf
                 @method('patch')
                 <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
-                <a href="{{ route('wiki.index') }}" class="flex items-center gap-4 text-white">
+                <a href="{{ route('wiki.article.index', $wiki) }}" class="flex items-center gap-4 text-white">
                     {{ __('Go to this Wiki.') }}
                 </a>
                 <input type="textarea" value="{{ old('title', $wiki->title) }}" name="title" class="rounded-full bg-slate-800 border p-2">
@@ -17,7 +18,6 @@
                     @endif
                 </div>
             </form>
-
             <form method="POST" action="{{ route('wiki.destroy') }}">
                 @csrf
                 @method('delete')
@@ -31,7 +31,7 @@
                 @csrf
                 @method('patch')
                 <input type="number" value="{{ $new->news_id }}" name="news_id" hidden>
-                <a href="{{ route('news.index') }}" class="flex items-center gap-4 text-white">
+                <a href="{{ route('news.publications.index', $new) }}" class="flex items-center gap-4 text-white">
                     {{ __('Go to this New.') }}
                 </a>
                 <input type="textarea" value="{{ old('title', $new->title) }}" name="title" class="rounded-full bg-slate-800 border p-2">

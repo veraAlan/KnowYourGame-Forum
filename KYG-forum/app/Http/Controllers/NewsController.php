@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\News;
 use App\Models\Portal;
 use App\Models\Publication;
@@ -19,16 +20,20 @@ class NewsController extends Controller
 
     public function create(Request $request)
     {
+
         if(session()->token() !== $request->input('_token')){
             return redirect()->route('unauthorized')->with('status', 'invalid token.');
         }
-        $validated = $request->validated([
-            'news_id' => 'required|unique:news,idnews',
+        $portal = Portal::find($request->input('portal_id'));
+        $game = Game::find($portal->game_id);
+        $validated = $request->validate([
+            'title' => 'required',
             'portal_id' => 'required'
         ]);
+
         News::create($validated);
 
-        return redirect()->route('wiki.index')->with(['status' => 'created']);
+        return redirect()->route('game.portal.index', $game->game_id)->with(['status' => 'created']);
     }
 
     public function edit()
@@ -39,8 +44,9 @@ class NewsController extends Controller
 
     public function update(Request $request)
     {
-        News::find($request->input('wiki_id'))->update($request->input());
-        return redirect()->route('news.index', '#show-update')->with(['status' => 'update', 'idupdated' => $request->input('news_id')]);
+        $game = Game::find($request->input('news_id'));
+        News::find($request->input('news_id'))->update($request->input());
+        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with(['status' => 'update', 'idupdated' => $request->input('news_id')]);
     }
 
     public function destroy(Request $request)

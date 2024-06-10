@@ -10,8 +10,8 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->bigIncrements('publication_id'); // Auto incremento y clave primaria
-            $table->integer('news_id');
-            $table->integer('game_id');
+            $table->unsignedBigInteger('news_id');
+            $table->unsignedBigInteger('game_id');
             $table->string('title', 100);
             $table->text('content');
             $table->binary('img');

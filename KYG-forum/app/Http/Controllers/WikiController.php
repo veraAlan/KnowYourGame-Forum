@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Portal;
 use App\Models\Wiki;
 use Illuminate\Http\Request;
+
 
 class WikiController extends Controller
 {
@@ -27,7 +29,8 @@ class WikiController extends Controller
         if(session()->token() !== $request->input('_token')){
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-
+        $portal = Portal::find($request->input('portal_id'));
+        $game = Game::find($portal->game_id);
         $validated = $request->validate([
             'title' => 'required|min:3|unique:wikis,title',
             'portal_id' => 'required'
@@ -35,7 +38,7 @@ class WikiController extends Controller
 
         Wiki::create($validated);
 
-        return redirect()->route('wiki.index')->with(['status' => 'created']);
+        return redirect()->route('game.portal.index', $game->game_id)->with(['status' => 'created']);
     }
 
     /**
@@ -53,8 +56,10 @@ class WikiController extends Controller
      */
     public function update(Request $request)
     {
+        $game = Game::find($request->input('wiki_id'));
         Wiki::find($request->input('wiki_id'))->update($request->input());
-        return redirect()->route('wiki.index', '#show-update')->with(['status' => 'updated', 'idupdated' => $request->input('wiki_id')]);
+
+        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with(['status' => 'updated', 'idupdated' => $request->input('wiki_id')]);
     }
 
     /**

@@ -44,7 +44,7 @@ Route::middleware('modAuth')->group(function () {
     // News
     Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
-    Route::get('mod/news/update', [NewsController::class, 'update'])->name('news.update');
+    Route::patch('mod/news/update', [NewsController::class, 'update'])->name('news.update');
     Route::get('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
@@ -102,14 +102,14 @@ Route::middleware('adminAuth')->group(function () {
     Route::delete('adm/game/{games}/portal/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
     //Forum
     Route::get('adm/game/portal/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
-    //Route::get('adm/game/{game}/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
+    Route::get('adm/game/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
     Route::patch('adm/game/portal/{portal}/{forum}/update', [ForumController::class, 'update'])->name('game.portal.forum.update');
     Route::delete('adm/game/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
 
     //Discussion
     Route::get('adm/game/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
     Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
-    Route::patch('adm/game/portal/{portal}/{forum}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
+    Route::patch('adm/game/portal/{portal}/{forum}/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
 });
 
 // Test all data in database. (No auth needed)

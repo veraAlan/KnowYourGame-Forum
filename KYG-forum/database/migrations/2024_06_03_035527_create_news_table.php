@@ -9,7 +9,7 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->integer('news_id')->primary();
+            $table->bigIncrements('news_id');
             $table->unsignedInteger('portal_id'); // Cambiado a unsignedInteger
             $table->string('title', 100);
             $table->timestamps();
