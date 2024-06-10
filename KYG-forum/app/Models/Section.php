@@ -11,7 +11,7 @@ class Section extends Model
 
     protected $table = 'sections';
     protected $primaryKey = 'section_id';
-    protected $fillable = ['article_id', 'content', 'img'];
+    protected $fillable = ['article_id', 'title', 'content', 'img'];
 
     public function article()
     {

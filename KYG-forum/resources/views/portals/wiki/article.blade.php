@@ -23,6 +23,7 @@
                      <span class="font-semibold text-gray-800 dark:text-gray-200 leading-tight py-2">
                         {{ $section->content }}
                      </span>
+                     <img src="{{asset($section->img)}}" alt="{{'Thumbnail for ' . $section->title}}">
                   @endforeach
                </div>
             </div>

@@ -4,12 +4,10 @@
             @foreach ($articles as $article)
                 <div class="py-4 border-b border-gray-200">
                     <form method="POST"
-                        action="{{ route('wiki.article.update', ['wiki' => $wiki, 'article' => $article]) }}"
+                        action="{{ route('wiki.article.update', $article) }}"
                         class="p-6">
                         @csrf
                         @method('patch')
-                        <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
-
                         <input type="textarea" value="{{ old('title', $article->title) }}" name="title"
                             class="text-black border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:border-blue-500">
                         <br><br>
@@ -24,7 +22,7 @@
                         </div>
                     </form>
                     <form method="POST"
-                        action="{{ route('wiki.article.destroy', ['wiki' => $wiki, 'article' => $article]) }}" class="p-6">
+                        action="{{ route('wiki.article.destroy', $article) }}" class="p-6">
                         @csrf
                         @method('delete')
                         <input type="number" value="{{ $article->article_id }}" name="article_id" hidden>

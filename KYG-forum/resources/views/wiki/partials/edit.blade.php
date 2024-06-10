@@ -1,11 +1,10 @@
 @foreach($wikis as $wiki)
-   <form method="POST" action="{{ route('wiki.update') }}">
+   <form method="POST" action="{{ route('wiki.update', $wiki) }}">
       @csrf
       @method('patch')
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
          
       </h2>
-      <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>
       <a href="{{ route('wiki.article.index', $wiki) }}" class="flex items-center gap-4 text-white">
          {{ __('Go to Articles.') }}
       </a>
@@ -24,7 +23,7 @@
          @endif
       </div>
    </form>
-   <form method="POST" action="{{ route('wiki.destroy') }}">
+   <form method="POST" action="{{ route('wiki.destroy', $wiki) }}">
       @csrf
       @method('delete')
       <input type="number" value="{{ $wiki->wiki_id }}" name="wiki_id" hidden>

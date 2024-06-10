@@ -66,14 +66,14 @@ Route::middleware('modAuth')->group(function () {
     // Articles
     Route::get('mod/wiki/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
     Route::get('mod/wiki/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');
-    Route::patch('mod/wiki/{wiki}/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
-    Route::delete('mod/wiki/{wiki}/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
+    Route::patch('mod/{article}/update', [ArticleController::class, 'update'])->name('wiki.article.update');
+    Route::delete('mod/{article}/destroy', [ArticleController::class, 'destroy'])->name('wiki.article.destroy');
     // Sections
-    Route::get('mod/wiki/{wiki}/article/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
-    Route::get('mod/wiki/{wiki}/article/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
-    Route::patch('mod/wiki/{wiki}/article/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
-    Route::delete('mod/wiki/{wiki}/article/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
-
+    Route::get('mod/article/{article}', [SectionController::class, 'index'])->name('wiki.article.section.index');
+    Route::get('mod/article/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
+    Route::patch('mod/article/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
+    Route::delete('mod/article/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+    
     //Forum
     Route::get('mod/game/portal/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
     Route::get('mod/game/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');

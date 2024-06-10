@@ -59,15 +59,14 @@ class ArticleController extends Controller
      * @param Wiki
      * @param Article
      */
-    public function update(Request $request, Wiki $wiki, Article $article)
+    public function update(Request $request, Article $article)
     {
         $validated = $request->validate([
-            'wiki_id' => 'required',
             'title' => 'required'
         ]);
 
-        Article::find($article->article_id)->update($validated);
-        return redirect()->route('wiki.article.index', ['wiki' => $wiki, '#show-update'])->with(['status' => 'updated', 'idupdated' => $article->article_id]);
+        $article->update($validated);
+        return redirect()->route('wiki.article.index', ['wiki' => $article->wiki, '#show-update'])->with(['status' => 'updated', 'idupdated' => $article->article_id]);
     }
 
     /**
@@ -77,11 +76,11 @@ class ArticleController extends Controller
      * @param Wiki
      * @param Article
      */
-    public function destroy(Request $request, Wiki $wiki, Article $article){
+    public function destroy(Request $request, Article $article){
         if(session()->token() !== $request->input('_token')){
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-        Article::find($article->article_id)->delete();
-        return redirect()->route('wiki.article.index', $wiki)->with('status', 'deleted');
+        $article->delete();
+        return redirect()->route('wiki.article.index', $article->wiki)->with('status', 'deleted');
     }
 }
