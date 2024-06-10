@@ -50,9 +50,9 @@ Route::middleware('modAuth')->group(function () {
     // News
     Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
-    Route::patch('mod/news/update', [NewsController::class, 'update'])->name('news.update');
-    Route::delete('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
-    // Publications
+    Route::patch('mod/news/{new}/update', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('mod/news/{new}/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
+
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
     Route::get('mod/news/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');
     Route::patch('mod/news/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
@@ -61,8 +61,8 @@ Route::middleware('modAuth')->group(function () {
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
-    Route::patch('mod/wiki/update', [WikiController::class, 'update'])->name('wiki.update');
-    Route::delete('mod/wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
+    Route::patch('mod/wiki/{wiki}/update', [WikiController::class, 'update'])->name('wiki.update');
+    Route::delete('mod/wiki/{wiki}/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
     // Articles
     Route::get('mod/wiki/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
     Route::get('mod/wiki/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');

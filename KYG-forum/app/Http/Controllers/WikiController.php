@@ -63,12 +63,12 @@ class WikiController extends Controller
      * 
      * @param Request
      */
-    public function update(Request $request)
+    public function update(Request $request, Wiki $wiki)
     {
-        $game = Game::find($request->input('wiki_id'));
-        Wiki::find($request->input('wiki_id'))->update($request->input());
 
-        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with(['status' => 'updated', 'idupdated' => $request->input('wiki_id')]);
+        Wiki::find($wiki->wiki_id)->update($request->input());
+
+        return redirect()->route('game.portal.index', [$wiki->portal->game, '#show-update'])->with(['status' => 'updated', 'idupdated' => $request->input('wiki_id')]);
     }
 
     /**
@@ -76,8 +76,9 @@ class WikiController extends Controller
      * 
      * @param Request
      */
-    public function destroy(Request $request){
-        Wiki::find($request->input('wiki_id'))->delete();
-        return redirect()->route('wiki.index')->with('status', 'deleted');
+    public function destroy(Wiki $wiki){
+        
+        $wiki->delete();
+        return redirect()->route('game.portal.index', [$wiki->portal->game, '#show-update'])->with('status', 'deleted');
     }
 }

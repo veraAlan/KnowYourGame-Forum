@@ -41,28 +41,31 @@ class ForumController extends Controller
 
     public function update(Request $request, Portal $portal, Forum $forum)
     {
+
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Token inválido.');
         }
-
+        $game = Game::find($portal->game_id);
         $validated = $request->validate([
-            'portal_id' => 'required',
+            'forum_id' => 'required',
             'title' => 'required|min:3|max:25'
         ]);
 
-        $forum->update($validated);
+        Forum::find($forum->forum_id)->update($validated);
 
-        return redirect()->route('game.portal.forum.index', ['portal' => $portal, '#show-update'])
+        return redirect()->route('game.portal.index', ['game' => $game, 'portal' => $portal, '#show-update'])
             ->with(['status' => 'actualizado', 'idupdated' => $forum->forum_id]);
     }
 
 
     public function destroy(Request $request, Portal $portal, Forum $forum)
     {
+        $game = Game::find($portal->game_id);
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-        $forum->delete();
-        return redirect()->route('game.portal.forum.index', ['portal' => $portal])->with('status', 'deleted');
+
+        Forum::find($request->input('forum_id'))->delete();
+        return redirect()->route('game.portal.index', ['game' => $game, 'portal' => $portal])->with('status', 'deleted');
     }
 }
