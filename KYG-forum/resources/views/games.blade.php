@@ -3,9 +3,9 @@
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
         List of games in our multi portal.
       </h2>
-      @if(isset($error))
-      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ $error }}
+      @if(session('status'))
+      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="color:rgb(160 40 23)">
+        {{ session('status') }}
       </h2>
       @endif
    </x-slot>

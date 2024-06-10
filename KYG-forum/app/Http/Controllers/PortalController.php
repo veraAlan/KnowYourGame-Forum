@@ -12,14 +12,14 @@ class PortalController extends Controller
 {
     public function show(Game $game)
     {
-        if(isset(Portal::find($game)[0])){
-            $foundPortal = Portal::find($game)[0];
+        if($game->portal){
+            $foundPortal = $game->portal;
             $wiki = $foundPortal->wiki;
             $forum = $foundPortal->forum;
             $news = $foundPortal->news;
         } else {
             // Redirect in case of error finding the portals for a game.
-            return redirect()->route('games')->with('Error', 'Couldnt find portals in this game.');
+            return redirect()->route('games')->with('status', 'Couldnt find portals in this game.');
         }
 
         return view('portal', compact('game', 'wiki', 'forum', 'news'));

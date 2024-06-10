@@ -6,9 +6,9 @@
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
         List of portals for {{ $game->title }}
       </h2>
-      @if(isset($error))
+      @if(session('status'))
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ $error }}
+        {{ session('status') }}
       </h2>
       @endif
    </x-slot>

@@ -18,4 +18,8 @@ class Game extends Model
     public function tags() {
         return $this->hasMany(Tag::class, 'game_id');
     }
+
+    public function portal() {
+        return $this->hasOne(Portal::class, 'game_id');
+    }
 }
