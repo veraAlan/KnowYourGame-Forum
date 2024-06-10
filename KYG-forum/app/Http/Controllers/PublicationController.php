@@ -63,7 +63,7 @@ class PublicationController extends Controller
             }
         }
 
-        $publication->update($validated);
+        Publication::find($publication->publication_id)->update($validated);
         return redirect()->route('news.publications.index', ['news' => $news, '#show-update'])->with(['status' => 'updated', 'idupdated' => $publication->publication_id]);
     }
 

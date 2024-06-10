@@ -29,6 +29,7 @@
                     <form method="POST" action="{{ route('news.publication.destroy', ['news' => $news, 'publication' => $publication]) }}">
                         @csrf
                         @method('delete')
+                        <input type="number" value="{{ $publication->publication_id }}" name="publication_id" hidden>
                         <div class="flex justify-end">
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">{{ __('Delete') }}</button>
                         </div>
