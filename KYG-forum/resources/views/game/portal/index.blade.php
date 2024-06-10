@@ -4,20 +4,28 @@
             This are the portals inside {{ $games->title }}
         </h2>
     </x-slot>
+
+
     @if (!$wiki->isEmpty() && !$new->isEmpty() && !$forum->isEmpty())
-    @include('game.portal.partials.edit', [
-        'wiki' => $wiki[0] ?? null,
-        'new' => $new[0] ?? null,
-        'forum' => $forum[0] ?? null,
-        'portal' => $portal,
-    ])
+        @include('game.portal.partials.edit', [
+            'wiki' => $wiki[0] ?? null,
+            'new' => $new[0] ?? null,
+            'forum' => $forum[0] ?? null,
+            'portal' => $portal,
+        ])
     @else
+        @if ($wiki->isEmpty())
+            @include('wiki.partials.create')
+        @endif
 
-                @include('wiki.partials.create')
+        @if ($new->isEmpty())
+            @include('news.partials.create')
+        @endif
 
-                @include('news.partials.create')
-        
-                @include('game.portal.forum.partials.create')
+        @if ($forum->isEmpty())
+            @include('game.portal.forum.partials.create')
+        @endif
+
     @endif
 
 </x-app-layout>
