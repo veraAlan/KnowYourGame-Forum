@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-      <a href="{{route('portal', $portal)}}" class="rounded-full text-sm text-white bg-slate-800 border" style="width: inherit;width: max-content; padding: 5px 30px; margin: 10px 0;">
+      <a href="{{route('portal', $portal->game)}}" class="rounded-full text-sm text-white bg-slate-800 border" style="width: inherit;width: max-content; padding: 5px 30px; margin: 10px 0;">
          Go back to {{$portal->name}}
       </a>
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight pt-4">

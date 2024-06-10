@@ -153,7 +153,7 @@ VALUES (1, 1, 'Guía de Armas'),
     (5, 4, 'Weapons and Perks'),
     (
         6,
-        6,
+        5,
         'Learn your Ascent Line-ups!'
     );
 

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-      <a href="{{route('portal', $portal)}}" class="rounded-full text-white bg-slate-800 border" style="width: max-content; padding: 5px 30px; margin: 10px 0;">
+      <a href="{{route('portal', $portal->game)}}" class="rounded-full text-white bg-slate-800 border" style="width: max-content; padding: 5px 30px; margin: 10px 0;">
          Go back to {{$portal->name}}
       </a>
       @if(session('status'))
