@@ -66,8 +66,8 @@ Route::middleware('modAuth')->group(function () {
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
     Route::get('mod/wiki/create', [WikiController::class, 'create'])->name('wiki.create');
-    Route::patch('mod/wiki/update', [WikiController::class, 'update'])->name('wiki.update');
-    Route::delete('mod/wiki/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
+    Route::patch('mod/wiki/{wiki}/update', [WikiController::class, 'update'])->name('wiki.update');
+    Route::delete('mod/wiki/{wiki}/destroy', [WikiController::class, 'destroy'])->name('wiki.destroy');
     // Articles
     Route::get('mod/wiki/{wiki}', [ArticleController::class, 'index'])->name('wiki.article.index');
     Route::get('mod/wiki/{wiki}/create', [ArticleController::class, 'create'])->name('wiki.article.create');
