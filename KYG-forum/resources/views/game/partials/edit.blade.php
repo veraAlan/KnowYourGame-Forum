@@ -18,7 +18,7 @@
                     @method('patch')
                     <input type="number" value="{{ $game->game_id }}" name="game_id" hidden>
                     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
-                        {{ __('Click the image for the game portal! test') }}
+                        {{ __('Click the image for the game portal!') }}
                     </h2>
                     <a href="{{route('game.portal.index', $game)}}">
                         <img class="py-2 object-cover w-full" src="{{asset($game->img)}}" alt="{{'Thumbnail image of: ' . $game->title}}">

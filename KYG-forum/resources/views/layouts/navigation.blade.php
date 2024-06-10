@@ -5,16 +5,33 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('games') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('games')" :active="request()->routeIs('games')">
-                        {{ __('Main Page of Games') }}
+                        {{ __('Games') }}
                     </x-nav-link>
+                    @if(Auth::check())
+                        @if(Auth::user()->role->role->role_id == 1)
+                            <x-nav-link :href="route('game.index')" :active="request()->routeIs('game.index')">
+                                {{ __('Edit Games') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.index')">
+                                {{ __('Edit Role') }}
+                            </x-nav-link>
+                        @endif
+                        @if(Auth::user()->role->role->role_id <= 2)
+                            <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.index')">
+                                {{ __('Moderate Wiki') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.index')">
+                                {{ __('Moderate News') }}
+                            </x-nav-link>
+                        @endif
+                    @endif
                 </div>
             </div>
 
@@ -88,10 +105,29 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('This') }}
+            <x-responsive-nav-link :href="route('games')" :active="request()->routeIs('games')">
+                {{ __('Games') }}
             </x-responsive-nav-link>
+            @if(Auth::check())
+                @if(Auth::user()->role->role->role_id == 1)
+                    <x-responsive-nav-link :href="route('game.index')" :active="request()->routeIs('game.index')">
+                        {{ __('Edit Games') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('role.index')" :active="request()->routeIs('role.index')">
+                        {{ __('Edit Role') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if(Auth::user()->role->role->role_id <= 2)
+                    <x-responsive-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.index')">
+                        {{ __('Moderate Wiki') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.index')">
+                        {{ __('Moderate News') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endif
         </div>
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

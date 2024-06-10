@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\UserRole;
 
 class ModAuth
 {
@@ -17,12 +16,11 @@ class ModAuth
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->check()){
-            $sessionRole = UserRole::find(auth()->user()->id);
-            if(in_array($sessionRole->role_id, [1, 2])){
+            $sessionRole = auth()->user()->role->role_id;
+            if(in_array($sessionRole, [1, 2])){
                 return $next($request);
             }
-            // TODO Redirect and show error message for lesser privileges.
-            return redirect('unauthorized');
+            return redirect('unauthorized')->with('status', 'Not authorized to make that request.');
         }
 
         return redirect('not-logged');

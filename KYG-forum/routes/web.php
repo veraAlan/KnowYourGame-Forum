@@ -17,7 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 
-//List Games
+// List Games
 Route::get('/', [GameController::class, 'show'])->name('games');
 // List Portals
 Route::get('/portal/{game}', [PortalController::class, 'show'])->name('portal');
@@ -31,10 +31,6 @@ Route::get('/discussion/{discussion}', [DiscussionController::class, 'show'])->n
 Route::get('/news/{news}', [NewsController::class, 'show'])->name('news');
 
 // Routes that needs to be Authenticated.
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/unauthorized', function () {
     return view('auth.unauthorized');
 });
@@ -56,12 +52,11 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::patch('mod/news/update', [NewsController::class, 'update'])->name('news.update');
     Route::delete('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
-
+    // Publications
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
     Route::get('mod/news/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');
     Route::patch('mod/news/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
     Route::delete('mod/news/{news}/{publication}/destroy', [PublicationController::class, 'destroy'])->name('news.publication.destroy');
-
 
     // Wiki
     Route::get('mod/wiki', [WikiController::class, 'index'])->name('wiki.index');
@@ -78,28 +73,40 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/wiki/{wiki}/article/{article}/create', [SectionController::class, 'create'])->name('wiki.article.section.create');
     Route::patch('mod/wiki/{wiki}/article/{article}/{section}/update', [SectionController::class, 'update'])->name('wiki.article.section.update');
     Route::delete('mod/wiki/{wiki}/article/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
+
+    //Forum
+    Route::get('mod/game/portal/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
+    Route::get('mod/game/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
+    Route::patch('mod/game/portal/{portal}/{forum}/update', [ForumController::class, 'update'])->name('game.portal.forum.update');
+    Route::delete('mod/game/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
+    //Discussion
+    Route::get('mod/discussions/{discussion}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
+    Route::get('mod/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
+    Route::patch('mod/discussions/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
+    Route::delete('mod/discussions/{discussion}/destroy', [DiscussionController::class, 'destroy'])->name('game.portal.forum.discussion.destroy');
+    //Replies
+    Route::get('mod/discussion/{discussion}', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply.index');
+    Route::get('mod/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
+    Route::patch('mod/discussion/{discussion}/update', [ReplyController::class, 'update'])->name('game.portal.forum.discussion.reply.update');
+    Route::delete('mod/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 // Routes that go through Administrator Authentication.
 Route::middleware('adminAuth')->group(function () {
-
     // Role Routes
     Route::get('adm/role', [RoleController::class, 'index'])->name('role.index');
     Route::get('adm/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::patch('adm/roles/update', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('adm/roles/destroy', [RoleController::class, 'destroy'])->name('roles.destroy');
-
     // User Routes
     Route::get('adm/role', [UserController::class, 'index'])->name('role.index');
     Route::get('adm/role/create', [UserController::class, 'create'])->name('role.create');
     Route::patch('adm/role/update', [UserController::class, 'update'])->name('role.update');
     Route::delete('adm/role/destroy', [UserController::class, 'destroy'])->name('role.destroy');
-
     // UserRole Routes
     Route::get('adm/role', [UserRoleController::class, 'index'])->name('role.index');
     Route::get('adm/role/permiso', [UserRoleController::class, 'index'])->name('role.permiso.index');
     Route::patch('adm/role/permiso/update', [UserRoleController::class, 'update'])->name('role.permiso.update');
-
 
     //Game
     Route::get('adm/game', [GameController::class, 'index'])->name('game.index');
@@ -111,22 +118,6 @@ Route::middleware('adminAuth')->group(function () {
     Route::get('adm/game/{game}/create', [PortalController::class, 'create'])->name('game.portal.create');
     Route::patch('adm/game/{games}/portal/{portal}/update', [PortalController::class, 'update'])->name('game.portal.update');
     Route::delete('adm/game/{games}/portal/{portal}/destroy', [PortalController::class, 'destroy'])->name('game.portal.destroy');
-    //Forum
-    Route::get('adm/game/portal/{portal}', [ForumController::class, 'index'])->name('game.portal.forum.index');
-    Route::get('adm/game/portal/{portal}/create', [ForumController::class, 'create'])->name('game.portal.forum.create');
-    Route::patch('adm/game/portal/{portal}/{forum}/update', [ForumController::class, 'update'])->name('game.portal.forum.update');
-    Route::delete('adm/game/portal/{portal}/{forum}/destroy', [ForumController::class, 'destroy'])->name('game.portal.forum.destroy');
-
-    //Discussion
-    Route::get('adm/discussions/{discussion}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
-    Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
-    Route::patch('adm/discussions/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
-    Route::delete('adm/discussions/{discussion}/destroy', [DiscussionController::class, 'destroy'])->name('game.portal.forum.discussion.destroy');
-
-    Route::get('adm/discussion/{discussion}', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply.index');
-    Route::get('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
-    Route::patch('adm/discussion/{discussion}/update', [ReplyController::class, 'update'])->name('game.portal.forum.discussion.reply.update');
-    Route::delete('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 require __DIR__ . '/auth.php';
