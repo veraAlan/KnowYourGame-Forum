@@ -60,7 +60,19 @@ php artisan key:generate
 npm run build
 ```
 
-8. Abrir el servidor local con el comando
+8.  Migramos la las tablas de la base de datos.
+
+```bash
+php artisan migrate
+```
+
+9.  Creamos el link simbolico para las carpetas de almacenamiento si es que no las importo el repositorio.
+
+```bash
+php artisan storage:link
+```
+
+10. Abrir el servidor local con el comando
 
 ```bash
 php artisan serve
