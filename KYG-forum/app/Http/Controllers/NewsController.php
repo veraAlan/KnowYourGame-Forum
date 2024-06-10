@@ -47,17 +47,16 @@ class NewsController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, News $new)
     {
-        $game = Game::find($request->input('news_id'));
-        News::find($request->input('news_id'))->update($request->input());
-        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with(['status' => 'update', 'idupdated' => $request->input('news_id')]);
+
+        News::find($new->news_id)->update($request->input());
+        return redirect()->route('game.portal.index', [$new->portal->game, '#show-update'])->with(['status' => 'update', 'idupdated' => $request->input('news_id')]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(News $new)
     {
-        $game = Game::find($request->input('news_id'));
-        News::find($request->input('news_id'))->delete();
-        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with('status', 'deleted');
+        $new->delete();
+        return redirect()->route('game.portal.index', [$new->portal->game, '#show-update'])->with('status', 'deleted');
     }
 }

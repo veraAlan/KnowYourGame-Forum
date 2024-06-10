@@ -54,8 +54,8 @@ Route::middleware('modAuth')->group(function () {
     // News
     Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
-    Route::patch('mod/news/update', [NewsController::class, 'update'])->name('news.update');
-    Route::delete('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
+    Route::patch('mod/news/{new}/update', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('mod/news/{new}/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
     Route::get('mod/news/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');

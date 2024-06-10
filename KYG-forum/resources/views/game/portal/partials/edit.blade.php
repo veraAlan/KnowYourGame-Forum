@@ -36,10 +36,9 @@
             <!-- News Form -->
             <div class="m-4 bg-gray-800 p-4 rounded-lg flex flex-col justify-between">
                 <h2 class="text-white text-center mb-4">News</h2>
-                <form method="POST" action="{{ route('news.update') }}" class="space-y-4">
+                <form method="POST" action="{{ route('news.update', $new) }}" class="space-y-4">
                     @csrf
                     @method('patch')
-                    <input type="number" value="{{ $new->news_id }}" name="news_id" hidden>
                     <label class="block text-white">{{ __('Title') }}</label>
                     <input type="textarea" value="{{ old('title', $new->title) }}" name="title" class="w-full rounded-md bg-gray-800 text-white border border-gray-300 p-2 focus:outline-none focus:ring focus:border-blue-500">
                     <div class="flex justify-center">
@@ -51,10 +50,9 @@
                         @endif
                     </div>
                 </form>
-                <form method="POST" action="{{ route('news.destroy') }}" class="mt-4">
+                <form method="POST" action="{{ route('news.destroy', $new) }}" class="mt-4">
                     @csrf
                     @method('delete')
-                    <input type="number" value="{{ $new->news_id }}" name="news_id" hidden>
                     <div class="flex justify-center">
                         <button type="submit" class="rounded-full text-white bg-red-600 hover:bg-red-700 px-4 py-2">
                             {{ __('Delete this News') }}
