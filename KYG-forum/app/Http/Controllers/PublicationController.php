@@ -69,10 +69,11 @@ class PublicationController extends Controller
 
     public function destroy(Request $request, News $news, Publication $publication)
     {
+
         if (session()->token() !== $request->input('_token')) {
             return redirect()->route('unauthorized')->with('status', 'Invalid token.');
         }
-        $publication->delete();
-        return redirect()->route('wiki.article.section.index', ['news' => $news])->with('status', 'deleted');
+        Publication::find($request->input('publication_id'))->delete();
+        return redirect()->route('news.publications.index', ['news' => $news, '#show-update'])->with('status', 'deleted');
     }
 }
