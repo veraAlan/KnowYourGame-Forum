@@ -57,3 +57,12 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+
+// Test Privileges.
+Route::get('admin', function () {
+    return view('auth.admin');
+})->middleware('adminAuth');
+
+Route::get('mod', function () {
+    return view('auth.moderator');
+})->middleware('modAuth');
