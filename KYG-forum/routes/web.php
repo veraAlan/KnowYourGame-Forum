@@ -55,7 +55,7 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('mod/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::patch('mod/news/update', [NewsController::class, 'update'])->name('news.update');
-    Route::get('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
+    Route::delete('mod/news/destroy', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
     Route::get('mod/news/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');
@@ -123,9 +123,10 @@ Route::middleware('adminAuth')->group(function () {
     Route::patch('adm/discussions/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
     Route::delete('adm/discussions/{discussion}/destroy', [DiscussionController::class, 'destroy'])->name('game.portal.forum.discussion.destroy');
 
-    Route::patch('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
+    Route::get('adm/discussion/{discussion}', [ReplyController::class, 'index'])->name('game.portal.forum.discussion.reply.index');
+    Route::get('adm/discussion/{discussion}/create', [ReplyController::class, 'create'])->name('game.portal.forum.discussion.reply.create');
     Route::patch('adm/discussion/{discussion}/update', [ReplyController::class, 'update'])->name('game.portal.forum.discussion.reply.update');
-    Route::patch('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
+    Route::delete('adm/discussion/{discussion}/destroy', [ReplyController::class, 'destroy'])->name('game.portal.forum.discussion.reply.destroy');
 });
 
 require __DIR__ . '/auth.php';

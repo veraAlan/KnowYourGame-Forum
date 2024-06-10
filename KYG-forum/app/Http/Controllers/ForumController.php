@@ -18,7 +18,7 @@ class ForumController extends Controller
 
     public function index(Portal $portal)
     {
-        $forum = Forum::find($portal->portal_id);
+        $forum = $portal->forum;
         $discussions = Discussion::where('forum_id', $forum->forum_id)->get();
         return view('game.portal.forum.index', compact('forum', 'discussions', 'portal'));
     }
