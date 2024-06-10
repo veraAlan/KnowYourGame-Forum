@@ -56,7 +56,8 @@ class NewsController extends Controller
 
     public function destroy(Request $request)
     {
-        News::find($request->input('wiki_id'))->delete();
-        return redirect()->route('wiki.index')->with('status', 'deleted');
+        $game = Game::find($request->input('news_id'));
+        News::find($request->input('news_id'))->delete();
+        return redirect()->route('game.portal.index', ['game' => $game, '#show-update'])->with('status', 'deleted');
     }
 }
