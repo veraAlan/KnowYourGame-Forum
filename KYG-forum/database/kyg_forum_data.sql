@@ -41,6 +41,20 @@ VALUES (
         'games/images/Kirby-Angry-Edition-1717903088.png',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
+    ),
+    (
+        6,
+        'Valorant',
+        'games/images/Valorant-1718002530.jpg',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    ),
+    (
+        7,
+        'Stack Overflow',
+        'games/images/Stack-Overflow-1718002519.png',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
     );
 
 -- Insertar datos en las tablas
@@ -60,7 +74,11 @@ VALUES (1, 'First Person Shooter', 1),
     (12, 'RPG', 3),
     (13, 'Sandbox', 2),
     (14, 'Multiplayer', 4),
-    (15, 'Free to Play', 1);
+    (15, 'Free to Play', 1),
+    (16, 'First Person Shooter', 6),
+    (17, 'Multiplayer', 6),
+    (18, 'Free to Play', 6),
+    (19, 'Coding', 7);
 
 -- Datos para la tabla portals
 INSERT INTO
@@ -74,19 +92,37 @@ VALUES (
         1,
         1,
         'CS2 Portal',
-        'Portal de Counter-Strike 2'
+        'Portal of Counter-Strike 2'
     ),
     (
         2,
         2,
         'Minecraft Portal',
-        'Portal de Minecraft'
+        'Portal of Minecraft'
     ),
     (
         3,
         3,
         'LoL Portal',
-        'Portal de League of Legends'
+        'Portal of League of Legends'
+    ),
+    (
+        4,
+        4,
+        'Doom Eternal Portal',
+        'Portal of Doom Eternal'
+    ),
+    (
+        5,
+        6,
+        'Valorant Portal',
+        'Portal of Valorant'
+    ),
+    (
+        6,
+        7,
+        'Stack Overflow Portal',
+        'Portal of Valorant'
     );
 
 -- Datos para la tabla wikis
@@ -94,7 +130,10 @@ INSERT INTO
     wikis (wiki_id, portal_id, title)
 VALUES (1, 1, 'CS2 Wiki'),
     (2, 2, 'Minecraft Wiki'),
-    (3, 3, 'LoL Wiki');
+    (3, 3, 'LoL Wiki'),
+    (4, 4, 'Doom Eternal Wiki'),
+    (5, 5, 'Valorant Wiki'),
+    (6, 6, 'Stack Overflow Wiki');
 
 -- Datos para la tabla articles
 INSERT INTO
@@ -103,44 +142,117 @@ VALUES (1, 1, 'Guía de Armas'),
     (
         2,
         2,
-        'Construcciones Impresionantes'
+        'How to make Impressive Constructions'
     ),
-    (3, 3, 'Personajes Destacados');
+    (3, 3, 'Best Champions'),
+    (
+        4,
+        4,
+        'How to kill the Marauder'
+    ),
+    (5, 4, 'Weapons and Perks'),
+    (
+        6,
+        6,
+        'Learn your Ascent Line-ups!'
+    );
 
 -- Datos para la tabla sections
 INSERT INTO
     sections (
         section_id,
         article_id,
+        title,
         content,
         img
     )
 VALUES (
         1,
         1,
-        'Descripción de las armas principales',
-        1
+        'Spray Control',
+        'Your must know the spray pattern and how to control it for these weapons.',
+        NULL
     ),
     (
         2,
-        2,
-        'Instrucciones para construir una mansión',
-        1
+        1,
+        'M4A4',
+        'The spray pattern on this gun is quite simple but tricky at stressful situations.',
+        NULL
     ),
     (
         3,
-        3,
-        'Resumen de los campeones más destacados',
-        1
+        1,
+        'AK-47',
+        'Arguably the hardest gun in the game. Although, the spray control is quite rewarding when used correctly',
+        NULL
     ),
-    (4, 1, 'Nose', 1);
+    (
+        4,
+        2,
+        'Symmetry',
+        'Mantaining symmetry creates a sounding and easy to keep up base for your structure, starting with a simple squared based divided in four will keep you in a good path!',
+        NULL
+    ),
+    (
+        5,
+        3,
+        'Teemo',
+        'Best champion ever.',
+        NULL
+    ),
+    (
+        6,
+        4,
+        'Marauder',
+        'The Marauders are humanoids wearing Sentinel armor. Their armor is an earthy green, with a plate on the left of their chests, with a red glow in the center.',
+        NULL
+    ),
+    (
+        7,
+        4,
+        'Stagger',
+        'The best way to beat a Marauder at speed is to master the stagger and stunlock him. ',
+        NULL
+    ),
+    (
+        8,
+        4,
+        'Quick Combo Staggered',
+        'Stagger with the Super Shotgun, then blast him with the Ballista or the BFG. Rinse and repeat and he should fall fairly quickly.',
+        NULL
+    ),
+    (
+        9,
+        5,
+        'BFG 9000',
+        'The BFG 9000 makes a powerful comeback in Doom Eternal, found on the Phobos Base as the main power source of the BFG 10000 superweapon, which is part of the anti-demonic defense grid and is used by the Doom Slayer to shoot a hole into the surface of Mars.',
+        NULL
+    ),
+    (
+        10,
+        5,
+        'Ballista',
+        'The Ballista is a weapon in Doom Eternal. It is similar to the previous games Gauss Cannon, and runs on Energy cells.',
+        NULL
+    ),
+    (
+        11,
+        6,
+        'Iso Attacking',
+        'In the reference image you can find the best places to use Isos abilities.',
+        NULL
+    );
 
 -- Datos para la tabla news
 INSERT INTO
     news (news_id, portal_id, title)
-VALUES (1, 1, 'Title CS2'),
-    (2, 2, 'Title Minecraft'),
-    (3, 3, 'Title LoL');
+VALUES (1, 1, 'CS2 News'),
+    (2, 2, 'Minecraft News'),
+    (3, 3, 'LoL News'),
+    (4, 4, 'Doom Eternal News'),
+    (5, 5, 'Valorant News'),
+    (6, 6, 'Stack Overflow News');
 
 -- Datos para la tabla publications
 INSERT INTO
@@ -203,6 +315,16 @@ VALUES (
         'publications/images/Aviso!-Se-busca-urgente-1717905070.png',
         '2024-06-09 03:43:55',
         '2024-06-09 03:44:55'
+    ),
+    (
+        6,
+        6,
+        7,
+        'ArchLinux Memes',
+        'I USE LINUX BTW!',
+        'publications/images/Stack-Overflow-1717905070.png',
+        '2024-06-09 03:43:55',
+        '2024-06-09 03:44:55'
     );
 
 -- Datos para la tabla forums
@@ -210,7 +332,10 @@ INSERT INTO
     forums (forum_id, portal_id, title)
 VALUES (1, 1, 'CS2 Forum'),
     (2, 2, 'Minecraft Forum'),
-    (3, 3, 'LoL Forum');
+    (3, 3, 'LoL Forum'),
+    (4, 4, 'Doom Eternal Forum'),
+    (5, 5, 'Valorant Forum'),
+    (6, 6, 'Stack Overflow Forum');
 
 -- Datos para la tabla users
 -- Password: Aaron: 41837661
@@ -234,6 +359,12 @@ VALUES (
         3,
         'Alan',
         'alan.vera@est.fi.uncoma.edu.ar',
+        '$2y$12$uUldIGMFwjTPvUmOtAL37O3/s8j5cqJAv1tSAJq4E0TPimkYRXDeC'
+    ),
+    (
+        4,
+        'John Greene',
+        'user@justUser.com',
         '$2y$12$uUldIGMFwjTPvUmOtAL37O3/s8j5cqJAv1tSAJq4E0TPimkYRXDeC'
     );
 
@@ -315,4 +446,5 @@ INSERT INTO
     userroles (user_id, role_id)
 VALUES (1, 2),
     (2, 3),
-    (3, 1);
+    (3, 1),
+    (4, 1);
