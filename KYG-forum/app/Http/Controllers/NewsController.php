@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\News;
 use App\Models\Portal;
-use App\Models\Publication;
 use Illuminate\Http\Request;
 
 
 class NewsController extends Controller
 {
+    public function show(News $news)
+    {
+        $portal = $news->portal;
+        return view('portals.news.index', compact('portal', 'news'));
+    }
+
     public function index()
     {
         $news = News::all();

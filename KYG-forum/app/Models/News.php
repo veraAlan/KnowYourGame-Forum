@@ -17,4 +17,9 @@ class News extends Model
     {
         return $this->belongsTo(Portal::class, 'portal_id');
     }
+
+    public function publications()
+    {
+        return $this->hasMany(Publication::class, 'news_id');
+    }
 }

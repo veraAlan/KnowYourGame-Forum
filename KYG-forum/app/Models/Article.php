@@ -17,4 +17,9 @@ class Article extends Model
     {
         return $this->belongsTo(Wiki::class, 'wiki_id');
     }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'article_id');
+    }
 }

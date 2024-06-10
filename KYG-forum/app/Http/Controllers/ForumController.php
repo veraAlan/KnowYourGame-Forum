@@ -6,11 +6,15 @@ use App\Models\Discussion;
 use App\Models\Forum;
 use App\Models\Game;
 use App\Models\Portal;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
+    public function show(Forum $forum)
+    {
+        $portal = $forum->portal;
+        return view('portals.forum.index', compact('portal', 'forum'));
+    }
 
     public function index(Portal $portal)
     {

@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class DiscussionController extends Controller
 {
+    /**
+     * 
+     */
+    public function show(Discussion $discussion)
+    {
+        $forum = $discussion->forum;
+        return view('portals.forum.discussion', compact('forum', 'discussion'));
+    }
 
     public function index(Portal $portal, Forum $forum)
     {
@@ -54,14 +62,6 @@ class DiscussionController extends Controller
         Discussion::create($validated);
         session()->flash('status', '¡Discussion creado!');
         return redirect()->route('test.discussions.index');
-    }
-
-
-    // Muestra una discusión específica.
-    public function show($id)
-    {
-        $discussions = Discussion::findOrFail($id);
-        return view('test.discussions.show', ['discussions' => $discussions]);
     }
 
 

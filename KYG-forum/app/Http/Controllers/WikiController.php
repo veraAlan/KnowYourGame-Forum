@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 class WikiController extends Controller
 {
     /**
+     * User view of Wiki.
+     */
+    public function show(Wiki $wiki)
+    {
+        $portal = $wiki->portal;
+        return view('portals.wiki.index', compact('portal', 'wiki'));
+    }
+
+    /**
      * Show basic index with all wikis.
      */
     public function index()

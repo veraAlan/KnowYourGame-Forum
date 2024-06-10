@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testDatabaseController;
 
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PortalController;
@@ -21,6 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//List Games
+Route::get('/kyg', [GameController::class, 'show'])->name('games');
+// List Portals
+Route::get('/portal/{game}', [PortalController::class, 'show'])->name('portal');
+// Inside Wiki
+Route::get('/wiki/{wiki}', [WikiController::class, 'show'])->name('wiki');
+Route::get('/article/{article}', [ArticleController::class, 'show'])->name('article');
+// Inside Forum
+Route::get('/forum/{forum}', [ForumController::class, 'show'])->name('forum');
+Route::get('/discussion/{discussion}', [DiscussionController::class, 'show'])->name('discussion');
+// Inside News
+Route::get('/news/{news}', [NewsController::class, 'show'])->name('news');
+
+// Routes that needs to be Authenticated.
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -70,6 +83,7 @@ Route::middleware('modAuth')->group(function () {
     Route::delete('mod/wiki/{wiki}/article/{article}/{section}/destroy', [SectionController::class, 'destroy'])->name('wiki.article.section.destroy');
 });
 
+// Routes that go through Administrator Authentication.
 Route::middleware('adminAuth')->group(function () {
 
     // Role Routes
@@ -110,11 +124,6 @@ Route::middleware('adminAuth')->group(function () {
     Route::get('adm/game/portal/{portal}/{forum}', [DiscussionController::class, 'index'])->name('game.portal.forum.discussion.index');
     Route::get('adm/game/portal/{portal}/{forum}/create', [DiscussionController::class, 'create'])->name('game.portal.forum.discussion.create');
     Route::patch('adm/game/portal/{portal}/{forum}/{discussion}/update', [DiscussionController::class, 'update'])->name('game.portal.forum.discussion.update');
-});
-
-// Test all data in database. (No auth needed)
-Route::get('/database/tables', function () {
-    testDatabaseController::showDatabaseTables();
 });
 
 require __DIR__ . '/auth.php';

@@ -17,4 +17,9 @@ class Wiki extends Model
     {
         return $this->belongsTo(Portal::class, 'portal_id');
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'wiki_id');
+    }
 }

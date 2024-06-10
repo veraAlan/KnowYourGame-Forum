@@ -22,7 +22,7 @@ class PortalController extends Controller
             return redirect()->route('games')->with('Error', 'Couldnt find portals in this game.');
         }
 
-        return view('portal', compact('wiki', 'forum', 'news'));
+        return view('portal', compact('game', 'wiki', 'forum', 'news'));
     }
 
     // Muestra una lista de todos los portales.
@@ -30,10 +30,7 @@ class PortalController extends Controller
     {
         $games = Game::find($game->game_id);
         $portal = Portal::where('game_id', $game->game_id)->get()[0];
-
         $wiki = Wiki::where('portal_id', $portal->portal_id)->get();
-        // dd($wiki);
-        // exit();
         $forum = Forum::where('portal_id', $portal->portal_id)->get();
         $new = News::where('portal_id', $portal->portal_id)->get();
 

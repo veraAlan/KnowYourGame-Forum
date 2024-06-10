@@ -17,4 +17,9 @@ class Forum extends Model
     {
         return $this->belongsTo(Portal::class, 'portal_id');
     }
+
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class, 'forum_id');
+    }
 }

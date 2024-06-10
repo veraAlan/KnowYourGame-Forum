@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     /**
+     * 
+     */
+    public function show(Article $article)
+    {
+        $wiki = $article->wiki;
+        return view('portals.wiki.article', compact('wiki', 'article'));
+    }
+
+    /**
      * Show basic index with all Articles.
      * 
      * @param Wiki
