@@ -10,6 +10,13 @@ class GameController extends Controller
     // Define the route for storing assets, in this case image directory is needed.
     private $storage_path = 'games/images/';
 
+    // Get games.
+    public function show()
+    {
+        $games = Game::all();
+        return view('games', compact('games'));
+    }
+
     // Muestra la lista de juegos.
     public function index()
     {
@@ -82,4 +89,6 @@ class GameController extends Controller
         return redirect()->route('game.index')->with('status', 'deleted');
         return redirect()->route('game.index')->withErrors($validated);
     }
+
+    
 }

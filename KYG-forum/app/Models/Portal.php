@@ -17,4 +17,19 @@ class Portal extends Model
     {
         return $this->belongsTo(Game::class, 'game_id');
     }
+
+    public function wiki()
+    {
+        return $this->hasOne(Wiki::class, 'portal_id');
+    }
+
+    public function news()
+    {
+        return $this->hasOne(News::class, 'portal_id');
+    }
+
+    public function forum()
+    {
+        return $this->hasOne(Forum::class, 'portal_id');
+    }
 }

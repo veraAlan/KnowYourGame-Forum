@@ -10,7 +10,20 @@ use App\Models\Wiki;
 use Illuminate\Http\Request;
 class PortalController extends Controller
 {
+    public function show(Game $game)
+    {
+        if(isset(Portal::find($game)[0])){
+            $foundPortal = Portal::find($game)[0];
+            $wiki = $foundPortal->wiki;
+            $forum = $foundPortal->forum;
+            $news = $foundPortal->news;
+        } else {
+            // Redirect in case of error finding the portals for a game.
+            return redirect()->route('games')->with('Error', 'Couldnt find portals in this game.');
+        }
 
+        return view('portal', compact('wiki', 'forum', 'news'));
+    }
 
     // Muestra una lista de todos los portales.
     public function index(Game $game)
@@ -23,7 +36,6 @@ class PortalController extends Controller
 
         return view('game.portal.index', compact('games', 'forum', 'new', 'wiki', 'portal'));
     }
-
 
     public function create(Request $request, Game $game)
     {
