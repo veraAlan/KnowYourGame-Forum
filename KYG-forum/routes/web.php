@@ -16,15 +16,9 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
-use App\Models\Discussion;
-use App\Models\Reply;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //List Games
-Route::get('/kyg', [GameController::class, 'show'])->name('games');
+Route::get('/', [GameController::class, 'show'])->name('games');
 // List Portals
 Route::get('/portal/{game}', [PortalController::class, 'show'])->name('portal');
 // Inside Wiki

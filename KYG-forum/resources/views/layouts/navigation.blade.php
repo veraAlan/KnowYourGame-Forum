@@ -12,12 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('games')" :active="request()->routeIs('games')">
+                        {{ __('Main Page of Games') }}
                     </x-nav-link>
                 </div>
             </div>
 
+            @if(Auth::check())
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -51,6 +52,26 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @else
+                @if (Route::has('login'))
+                    <nav class=" flex flex-1 justify-end">
+                        <a href="{{ route('login') }}" class="flex rounded-md px-3 py-2 text-black ring-1 
+                        ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] 
+                        dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        style="align-items: center;">
+                            Log in
+                        </a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="flex rounded-md px-3 py-2 text-black ring-1 
+                            ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] 
+                            dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            style="align-items: center;">
+                                Register
+                            </a>
+                        @endif
+                    </nav>
+                @endif
+            @endif
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -68,17 +89,18 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('This') }}
             </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+            @if(Auth::check())
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
-
+            @endif
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
