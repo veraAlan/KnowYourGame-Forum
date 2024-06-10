@@ -7,6 +7,7 @@ This project showcases the use of Laravel, Blade, and MySQL for Advanced Web Pro
 - [Laravel](https://laravel.com/)
 - [Composer](https://getcomposer.org/)
 - [PHP](https://www.php.net/)
+- [NodeJs](https://nodejs.org/en)
 
 ## Usage Instructions
 
