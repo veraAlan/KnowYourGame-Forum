@@ -12,33 +12,24 @@ class RoleController extends Controller
     // Listar roles
     public function index()
     {
-        $roles = Role::get();
-        return view('test.roles.index', ['roles' => $roles]);
+        $role = Role::all();
+        return view('role.index', compact('role'));
     }
 
 
     // Formulario de creación de rol
-    public function create(Role $roles)
+    public function create(Request $request)
     {
-        return view('test.roles.create', ['roles' => $roles]);
-    }
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
 
 
-    // Guardar nuevo rol
-    public function store(Request $request)
-    {
-        $validated = $request->validate(['description' => ['required']]);
+        $validated = $request->validate([
+            'description' => 'required|min:2|max:25',
+        ]);
         Role::create($validated);
-        session()->flash('status', 'Role creado!');
-        return redirect()->route('test.roles.index');
-    }
-
-
-    // Mostrar rol específico
-    public function show($id)
-    {
-        $roles = Role::findOrFail($id);
-        return view('test.roles.show', ['roles' => $roles]);
+        return redirect()->route('role.index')->with(['status' => 'created']);
     }
 
 
@@ -50,20 +41,23 @@ class RoleController extends Controller
 
 
     // Actualizar rol
-    public function update(Request $request, Role $roles)
+    public function update(Request $request)
     {
         $validated = $request->validate(['description' => ['required']]);
-        $roles->update($validated);
+        Role::find($request->input('role_id'))->update($validated);
         session()->flash('status', 'Role actualizado!');
-        return redirect()->route('test.roles.index');
+        return redirect()->route('role.index');
     }
 
 
     // Eliminar rol
-    public function destroy(Role $roles)
+    public function destroy(Request $request)
     {
-        $roles->delete();
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        Role::find($request->input('role_id'))->delete();
         session()->flash('status', 'Role eliminado!');
-        return to_route('test.roles.index');
+        return to_route('role.index');
     }
 }

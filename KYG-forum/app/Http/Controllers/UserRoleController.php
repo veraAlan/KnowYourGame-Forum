@@ -9,87 +9,33 @@ use Illuminate\Http\Request;
 
 class UserRoleController extends Controller
 {
-    // public function index()
-    // {
-    //     return UserRole::all();
-    // }
-    public function index()
+    public function index(Request $request)
     {
-        $userroles = UserRole::get();
-        return view('test.userroles.index', ['userroles' => $userroles]);
+        $user = User::all();
+        $role = Role::all();
+        $userrole = UserRole::all();
+        // Verifica si se ha enviado algún parámetro llamado 'cambiar_permisos'
+        if ($request->has('cambiar_permisos')) {
+            return view('role.permisos.index', compact('userrole', 'user', 'role'));
+        } else {
+            return view('role.index', compact('userrole', 'user', 'role'));
+        }
     }
 
-    // public function create()
-    // {
-    //     //
-    // }
-    public function create(UserRole $userroles)
-    {
-        $users = User::get();
-        $roles = Role::get();
-        return view('test.userroles.create', ['userroles' => $userroles, 'users' => $users, 'roles' => $roles]);
-    }
-
-    // public function store(Request $request)
-    // {
-    //     $userRole = UserRole::create($request->all());
-    //     return response()->json($userRole, 201);
-    // }
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => ['required',],
-            'role_id' => ['required',],
+            'user_id' => ['required'],
+            'role_id' => ['required'],
         ]);
-        UserRole::create($validated);
-        session()->flash('status', 'UserRole creado!');
-        return redirect()->route('test.userroles.index');
-    }
-
-    // public function show($id)
-    // {
-    //     return UserRole::where('username', $id)->get();
-    // }
-    public function show($user_id)
-    {
-        $userroles = UserRole::where('user_id',$user_id)->get();
-        return view('test.userroles.show', ['userroles' => $userroles]);
-    }
-
-    // public function edit($id)
-    // {
-    //     //
-    // }
-    public function edit(UserRole $userroles)
-    {
-        $users = User::get();
-        $roles = Role::get();
-        return view('test.userroles.edit', ['userroles' => $userroles, 'users' => $users, 'roles' => $roles]);
-    }
-
-
-
-    // public function update(Request $request, $id)
-    // {
-    //     // Updating UserRole may involve complex logic
-    // }
-    public function update(Request $request, UserRole $userroles)
-    {
-        return "Hola";
-        exit();
-        $validated = $request->validate([
-            'name' => ['required',],
-            'email' => ['required',],
-            'password' => ['required'],
-        ]);
-        $userroles->update($validated);
-        session()->flash('status', 'Userrole actualizado!');
-        return redirect()->route('test.userroles.index');
-    }
-
-    public function destroy($id)
-    {
-        UserRole::where('username', $id)->delete();
-        return response()->json(null, 204);
+        $userRole = UserRole::where('user_id', $validated['user_id'])->first();
+        if ($userRole && $userRole->role_id != $validated['role_id']) {
+            $userRole->update(['role_id' => $validated['role_id']]);
+            session()->flash('status', 'Userrole actualizado!');
+        } else {
+            session()->flash('status', 'El usuario ya tiene este rol.');
+        }
+    
+        return redirect()->route('role.index');
     }
 }

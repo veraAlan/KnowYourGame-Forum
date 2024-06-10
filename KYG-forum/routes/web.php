@@ -13,6 +13,9 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,7 +50,7 @@ Route::middleware('modAuth')->group(function () {
     Route::get('mod/news/{news}', [PublicationController::class, 'index'])->name('news.publications.index');
     Route::get('mod/news/{news}/create', [PublicationController::class, 'create'])->name('news.publications.create');
     Route::patch('mod/news/{news}/{publication}/update', [PublicationController::class, 'update'])->name('news.publications.update');
-    Route::delete('mod/news/{news}/{publication}/destroy', [PublicationController:: class, 'destroy'])->name('news.publication.destroy');
+    Route::delete('mod/news/{news}/{publication}/destroy', [PublicationController::class, 'destroy'])->name('news.publication.destroy');
 
 
     // Wiki
@@ -68,11 +71,29 @@ Route::middleware('modAuth')->group(function () {
 });
 
 Route::middleware('adminAuth')->group(function () {
+
+    // Role Routes
+    Route::get('adm/role', [RoleController::class, 'index'])->name('role.index');
+    Route::get('adm/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::patch('adm/roles/update', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('adm/roles/destroy', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    // User Routes
+    Route::get('adm/role', [UserController::class, 'index'])->name('role.index');
+    Route::get('adm/role/create', [UserController::class, 'create'])->name('role.create');
+    Route::patch('adm/role/update', [UserController::class, 'update'])->name('role.update');
+    Route::delete('adm/role/destroy', [UserController::class, 'destroy'])->name('role.destroy');
+
+    // UserRole Routes
+    Route::get('adm/role', [UserRoleController::class, 'index'])->name('role.index');
+    Route::get('adm/role/permiso', [UserRoleController::class, 'index'])->name('role.permiso.index');
+    Route::patch('adm/role/permiso/update', [UserRoleController::class, 'update'])->name('role.permiso.update');
+
+
     //Game
     Route::get('adm/game', [GameController::class, 'index'])->name('game.index');
     Route::get('adm/game/create', [GameController::class, 'create'])->name('game.create');
     Route::patch('adm/game/update', [GameController::class, 'update'])->name('game.update');
-    Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     Route::delete('adm/game/destroy', [GameController::class, 'destroy'])->name('game.destroy');
     //Portal
     Route::get('adm/game/{game}', [PortalController::class, 'index'])->name('game.portal.index');

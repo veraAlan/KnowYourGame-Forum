@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,66 +13,57 @@ class UserController extends Controller
     // Display a listing of the users
     public function index()
     {
-        $users = User::get();
-        return view('test.users.index', ['users' => $users]);
+        $user = User::all();
+        return view('role.index', compact('user'));
     }
 
 
     // Show the form for creating a new user
-    public function create(User $users)
+    public function create(Request $request)
     {
-        return view('test.users.create', ['users' => $users]);
+        if (session()->token() !== $request->input('_token')) {
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        
+        $validated = $request->validate([
+            'name' => 'required|min:2|max:25',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+    
+        $user = User::create($validated);
+        $userId = $user->id;
+    
+        UserRole::create([
+            'user_id' => $userId,
+            'role_id' => 3
+        ]);
+    
+        return redirect()->route('role.index')->with(['status' => 'created']);
     }
 
 
-    // Store a newly created user in storage
-    public function store(Request $request)
+
+    public function update(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required',],
-            'email' => ['required',],
-            'password' => ['required'],
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
         ]);
-        User::create($validated);
-        session()->flash('status', 'User creado!');
-        return redirect()->route('test.users.index');
-    }
-
-
-    // Display the specified user
-    public function show($id)
-    {
-        $users = User::findOrFail($id);
-        return view('test.users.show', ['users' => $users]);
-    }
-
-
-    // Show the form for editing the specified user
-    public function edit(User $users)
-    {
-        return view('test.users.edit', ['users' => $users]);
-    }
-
-
-    // Update the specified user in storage
-    public function update(Request $request, User $users)
-    {
-        $validated = $request->validate([
-            'name' => ['required',],
-            'email' => ['required',],
-            'password' => ['required'],
-        ]);
-        $users->update($validated);
+        User::find($request->input('id'))->update($validated);
         session()->flash('status', 'User actualizado!');
-        return redirect()->route('test.users.index');
+        return redirect()->route('role.index');
     }
 
 
-    // Remove the specified user from storage
-    public function destroy(User $users)
-    {
-        $users->delete();
-        session()->flash('status', 'User eliminado!');
-        return to_route('test.users.index');
+
+    public function destroy(Request $request){
+
+        if(session()->token() !== $request->input('_token')){
+            return redirect()->route('unauthorized')->with('status', 'Invalid token.');
+        }
+        User::find($request->input("id"))->delete();
+        return redirect()->route('role.index')->with(['status' => 'deleted']);
     }
 }
