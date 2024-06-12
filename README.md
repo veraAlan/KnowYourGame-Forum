@@ -69,7 +69,7 @@ DB_PASSWORD=Password
 
 **Nota:** **[ES]** Si no esta el .env, copie el .env.example y cambie el nombre a .env
 
-**Notes:** **[EN]** If you cannot find the .env file, create a copy of .env.example and change its name to .env
+**Note:** **[EN]** If you cannot find the .env file, create a copy of .env.example and change its name to .env
 
 
 6. **[ES]** Generamos las nuevas claves:
